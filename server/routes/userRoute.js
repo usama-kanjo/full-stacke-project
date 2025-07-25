@@ -1,15 +1,18 @@
 const express = require('express');
+const { param, validationResult } = require("express-validator");
+const { loginUserValidator, createUserValidator } = require('../utils/validators/userValidator');
+
 const {
-  getUser,
+  loginUser,
   createUser,
 } = require('../services/userService');
 
 const router = express.Router();
 
-router.route('/').post(createUser);
+router.route('/').post(createUserValidator, createUser);
 router
   .route('/login')
-  .post(getUser)
+  .post(loginUserValidator, loginUser)
 
 module.exports = router;
 

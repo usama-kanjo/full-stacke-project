@@ -22,7 +22,23 @@ function Signup() {
       })
       .catch(err => {
         console.error(err)
-        toast.error('Registration failed. Please try again.')
+
+        // Hata mesajı için kapsamlı kontrol
+        let errorMessage = 'Registration failed. Please try again.';
+
+        if (err.response) {
+          // Backend'den gelen özel hata mesajı
+          errorMessage = err.response.data?.message ||
+            err.response.data?.error?.message ||
+            err.response.data?.errors?.msg ||
+            err.response.data?.errors?.[0]?.msg ||
+            err.response.data?.error ||
+            err.response.statusText;
+        } else if (err.message) {
+          errorMessage = err.message;
+        }
+        toast.error(errorMessage);
+        //Registration failed. Please try again.
       })
   }
 
@@ -36,7 +52,7 @@ function Signup() {
             <label htmlFor="email">
               <strong>Name</strong>
             </label>
-            <input type="text" placeholder="Enter name" autoComplete="off" name="email" className="form-control rounded-0" value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} />
+            <input type="text" placeholder="Enter name" autoComplete="off" name="name" className="form-control rounded-0" value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} />
           </div>
           <div className="mb-3">
             <label htmlFor="email">

@@ -1,28 +1,32 @@
 const slugify = require('slugify');
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
+const ApiError = require('../utils/apiError');
 
 // @desc    Get specific user by Email
 // @route   post /api/v1/user/login
 // @access  Public
-exports.getUser = asyncHandler(async (req, res, next) => {
+exports.loginUser = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
   // 1) Check if email and password exist
   if (!email || !password) {
-    return res.status(400).json({ msg: 'Please provide email and password' });
+    // return res.status(400).json({ msg: 'Please provide email and password' });
+    return next(new ApiError(`Please provide email and password`, 400));
   }
 
   // 2) Check if user exists && password is correct
   const user = await User.findOne({ email }).select('+password');
 
   if (!user) {
-    return res.status(401).json({ msg: 'Incorrect email' });
+    // return res.status(401).json({ msg: 'Incorrect email' });
+    return next(new ApiError(`Incorrect email`, 401));
   }
 
   // 3) Password check (plain text comparison)
   if (user.password !== password) {
-    return res.status(401).json({ msg: 'Incorrect password' });
+    // return res.status(401).json({ msg: 'Incorrect password' });
+    return next(new ApiError(`Incorrect password`, 401));
   }
 
   res.status(200).json({ status: 'success', data: { user } });

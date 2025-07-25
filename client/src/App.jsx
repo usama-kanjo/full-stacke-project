@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <Toaster position="top-right" reverseOrder={false} toastOptions={{ duration: 3000 }} />
+      <Toaster position="top-right" reverseOrder={false} toastOptions={{ duration: 5000 }} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Singup />} />

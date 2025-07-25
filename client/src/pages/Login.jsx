@@ -8,21 +8,44 @@ function Login() {
     email: '',
     password: ''
   });
+  const [loading, setLoading] = useState(false); // Yükleme durumu
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password } = data;
-    axios.post('/user/login', { email, password })
-      .then(result => {
-        console.log(result)
-        toast.success('Login successful!')
-        navigate('/home')
-      })
-      .catch(err => {
-        console.error(err)
-        toast.error('Login failed. Please try again.')
-      })
+    setLoading(true);
+    //const { email, password } = data;
+    //axios.post('/user/login', { email, password })
+    //  .then(result => {
+    //    console.log(result)
+    //    toast.success('Login successful!')
+    //    navigate('/home')
+    //  })
+    //  .catch(err => {
+    //    console.error(err)
+    //    
+    //    toast.error('Login failed. Please try again.')
+    //  })
+    try {
+      const { email, password } = data;
+      const { resData } = await axios.post('/user/login', { email, password });
+      // localStorage.setItem('token', resData.token);
+      toast.success('Login successful!');
+      navigate('/home');
+    } catch (err) {
+      console.error('Login error:', err);
+
+      // Kapsamlı hata mesajı yönetimi
+      const errorMessage = err.response?.data?.message ||
+        err.response?.data?.error ||
+        (err.response?.data?.errors && err.response.data.errors[0]?.msg) ||
+        err.message ||
+        'Login failed. Please check your credentials and try again.';
+
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   }
 
 
@@ -43,7 +66,7 @@ function Login() {
             </label>
             <input type="password" placeholder="Enter Password" name="password" className="form-control rounded-0" onChange={(e) => setData({ ...data, password: e.target.value })} />
           </div>
-          <button type="submit" className="btn btn-success w-100 rounded-0">Login</button>
+          <button type="submit" className="btn btn-success w-100 rounded-0" disabled={loading} >{loading ? 'Logging in...' : 'Login'}</button>
           <p>Don't have an account?</p>
           <Link to="/register" className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none">Register</Link>
         </form>
