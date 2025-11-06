@@ -1,0 +1,124 @@
+const asyncHandler = require('express-async-handler');
+const Skill = require('../models/skillModel');
+const ApiError = require('../utils/apiError');
+
+// @desc    Create new skill
+// @route   POST /api/v1/skills
+// @access  Private/Admin
+exports.createSkill = asyncHandler(async (req, res, next) => {
+  const { name, description } = req.body;
+
+  const existingSkill = await Skill.findOne({ name });
+  if (existingSkill) {
+    return next(new ApiError('Skill with this name already exists', 400));
+  }
+
+  const skill = await Skill.create({ name, description });
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      skill
+    }
+  });
+});
+
+// @desc    Get all skills (with pagination)
+// @route   GET /api/v1/skills
+// @access  Public
+exports.getAllSkills = asyncHandler(async (req, res) => {
+  // Pagination
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 10;
+  const skip = (page - 1) * limit;
+
+  // Count total documents
+  const total = await Skill.countDocuments();
+
+  // Query
+  const skills = await Skill.find()
+    .skip(skip)
+    .limit(limit);
+
+  res.status(200).json({
+    status: 'success',
+    results: skills.length,
+    pagination: {
+      total,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
+      limit,
+      hasNextPage: page < Math.ceil(total / limit),
+      hasPrevPage: page > 1
+    },
+    data: {
+      skills
+    }
+  });
+});
+
+// @desc    Get single skill
+// @route   GET /api/v1/skills/:id
+// @access  Public
+exports.getSkill = asyncHandler(async (req, res, next) => {
+  const skill = await Skill.findById(req.params.id);
+
+  if (!skill) {
+    return next(new ApiError(`No skill found with id: ${req.params.id}`, 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      skill
+    }
+  });
+});
+
+// @desc    Update skill
+// @route   PATCH /api/v1/skills/:id
+// @access  Private/Admin
+exports.updateSkill = asyncHandler(async (req, res, next) => {
+  const { name, description } = req.body;
+
+  // Check if name is being updated to an existing name
+  if (name) {
+    const existingSkill = await Skill.findOne({ name });
+    if (existingSkill && existingSkill._id.toString() !== req.params.id) {
+      return next(new ApiError('Skill with this name already exists', 400));
+    }
+  }
+
+  const skill = await Skill.findByIdAndUpdate(
+    req.params.id,
+    { name, description },
+    { new: true, runValidators: true }
+  );
+
+  if (!skill) {
+    return next(new ApiError(`No skill found with id: ${req.params.id}`, 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      skill
+    }
+  });
+});
+
+// @desc    Delete skill
+// @route   DELETE /api/v1/skills/:id
+// @access  Private/Admin
+exports.deleteSkill = asyncHandler(async (req, res, next) => {
+  const skill = await Skill.findByIdAndDelete(req.params.id);
+
+  if (!skill) {
+    return next(new ApiError(`No skill found with id: ${req.params.id}`, 404));
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null
+  });
+});

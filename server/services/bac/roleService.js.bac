@@ -1,0 +1,150 @@
+const asyncHandler = require('express-async-handler');
+const Role = require('../models/roleModel');
+const ApiError = require('../utils/apiError');
+
+// @desc    Create new role
+// @route   POST /api/v1/roles
+// @access  Private/Admin
+exports.createRole = asyncHandler(async (req, res, next) => {
+  const { name, description, skills } = req.body;
+
+  const existingRole = await Role.findOne({ name });
+  if (existingRole) {
+    return next(new ApiError('Role with this name already exists', 400));
+  }
+
+  const role = await Role.create({ name, description, skills });
+  const populatedRole = await Role.findById(role._id).populate('skills', 'name -_id');
+
+  const transformedRole = {
+    ...populatedRole.toObject(),
+    skills: populatedRole.skills.map(skill => skill.name)
+  };
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      role: transformedRole
+    }
+  });
+});
+
+// @desc    Get all roles
+// @route   GET /api/v1/roles?page=1&limit=5
+// @access  Private/Admin
+exports.getAllRoles = asyncHandler(async (req, res, next) => {
+  // Pagination
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 5;
+  const skip = (page - 1) * limit;
+
+  // Total documents count for pagination info
+  const total = await Role.countDocuments();
+
+  // Query
+  const roles = await Role.find({})
+    .skip(skip)
+    .limit(limit)
+    .populate('skills', 'name -_id');
+
+  // Transform skills array to just names
+  const transformedRoles = roles.map(role => ({
+    ...role.toObject(),
+    skills: role.skills.map(skill => skill.name)
+  }));
+
+  // Calculate total pages
+  const totalPages = Math.ceil(total / limit);
+
+  res.status(200).json({
+    status: 'success',
+    results: transformedRoles.length,
+    pagination: {
+      total,
+      totalPages,
+      currentPage: page,
+      limit,
+      hasNextPage: page < totalPages,
+      hasPrevPage: page > 1
+    },
+    data: {
+      roles: transformedRoles
+    }
+  });
+});
+
+// @desc    Get single role
+// @route   GET /api/v1/roles/:id
+// @access  Private/Admin
+exports.getRole = asyncHandler(async (req, res, next) => {
+  const role = await Role.findById(req.params.id).populate('skills', 'name -_id');
+
+  if (!role) {
+    return next(new ApiError(`No role found with id: ${req.params.id}`, 404));
+  }
+
+  const transformedRole = {
+    ...role.toObject(),
+    skills: role.skills.map(skill => skill.name)
+  };
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      role: transformedRole
+    }
+  });
+});
+
+// @desc    Update role
+// @route   PATCH /api/v1/roles/:id
+// @access  Private/Admin
+exports.updateRole = asyncHandler(async (req, res, next) => {
+  const { name, description, skills } = req.body;
+
+  // Check if name is being updated and if it already exists
+  if (name) {
+    const existingRole = await Role.findOne({ name });
+    if (existingRole && existingRole._id.toString() !== req.params.id) {
+      return next(new ApiError('Role with this name already exists', 400));
+    }
+  }
+
+  const role = await Role.findByIdAndUpdate(
+    req.params.id,
+    { name, description, skills },
+    { new: true, }
+  ).populate('skills', 'name -_id');
+
+  if (!role) {
+    return next(new ApiError(`No role found with id: ${req.params.id}`, 404));
+  }
+
+  const transformedRole = {
+    ...role.toObject(),
+    skills: role.skills.map(skill => skill.name)
+  };
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      role: transformedRole
+    }
+  });
+});
+
+// @desc    Delete role
+// @route   DELETE /api/v1/roles/:id
+// @access  Private/Admin
+exports.deleteRole = asyncHandler(async (req, res, next) => {
+  const role = await Role.findByIdAndDelete(req.params.id);
+
+  if (!role) {
+    return next(new ApiError(`No role found with id: ${req.params.id}`, 404));
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null
+  });
+});

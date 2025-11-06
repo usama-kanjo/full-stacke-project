@@ -1,0 +1,18 @@
+const mongoose = require('mongoose');
+
+const skillSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Skill name is required'], // Required with custom error message
+    trim: true,
+    unique: [true, 'Skill name must be unique'],
+    minlength: [3, 'Skill name must be at least 3 characters long'], // Minimum length
+    maxlength: [50, 'Skill name cannot exceed 50 characters'] // Maximum length
+  },
+  description: {
+    type: String,
+    maxlength: [500, 'Description cannot exceed 500 characters'] // Description length limit
+  }
+}, { timestamps: true });
+
+module.exports = mongoose.model('Skill', skillSchema);

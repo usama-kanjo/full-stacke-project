@@ -1,0 +1,34 @@
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+
+// Email transporter oluşturma
+const transporter = nodemailer.createTransport({
+  service: 'Gmail', // veya başka bir servis
+  auth: {
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD
+  }
+});
+
+// Doğrulama tokenı oluşturma
+exports.generateVerificationToken = () => {
+  return crypto.randomBytes(20).toString('hex');
+};
+
+// Doğrulama emaili gönderme
+exports.sendVerificationEmail = async (email, token) => {
+  const verificationUrl = `${process.env.BASE_URL}/verify-email/${token}`;
+
+  const mailOptions = {
+    from: process.env.EMAIL_FROM,
+    to: email,
+    subject: 'Email Doğrulama',
+    html: `
+      <p>Lütfen email adresinizi doğrulamak için aşağıdaki linke tıklayın:</p>
+      <a href="${verificationUrl}">DOGRULAMAK ICIN BASIN</a>
+      <p>Bu link 24 saat içinde geçerlidir.</p>
+    `
+  };
+
+  await transporter.sendMail(mailOptions);
+};

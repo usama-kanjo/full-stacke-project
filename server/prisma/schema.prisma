@@ -1,0 +1,57 @@
+// schema.prisma dosyanızı bu şekilde güncelleyin
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                        String   @id @default(uuid())
+  name                      String
+  slug                      String?
+  email                     String   @unique
+  password                  String
+  passwordChangedAt         DateTime?
+  isEmailVerified           Boolean  @default(false)
+  emailVerificationToken    String?
+  emailVerificationExpires  DateTime?
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+
+  // User bir role alır (opsiyonel)
+  roleId                    String?
+  role                      Role?    @relation(fields: [roleId], references: [id], onDelete: SetNull)
+
+  @@map("users")
+}
+
+model Role {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Bir role birden çok user ait olabilir
+  users       User[]
+  skills      Skill[]
+
+  @@map("roles")
+}
+
+model Skill {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  roleId      String?
+  role        Role?    @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@map("skills")
+}
+

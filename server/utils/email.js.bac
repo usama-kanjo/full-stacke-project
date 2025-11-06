@@ -1,0 +1,206 @@
+# Email Doğrulama Sistemi (Daha Modern ve Temiz Bir Versiyon)
+
+İşte daha modern ve temiz bir email doğrulama sistemi. HTML yerine daha düzenli bir şablonlama sistemi kullandım:
+
+```javascript
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+const { format } = require('date-fns');
+
+// Email transporter oluşturma (daha esnek yapı)
+const createTransporter = () => {
+  return nodemailer.createTransport({
+    service: process.env.EMAIL_SERVICE || 'Gmail',
+    auth: {
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD
+    },
+    pool: true, // bağlantı havuzu kullan
+    rateLimit: true, // rate limit etkin
+    maxConnections: 5, // maksimum bağlantı sayısı
+    maxMessages: 100 // bağlantı başına maksimum mesaj
+  });
+};
+
+// Token üretici (daha güvenli versiyon)
+exports.generateVerificationToken = () => {
+  return new Promise((resolve, reject) => {
+    crypto.randomBytes(32, (err, buffer) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(buffer.toString('hex'));
+    });
+  });
+};
+
+// Email gönderici (daha profesyonel versiyon)
+exports.sendVerificationEmail = async (email, token) => {
+  const transporter = createTransporter();
+  const verificationUrl = `${process.env.BASE_URL}/verify-email?token=${token}`;
+  const expirationTime = format(
+    new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 saat sonrası
+    'dd.MM.yyyy HH:mm'
+  );
+
+  const emailTemplate = {
+    from: `"${process.env.EMAIL_FROM_NAME || 'Doğrulama Sistemi'}" <${process.env.EMAIL_FROM}>`,
+    to: email,
+    subject: 'Hesabınızı Doğrulayın',
+    text: `Merhaba,\n\nEmail adresinizi doğrulamak için lütfen aşağıdaki linke tıklayın:\n\n${verificationUrl}\n\nBu link ${expirationTime} tarihinde geçersiz olacaktır.\n\nTeşekkürler!`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0;">
+        <h2 style="color: #333;">Hesap Doğrulama</h2>
+        <p style="font-size: 16px; color: #555;">Merhaba,</p>
+        <p style="font-size: 16px; color: #555;">Hesabınızı doğrulamak için lütfen aşağıdaki butona tıklayın:</p>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${verificationUrl}" 
+             style="background-color: #4CAF50; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold;">
+            HESABIMI DOĞRULA
+          </a>
+        </div>
+        
+        <p style="font-size: 14px; color: #888;">
+          Eğer bu işlemi siz başlatmadıysanız, bu emaili görmezden gelebilirsiniz.<br>
+          Bu link <strong>${expirationTime}</strong> tarihinde geçersiz olacaktır.
+        </p>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0; font-size: 12px; color: #999;">
+          <p>© ${new Date().getFullYear()} ${process.env.APP_NAME || 'Şirketiniz'}. Tüm hakları saklıdır.</p>
+        </div>
+      </div>
+    `,
+    attachments: [
+      {
+        filename: 'logo.png',
+        path: process.env.EMAIL_LOGO_PATH || './assets/logo.png',
+        cid: 'companylogo' // html'de <img src="cid:companylogo"> şeklinde kullanılabilir
+      }
+    ]
+  };
+
+  try {
+    const info = await transporter.sendMail(emailTemplate);
+    console.log(`Email sent to ${email}: ${info.messageId}`);
+    return info;
+  } catch (error) {
+    console.error(`Email sending error to ${email}:`, error);
+    throw error;
+  } finally {
+    transporter.close(); // bağlantıyı kapat
+  }
+};
+```
+
+## Ekstra Özellikler
+
+1. **Daha Güvenli Token Üretimi**: Asenkron token üretimi
+2. **Profesyonel Email Tasarımı**: Responsive ve modern bir email şablonu
+3. **Gelişmiş Transporter Ayarları**: Bağlantı havuzu ve rate limit desteği
+4. **Ek Bilgiler**: Son kullanma tarihi formatlı şekilde gösteriliyor
+5. **Logo Desteği**: Email'e logo ekleme imkanı
+6. **Plain Text Alternatifi**: HTML istemeyenler için text versiyon da var
+7. **Hata Yönetimi**: Daha iyi hata takibi ve loglama
+
+## Kullanım Örneği
+
+```javascript
+const { generateVerificationToken, sendVerificationEmail } = require('./emailService');
+
+// Kullanıcı kayıt işleminde
+const token = await generateVerificationToken();
+await sendVerificationEmail('kullanici@email.com', token);
+```
+
+Bu versiyon daha profesyonel, daha güvconst nodemailer = require('nodemailer');
+const crypto = require('crypto');
+const { format } = require('date-fns');
+
+// Email transporter oluşturma (daha esnek yapı)
+const createTransporter = () => {
+  return nodemailer.createTransport({
+    service: process.env.EMAIL_SERVICE || 'Gmail',
+    auth: {
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD
+    },
+    pool: true, // bağlantı havuzu kullan
+    rateLimit: true, // rate limit etkin
+    maxConnections: 5, // maksimum bağlantı sayısı
+    maxMessages: 100 // bağlantı başına maksimum mesaj
+  });
+};
+
+// Token üretici (daha güvenli versiyon)
+exports.generateVerificationToken = () => {
+  return new Promise((resolve, reject) => {
+    crypto.randomBytes(32, (err, buffer) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(buffer.toString('hex'));
+    });
+  });
+};
+
+// Email gönderici (daha profesyonel versiyon)
+exports.sendVerificationEmail = async (email, token) => {
+  const transporter = createTransporter();
+  const verificationUrl = `${process.env.BASE_URL}/verify-email?token=${token}`;
+  const expirationTime = format(
+    new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 saat sonrası
+    'dd.MM.yyyy HH:mm'
+  );
+
+  const emailTemplate = {
+    from: `"${process.env.EMAIL_FROM_NAME || 'Doğrulama Sistemi'}" <${process.env.EMAIL_FROM}>`,
+    to: email,
+    subject: 'Hesabınızı Doğrulayın',
+    text: `Merhaba,\n\nEmail adresinizi doğrulamak için lütfen aşağıdaki linke tıklayın:\n\n${verificationUrl}\n\nBu link ${expirationTime} tarihinde geçersiz olacaktır.\n\nTeşekkürler!`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0;">
+        <h2 style="color: #333;">Hesap Doğrulama</h2>
+        <p style="font-size: 16px; color: #555;">Merhaba,</p>
+        <p style="font-size: 16px; color: #555;">Hesabınızı doğrulamak için lütfen aşağıdaki butona tıklayın:</p>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${verificationUrl}" 
+             style="background-color: #4CAF50; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold;">
+            HESABIMI DOĞRULA
+          </a>
+        </div>
+        
+        <p style="font-size: 14px; color: #888;">
+          Eğer bu işlemi siz başlatmadıysanız, bu emaili görmezden gelebilirsiniz.<br>
+          Bu link <strong>${expirationTime}</strong> tarihinde geçersiz olacaktır.
+        </p>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0; font-size: 12px; color: #999;">
+          <p>© ${new Date().getFullYear()} ${process.env.A_NAME || 'Şirketiniz'}. Tüm hakları saklıdır.</p>
+        </div>
+      </div>
+    `,
+    attachments: [
+      {
+        filename: 'logo.png',
+        path: process.env.EMAIL_LOGO_PATH || './assets/logo.png',
+        cid: 'companylogo' // html'de <img src="cid:companylogo"> şeklinde kullanılabilir
+      }
+    ]
+  };
+
+  try {
+    const info = await transporter.sendMail(emailTemplate);
+    console.log(`Email sent to ${email}: ${info.messageId}`);
+    return info;
+  } catch (error) {
+    console.error(`Email sending error to ${email}:`, error);
+    throw error;
+  } finally {
+    transporter.close(); // bağlantıyı kapat
+  }
+};
+PPenli ve daha yönetilebilir bir yapı sunuyor. HTML kısmını isterseniz daha da sadeleştirebilir veya template engine kullanabilirsiniz.

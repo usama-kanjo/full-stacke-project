@@ -1,0 +1,27 @@
+const mongoose = require('mongoose');
+
+const roleSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Role name is required'], // Zorunlu alan + özel hata mesajı
+    unique: [true, 'Role name must be unique'], // Benzersiz olmalı
+    trim: true,
+    minlength: [2, 'Role name must be at least 2 characters long'], // Min 2 karakter
+    maxlength: [50, 'Role name cannot exceed 50 characters'], // Max 50 karakter
+    match: [/^[a-zA-Z0-9\s]+$/, 'Role name can only contain letters, numbers, and spaces'] // Özel karakter yok
+  },
+  description: {
+    type: String,
+    trim: true,
+    maxlength: [500, 'Description cannot exceed 500 characters'] // Max 500 karakter
+  },
+  skills: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Skill'
+  }]
+}, {
+  timestamps: true // createdAt ve updatedAt otomatik ekler
+});
+
+// Role modelini oluştur ve export et
+module.exports = mongoose.model('Role', roleSchema);
