@@ -1,0 +1,112 @@
+.header {
+  background-color: var(--white);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-200);
+  flex-shrink: 0;
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toggleButton {
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  color: var(--gray-600);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.toggleButton:hover {
+  background-color: var(--gray-100);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logoIconWrapper {
+  background-color: var(--custom-blue);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.logoIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--white);
+}
+
+.logoTextContainer {
+  display: block;
+}
+
+.appName {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--dark-gray);
+}
+
+.appSubtitle {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--medium-gray);
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.notificationButton {
+  padding: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--gray-100);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.notificationButton:hover {
+  background-color: var(--gray-200);
+}
+
+.notificationIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--gray-600);
+}
+
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+
+@media (max-width: 640px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .logoTextContainer {
+    display: none;
+  }
+}

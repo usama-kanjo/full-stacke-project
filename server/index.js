@@ -13,8 +13,8 @@ const cookieParser = require('cookie-parser');
 
 
 const allowedOrigins = [
-  'http://localhost:5173',
-  'http://192.168.1.3:5173',
+  'http://localhost:3001',
+  // 'http://192.168.1.42:3000',
   // 'http://172.24.16.1:5173'  // WSL IP'si
 ];
 

@@ -1,0 +1,116 @@
+.panel {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid #e5e7eb;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.panelHeader h2 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.5rem;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.closeButton:hover {
+  background-color: #f3f4f6;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  margin: 0 0 1rem 0;
+  color: #1f2937;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.themeButtons,
+.languageButtons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.themeButton,
+.languageButton {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background-color: #f8fafc;
+  color: #1f2937;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.themeButton:hover,
+.languageButton:hover {
+  border-color: #2563eb;
+}
+
+.themeButton.active,
+.languageButton.active {
+  border-color: #2563eb;
+  background-color: #2563eb;
+  color: white;
+}
+
+.themeIcon {
+  font-size: 1.2rem;
+}
+
+.panelFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.closeMainButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.closeMainButton:hover {
+  background-color: #1d4ed8;
+}

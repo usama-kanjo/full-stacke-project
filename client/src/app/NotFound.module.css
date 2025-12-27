@@ -1,0 +1,302 @@
+/* app/NotFound.module.css */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.content {
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.numberContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.number {
+  font-size: 120px;
+  font-weight: 900;
+  color: #2d3748;
+  margin: 0;
+  position: relative;
+  z-index: 10;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.glow {
+  position: absolute;
+  inset: -20px;
+  background: linear-gradient(135deg, rgba(66, 153, 225, 0.3) 0%, rgba(159, 122, 234, 0.3) 100%);
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: pulse 2s ease-in-out infinite alternate;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.textContent {
+  text-align: center;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 16px 0;
+  line-height: 1.2;
+}
+
+.description {
+  font-size: 16px;
+  color: #4a5568;
+  margin: 0 0 8px 0;
+  line-height: 1.5;
+}
+
+.subDescription {
+  font-size: 14px;
+  color: #718096;
+  margin: 0 0 32px 0;
+  line-height: 1.5;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 480px) {
+  .buttonGroup {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #4299e1 0%, #667eea 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(66, 153, 225, 0.4);
+  background: linear-gradient(135deg, #3182ce 0%, #5a67d8 100%);
+}
+
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: white;
+  color: #4a5568;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secondaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.quickLinks {
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.quickLinksTitle {
+  font-size: 14px;
+  color: #718096;
+  margin: 0 0 16px 0;
+  font-weight: 500;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.link {
+  padding: 8px 16px;
+  background: rgba(66, 153, 225, 0.1);
+  color: #4299e1;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(66, 153, 225, 0.2);
+}
+
+.link:hover {
+  background: #4299e1;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+}
+
+/* Arkaplan Dekorasyonları */
+.backgroundElement1,
+.backgroundElement2,
+.backgroundElement3 {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  filter: blur(40px);
+  opacity: 0.7;
+  animation: float 6s ease-in-out infinite;
+}
+
+.backgroundElement1 {
+  width: 120px;
+  height: 120px;
+  background: rgba(66, 153, 225, 0.4);
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.backgroundElement2 {
+  width: 100px;
+  height: 100px;
+  background: rgba(159, 122, 234, 0.4);
+  bottom: 15%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+.backgroundElement3 {
+  width: 80px;
+  height: 80px;
+  background: rgba(237, 100, 166, 0.4);
+  top: 40%;
+  right: 25%;
+  animation-delay: 4s;
+}
+
+/* Animasyonlar */
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+  .number {
+    font-size: 80px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .card {
+    padding: 30px 20px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .number {
+    font-size: 60px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .link {
+    width: 100%;
+    text-align: center;
+  }
+}

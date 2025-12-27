@@ -1,0 +1,83 @@
+.sidebar {
+  background-color: var(--white);
+  flex-shrink: 0;
+  transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--gray-200);
+  overflow-x: hidden;
+}
+
+.sidebarOpen {
+  width: 16rem;
+  padding: 1.5rem;
+}
+
+.sidebarClosed {
+  width: 5rem;
+  padding: 1rem;
+}
+
+.nav {
+  flex-grow: 1;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navItemLink {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  transition: color 0.2s, background-color 0.2s;
+  width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.navItemLink.closed {
+  justify-content: center;
+}
+
+.navItemLink.inactive {
+  color: var(--gray-500);
+}
+
+.navItemLink.inactive:hover {
+  background-color: var(--gray-200);
+}
+
+.navItemLink.active {
+  background-color: var(--light-blue);
+  color: var(--custom-blue);
+}
+
+.navItemIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+.navItemLabel {
+  margin-left: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: opacity 0.2s ease-in-out, width 0.2s ease-in-out;
+}
+
+.navItemLabelOpen {
+  opacity: 1;
+  width: auto;
+}
+
+.navItemLabelClosed {
+  opacity: 0;
+  width: 0;
+}

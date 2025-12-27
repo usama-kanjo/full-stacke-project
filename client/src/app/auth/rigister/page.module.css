@@ -1,0 +1,27 @@
+/* General Styles & Reset */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #374151;
+}
+
+/* a { */
+/*   color: #2563eb; */
+/*   text-decoration: none; */
+/* } */
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* App Container */
+.appContainer {
+  background-color: #f3f4f6;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}

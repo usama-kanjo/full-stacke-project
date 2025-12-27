@@ -44,7 +44,7 @@ exports.sendVerificationEmail = async (userData) => {
     userPreferences = {}
   } = userData;
 
-  const verificationUrl = `${process.env.BASE_URL}/verify-email/${token}`;
+  const verificationUrl = `${process.env.BASE_URL}/auth/email-verification/${token}`;
   const extractedUserName = extractUserName(email, userName);
   const enableDarkMode = userPreferences.darkMode || detectDarkModePreference(userAgent);
   const currentYear = new Date().getFullYear();

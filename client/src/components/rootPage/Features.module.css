@@ -1,0 +1,88 @@
+/* Features Section */
+.features {
+  padding: 5rem 0;
+  background-color: #f9fafb;
+}
+
+.featuresHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.featuresHeader h2 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+}
+
+.featuresHeader p {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  color: #4b5563;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.featuresGrid {
+  display: grid;
+  gap: 2rem;
+}
+
+.featureCard {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.featureCard:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.featureIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 0.5rem;
+  background-color: #dbeafe;
+  color: #3b82f6;
+  margin-bottom: 1.5rem;
+}
+
+.featureIconContainer svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.featureCard h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.featureCard p {
+  margin-top: 0.5rem;
+  color: #4b5563;
+}
+
+@media (min-width: 768px) {
+  .featuresHeader h2 {
+    font-size: 2.5rem;
+  }
+
+  .featuresGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .featuresGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
