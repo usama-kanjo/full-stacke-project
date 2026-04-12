@@ -2,10 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const prismaConnect = require('./config/prismaConnection');
-const userRoute = require('./routes/userRoute');
-const roleRoute = require('./routes/roleRoute');
-const skillRoute = require('./routes/skillRoute');
+const prismaConnect = require('./config/database');
+const userRoute = require('./routes/v1/userRoute');
 const ApiError = require('./utils/apiError');
 const globalError = require('./middlewares/errorMiddleware');
 const cookieParser = require('cookie-parser');
@@ -33,8 +31,6 @@ app.use(express.urlencoded({ extended: false }));
 
 // Mounting routes
 app.use("/api/v1/user", userRoute);
-app.use("/api/v1/roles", roleRoute);
-app.use("/api/v1/skills", skillRoute);
 
 app.all(/(.*)/, (req, res, next) => {
   next(new ApiError(`Can't find this route: ${req.originalUrl}`, 404));

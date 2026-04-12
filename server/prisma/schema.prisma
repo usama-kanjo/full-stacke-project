@@ -1,4 +1,3 @@
-// schema.prisma dosyanızı bu şekilde güncelleyin
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,50 +7,111 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  DENTIST
+  LAB_TECHNICIAN
+}
+
+enum OrderStatus {
+  PENDING     // Dişçi oluşturdu, teknisyen atandı
+  IN_PROGRESS // Teknisyen kabul etti, yapıyor
+  COMPLETED   // Teknisyen bitirdi
+  CANCELLED   // İptal edildi
+}
+
 model User {
-  id                        String   @id @default(uuid())
-  name                      String
-  slug                      String?
-  email                     String   @unique
-  password                  String
-  passwordChangedAt         DateTime?
-  isEmailVerified           Boolean  @default(false)
-  emailVerificationToken    String?
-  emailVerificationExpires  DateTime?
-  createdAt                 DateTime @default(now())
-  updatedAt                 DateTime @updatedAt
+  id                       Int      @id @default(autoincrement())
+  email                    String   @unique
+  passwordHash             String
+  role                     Role?
+  isProfileComplete        Boolean  @default(false)
 
-  // User bir role alır (opsiyonel)
-  roleId                    String?
-  role                      Role?    @relation(fields: [roleId], references: [id], onDelete: SetNull)
+  // Email verification
+  emailVerificationCode    String?  @db.VarChar(6)
+  emailVerificationExpires DateTime?
+  isVerified               Boolean  @default(false)
 
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+
+  dentist     Dentist?
+  technician  Technician?
+
+  @@index([emailVerificationCode])
+  @@index([isVerified])
   @@map("users")
 }
 
-model Role {
-  id          String   @id @default(uuid())
-  name        String   @unique
-  description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Dentist {
+  id            Int     @id @default(autoincrement())
+  userId        Int     @unique
+  fullName      String
+  phone         String
+  clinicName    String
+  clinicAddress String?
+  clinicCity    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  // Bir role birden çok user ait olabilir
-  users       User[]
-  skills      Skill[]
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders  Order[]
 
-  @@map("roles")
+  @@map("dentists")
 }
 
-model Skill {
-  id          String   @id @default(uuid())
-  name        String   @unique
-  description String?
+model Technician {
+  id          Int     @id @default(autoincrement())
+  userId      Int     @unique
+  fullName    String
+  phone       String
+  labName     String
+  labAddress  String?
+  labCity     String?
+  specialties String[] // ["Kron", "İmplant", "Protez"]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  roleId      String?
-  role        Role?    @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders   Order[]  // Atanan siparişler
 
-  @@map("skills")
+  @@map("technicians")
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  dentistId   Int
+  
+  // Hasta bilgisi
+  patientName String
+  toothNumber String?     // "12,13" veya "üst çene sol"
+  
+  // İş detayı
+  workType    String      // "Zirkonyum Kron", "İmplant Üstü"
+  shade       String?     // Renk kodu: "A2", "BL1"
+  urgency     String      @default("NORMAL") // "NORMAL", "ACIL"
+  description String?     @db.Text
+  
+  // Atama (DİREKT ATAMA - teklif sistemi yok)
+  technicianId Int?
+  
+  // Durum
+  status      OrderStatus @default(PENDING)
+  
+  // Fiyat (sonradan belirlenebilir)
+  price       Decimal?    @db.Decimal(10, 2)
+  currency    String      @default("TRY")
+  
+  // Zamanlar
+  deadline    DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  dentist     Dentist     @relation(fields: [dentistId], references: [id])
+  technician  Technician? @relation(fields: [technicianId], references: [id])
+
+  @@index([dentistId])
+  @@index([technicianId])
+  @@index([status])
+  @@map("orders")
 }
 

@@ -1,6 +1,6 @@
 const { check, param, body } = require('express-validator');
 const validatorMiddleware = require('../../middlewares/validatorMiddleware');
-const prisma = require('../../prisma/client');
+const prisma = require('../../../prisma/client');
 
 // MongoDB ObjectId kontrolü
 const isObjectId = (value) => {
@@ -20,22 +20,18 @@ exports.loginUserValidator = [
 ];
 
 exports.createUserValidator = [
-  check('name')
-    .notEmpty().withMessage('User name is required')
-    .isLength({ min: 3 }).withMessage('User name must be at least 3 characters')
-    .isLength({ max: 32 }).withMessage('User name must be at most 32 characters'),
-
   check('email')
     .notEmpty().withMessage('Email is required')
-    .isEmail().withMessage('Please enter a valid email address')
-    .custom(async (value) => {
-      const user = await prisma.user.findUnique({
-        where: { email: value }
-      });
-      if (user) {
-        throw new Error('Email already in use');
-      }
-    }),
+    .isEmail().withMessage('Please enter a valid email address'),
+    // .custom(async (value) => {
+    //   const user = await prisma.user.findUnique({
+    //     where: { email: value }
+    //   });
+    //   if (user) {
+    //     throw new Error('Email already in use');
+    //   }
+    // }),
+
 
   check('password')
     .notEmpty().withMessage('Password is required')

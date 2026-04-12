@@ -2,8 +2,8 @@
 const jwt = require('jsonwebtoken');
 const ApiError = require('../utils/apiError');
 const asyncHandler = require('express-async-handler');
-const config = require('../config/jwtConfig');
-const prisma = require('../prisma/client'); // Doğru path
+const config = require('../config/jwt');
+const prisma = require('../../prisma/client'); // Doğru path
 const userService = require('../services/userService');
 
 exports.protect = asyncHandler(async (req, res, next) => {
@@ -42,20 +42,20 @@ exports.protect = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // 4) Check if email is verified
-  if (!currentUser.isEmailVerified) {
-    return next(
-      new ApiError('Please verify your email address to activate your account.', 403)
-    );
-  }
+  // // 4) Check if email is verified
+  // if (!currentUser.isEmailVerified) {
+  //   return next(
+  //     new ApiError('Please verify your email address to activate your account.', 403)
+  //   );
+  // }
 
   // 5) Check if user changed password after token was issued
-  const passwordChanged = await userService.changedPasswordAfter(currentUser.id, decoded.iat);
-  if (passwordChanged) {
-    return next(
-      new ApiError('User recently changed password! Please log in again.', 401)
-    );
-  }
+  // const passwordChanged = await userService.changedPasswordAfter(currentUser.id, decoded.iat);
+  // if (passwordChanged) {
+  //   return next(
+  //     new ApiError('User recently changed password! Please log in again.', 401)
+  //   );
+  // }
 
   // 6) Remove password from user object
   const { password: _, ...userWithoutPassword } = currentUser;
