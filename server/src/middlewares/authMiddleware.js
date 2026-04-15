@@ -65,17 +65,17 @@ exports.protect = asyncHandler(async (req, res, next) => {
   next();
 });
 
-// Role-based authorization middleware
-exports.restrictTo = (...roles) => {
-  return (req, res, next) => {
-    if (!req.user.role || !roles.includes(req.user.role)) {
-      return next(
-        new ApiError('You do not have permission to perform this action.', 403)
-      );
-    }
-    next();
-  };
-};
+// // Role-based authorization middleware
+// exports.restrictTo = (...roles) => {
+//   return (req, res, next) => {
+//     if (!req.user.role || !roles.includes(req.user.role)) {
+//       return next(
+//         new ApiError('You do not have permission to perform this action.', 403)
+//       );
+//     }
+//     next();
+//   };
+// };
 
 // Light protection without email verification requirement
 exports.softProtect = asyncHandler(async (req, res, next) => {

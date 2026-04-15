@@ -6,14 +6,14 @@ const {
   registerUser,
   verifyEmail,
   resendVerificationCode,
-  // loginUser,
+  logoutUser,
+  changePassword,
+  loginUser,
   // getUserProfile,
   // verifyEmail,
   // resendVerificationEmail,
   // updateUserProfile,
-  // logoutUser,
   // checkAuth,
-  // changePassword
 } = require('../../services/userService');
 
 const router = express.Router();
@@ -21,11 +21,15 @@ const router = express.Router();
 router.route('/register')
   .post(createUserValidator, registerUser);
 router.route('/verify-email')
-  .post(protect, verifyEmail)
+  .post(protect, verifyEmail);
 router.route('/resend-code')
-  .post(protect, resendVerificationCode)
-// router.route('/login')
-//   .post(loginUserValidator, loginUser);
+  .post(protect, resendVerificationCode);
+router.route('/logout')
+  .post(protect, logoutUser);
+router.route('/change-password')
+  .put(protect, changePasswordValidator, changePassword);
+router.route('/login')
+  .post(loginUserValidator, loginUser);
 //
 // router.route('/profile')
 //   .get(protect, getUserProfile)
@@ -34,14 +38,7 @@ router.route('/resend-code')
 // router.route('/change-password')
 //   .put(protect, changePasswordValidator, changePassword);
 //
-// router.route('/verify-email/:token')
-//   .get(verifyEmail);
 //
-// router.route('/resend-verification')
-//   .post(resendVerificationEmail);
-//
-// router.route('/logout')
-//   .get(protect, logoutUser);
 //
 // router.route('/check-auth')
 //   .get(protect, checkAuth);

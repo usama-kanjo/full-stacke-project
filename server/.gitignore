@@ -3,3 +3,5 @@ node_modules
 .env
 .backup-env
 /lib/generated/prisma
+.env
+.env.local

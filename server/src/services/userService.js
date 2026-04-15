@@ -72,13 +72,18 @@ exports.registerUser = asynchandler(async (req, res, next) => {
   });
 
   // 8) Set cookie
-  res.cookie('token', token, {
+  const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    domain: process.env.COOKIE_DOMAIN,
     maxAge: config.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-  });
+  };
+
+  if (process.env.NODE_ENV === 'production' && process.env.COOKIE_DOMAIN) {
+    cookieOptions.domain = process.env.COOKIE_DOMAIN;
+  }
+
+  res.cookie('token', token, cookieOptions);
 
   // 9) Remove password from response
   const { password: _, emailVerificationCode: __, ...userWithoutPassword } = user;
@@ -92,9 +97,10 @@ exports.registerUser = asynchandler(async (req, res, next) => {
       }
     }
   });
- if (process.env.NODE_ENV === 'development')
-  console.log('New user registered:', user.email);
-  console.log('Verification code:', verificationCode); // Development için
+  if (process.env.NODE_ENV === 'development') {
+    console.log('New user registered:', user.email);
+    console.log('Verification code:', verificationCode);
+  }// Development için
 });
 
 // @desc    Verify email with 6-digit code
@@ -116,9 +122,11 @@ exports.verifyEmail = asynchandler(async (req, res, next) => {
   if (user.isVerified) {
     return next(new ApiError('Email already verified', 400));
   }
-console.log(user.email, user.emailVerificationCode ,code)
   // Kod kontrolü
-  if (user.emailVerificationCode != code) {
+  const codeStr = String(code).trim();
+  const dbCodeStr = String(user.emailVerificationCode).trim();
+
+  if (dbCodeStr !== codeStr) {
     return next(new ApiError('Invalid verification code', 400));
   }
 
@@ -150,13 +158,18 @@ console.log(user.email, user.emailVerificationCode ,code)
   );
 
   // Cookie'yi güncelle
-  res.cookie('token', newToken, {
+  const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    domain: process.env.COOKIE_DOMAIN,
     maxAge: config.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-  });
+  };
+
+  if (process.env.NODE_ENV === 'production' && process.env.COOKIE_DOMAIN) {
+    cookieOptions.domain = process.env.COOKIE_DOMAIN;
+  }
+
+  res.cookie('token', newToken, cookieOptions);
 
   res.status(200).json({
     status: 'success',
@@ -206,7 +219,6 @@ exports.resendVerificationCode = asynchandler(async (req, res, next) => {
   await sendVerificationCode({
     email: user.email,
     code: newCode,
-    userName: user.name,
   });
 
   res.status(200).json({
@@ -216,12 +228,114 @@ exports.resendVerificationCode = asynchandler(async (req, res, next) => {
 });
 
 
+exports.logoutUser = asynchandler(async (req, res) => {
+  res.clearCookie('token');
+  res.status(200).json({
+    status: 'success',
+    message: 'Logged out successfully'
+  });
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log('User logged out:', req.user.email);
+  }
+});
+
+exports.changePassword = asynchandler(async (req, res, next) => {
+  const { currentPassword, newPassword } = req.body;
+  const userId = req.user.id;
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId }
+  });
+
+  if (!user) {
+    return next(new ApiError('User not found', 404));
+  }
+
+  const isCurrentPasswordValid = await bcrypt.compare(currentPassword, user.passwordHash);
+  if (!isCurrentPasswordValid) {
+    return next(new ApiError('Current password is incorrect', 401));
+  }
+
+  const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      passwordHash: hashedNewPassword
+    }
+  });
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Password changed successfully'
+  });
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log('User password changed:', user.email);
+  }
+});
 //
 // // @desc    Login user
-// // @route   POST /api/v1/user/login
-// // @access  Public
-// exports.loginUser = asynchandler(async (req, res, next) => {
-//   const { email, password } = req.body;
+exports.loginUser = asynchandler(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return next(new ApiError('Please provide email and password', 400));
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email: email }
+  });
+
+  if (!user) {
+    return next(new ApiError('Incorrect email or password', 401));
+  }
+
+  if (!user.isVerified) {
+    return next(new ApiError('Please verify your email address before logging in', 403));
+  }
+
+  const isMatch = await bcrypt.compare(password, user.passwordHash);
+  if (!isMatch) {
+    return next(new ApiError('Incorrect email or password', 401));
+  }
+
+  const token = jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+      isVerified: user.isVerified,
+      role: user.role
+    },
+    config.JWT_SECRET,
+    { expiresIn: config.JWT_EXPIRES_IN }
+  );
+
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: config.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+  };
+
+  if (process.env.NODE_ENV === 'production' && process.env.COOKIE_DOMAIN) {
+    cookieOptions.domain = process.env.COOKIE_DOMAIN;
+  }
+
+  res.cookie('token', token, cookieOptions);
+
+  const { passwordHash: _, ...userWithoutPassword } = user;
+
+  res.status(200).json({
+    status: 'success',
+    data: { user: userWithoutPassword }
+  });
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log('User logged in:', user.email);
+  }
+});
 //
 //   // 1) Check if email and password exist
 //   if (!email || !password) {
@@ -560,19 +674,6 @@ exports.resendVerificationCode = asynchandler(async (req, res, next) => {
 //   console.log('User password changed:', updatedUser.email);
 // });
 //
-// // @desc    Check if password changed after JWT was issued
-// // @route   Internal use
-// // @access  Private
-// exports.changedPasswordAfter = asynchandler(async (userId, JWTTimestamp) => {
-//   const user = await prisma.user.findUnique({
-//     where: { id: userId },
-//     select: { passwordChangedAt: true }
-//   });
-//
-//   if (user?.passwordChangedAt) {
-//     const changedTimestamp = parseInt(user.passwordChangedAt.getTime() / 1000, 10);
-//     return JWTTimestamp < changedTimestamp;
-//   }
-//
-//   return false;
-// });
+// @desc    Logout user
+// @route   POST /api/v1/user/logout
+// @access  Private
