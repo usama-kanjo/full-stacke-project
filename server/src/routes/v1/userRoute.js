@@ -1,50 +1,27 @@
 const express = require('express');
-const { loginUserValidator, createUserValidator, updateUserValidator, changePasswordValidator } = require('../../utils/validators/userValidator');
+const { loginUserValidator, createUserValidator, changePasswordValidator } = require('../../validators/userValidator');
 const { protect } = require('../../middlewares/authMiddleware');
 
-const {
-  registerUser,
-  verifyEmail,
-  resendVerificationCode,
-  logoutUser,
-  changePassword,
-  loginUser,
-  // getUserProfile,
-  // verifyEmail,
-  // resendVerificationEmail,
-  // updateUserProfile,
-  // checkAuth,
-} = require('../../services/userService');
+const authController = require('../../controllers/authController');
 
 const router = express.Router();
 
 router.route('/register')
-  .post(createUserValidator, registerUser);
-router.route('/verify-email')
-  .post(protect, verifyEmail);
-router.route('/resend-code')
-  .post(protect, resendVerificationCode);
-router.route('/logout')
-  .post(protect, logoutUser);
-router.route('/change-password')
-  .put(protect, changePasswordValidator, changePassword);
+  .post(createUserValidator, authController.register);
+
 router.route('/login')
-  .post(loginUserValidator, loginUser);
-//
-// router.route('/profile')
-//   .get(protect, getUserProfile)
-//   .put(protect, updateUserProfile);
-//
-// router.route('/change-password')
-//   .put(protect, changePasswordValidator, changePassword);
-//
-//
-//
-// router.route('/check-auth')
-//   .get(protect, checkAuth);
-// Sadece adminler için
-// router.delete('/user/:id', protect, restrictTo('admin'), deleteUser);
+  .post(loginUserValidator, authController.login);
 
+router.route('/verify-email')
+  .post(protect, authController.verifyEmail);
 
+router.route('/resend-code')
+  .post(protect, authController.resendCode);
+
+router.route('/logout')
+  .post(protect, authController.logout);
+
+router.route('/change-password')
+  .put(protect, changePasswordValidator, authController.changePassword);
 
 module.exports = router;

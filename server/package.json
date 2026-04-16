@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "start": "NODE_ENV=production node src/server.js",
+    "dev": "nodemon src/index.js",
+    "start": "NODE_ENV=production node src/index.js",
     "hash": "node scripts/hashPassword.js"
   },
   "keywords": [],
