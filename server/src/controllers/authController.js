@@ -1,10 +1,28 @@
 const authService = require('../services/authService');
 const userService = require('../services/userService');
+const config = require('../config/jwt');
 
 exports.register = async (req, res, next) => {
   try {
-    const result = await authService.register(req, res);
-    res.status(201).json(result);
+    const { email, password } = req.body;
+    const result = await authService.register(email, password);
+
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: config.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+    };
+    if (process.env.NODE_ENV === 'production' && process.env.COOKIE_DOMAIN) {
+      cookieOptions.domain = process.env.COOKIE_DOMAIN;
+    }
+    res.cookie('token', result.token, cookieOptions);
+
+    res.status(201).json({
+      status: result.status,
+      message: result.message,
+      data: result.data
+    });
   } catch (error) {
     next(error);
   }
@@ -12,8 +30,25 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   try {
-    const result = await authService.login(req, res, next);
-    res.status(200).json(result);
+    const { email, password } = req.body;
+    const result = await authService.login(email, password);
+
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: config.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+    };
+    if (process.env.NODE_ENV === 'production' && process.env.COOKIE_DOMAIN) {
+      cookieOptions.domain = process.env.COOKIE_DOMAIN;
+    }
+    res.cookie('token', result.token, cookieOptions);
+
+    res.status(200).json({
+      status: result.status,
+      message: result.message,
+      data: result.data
+    });
   } catch (error) {
     next(error);
   }
@@ -45,7 +80,10 @@ exports.verifyEmail = async (req, res, next) => {
 exports.resendCode = async (req, res, next) => {
   try {
     const result = await authService.resendCode(req.user.id);
-    res.status(200).json(result);
+    res.status(200).json({
+      status: result.status,
+      message: result.message
+    });
   } catch (error) {
     next(error);
   }
@@ -54,7 +92,10 @@ exports.resendCode = async (req, res, next) => {
 exports.logout = async (req, res, next) => {
   try {
     const result = await authService.logout(req, res);
-    res.status(200).json(result);
+    res.status(200).json({
+      status: result.status,
+      message: result.message
+    });
   } catch (error) {
     next(error);
   }
@@ -64,7 +105,10 @@ exports.changePassword = async (req, res, next) => {
   try {
     const { currentPassword, newPassword } = req.body;
     const result = await userService.changePassword(req.user.id, currentPassword, newPassword);
-    res.status(200).json(result);
+    res.status(200).json({
+      status: result.status,
+      message: result.message
+    });
   } catch (error) {
     next(error);
   }

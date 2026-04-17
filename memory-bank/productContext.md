@@ -1,13 +1,23 @@
 # Product Context
 
 ## Purpose
-The system aims to provide a secure foundation for applications requiring user management with granular permission controls (Roles and Skills). It solves the problem of implementing repetitive authentication and authorization logic by providing a reusable structure.
+Dental Lab Order Management System - Dişçi ve Laborant arasında protez sipariş yönetim platformu.
 
 ## Core Features
-- **User Management**: Registration, Login, Profile updates, Email verification.
-- **Role Management**: Define roles (e.g., Admin, User, Manager) and assign them to users.
-- **Skill Management**: Define skills and associate them with roles (e.g., a "Developer" role might have "Coding" skill).
+- **User Management**: Registration, Login, Email verification
+- **Profile Completion**: Dentist/Laborant profile setup after registration
+- **Order Management**: 
+  - Dentist creates order (patient info, work type, shade, urgency)
+  - Direct assignment to technician
+  - Status tracking (PENDING → IN_PROGRESS → COMPLETED/CANCELLED)
+- **Password Management**: Change password functionality
 
 ## User Experience
-- **Admin**: Easy dashboard to manage users, assign roles, and configure system-wide settings.
-- **User**: fast and secure login process, self-service profile management.
+- **Dentist**: Login → Complete profile → Create order → Track status
+- **Technician**: Login → Complete profile → View assigned orders → Update status
+
+## Database Models
+- **User**: email, passwordHash, role, isProfileComplete, isVerified
+- **Dentist**: userId, fullName, phone, clinicName, clinicAddress, clinicCity
+- **Technician**: userId, fullName, phone, labName, labAddress, labCity, specialties[]
+- **Order**: dentistId, patientName, toothNumber, workType, shade, urgency, description, technicianId, status, price, deadline

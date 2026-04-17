@@ -1,11 +1,27 @@
 # Project Brief
 
+## Project Name
+Dental Lab Order Management System (authInMern)
+
 ## Overview
-This is a full-stack web application implementing an Authentication and Authorization system using the MERN stack (PostgreSQL via Prisma, Express, React/Next.js, Node.js). The project focuses on managing Users, Roles, and Skills.
+Full-stack web application - Dişçi (Dentist) ve Laborant (Lab Technician) arasında protez/diş işi sipariş yönetim sistemi.
 
 ## Core Goals
-- Implement robust authentication (Login, Register, Email Verification).
-- Implement Role-Based Access Control (RBAC) with Users and Roles.
-- distinct management of Skills associated with Roles.
-- Provide a responsive and modern user interface using Next.js.
-- Ensure type safety with TypeScript on the frontend.
+- Secure authentication (Register, Login, Email Verification with 6-digit code)
+- Role-Based Access Control (Dentist, Lab Technician)
+- Order creation and tracking (dentist -> technician)
+- Professional dental lab workflow management
+
+## Tech Stack
+- **Frontend**: Next.js 16 (React 19), TypeScript
+- **Backend**: Express.js 5 (Node.js)
+- **Database**: PostgreSQL via Prisma ORM
+- **Auth**: JWT (cookie-based), bcryptjs
+- **Validation**: express-validator
+- **Email**: Nodemailer
+- **HTTP Client**: Axios
+- **Notifications**: Sonner
+
+## User Roles
+1. **DENTIST** - Dişçi, sipariş oluşturur, işi atar
+2. **LAB_TECHNICIAN** - Laborant, işi yapar, durumu günceller

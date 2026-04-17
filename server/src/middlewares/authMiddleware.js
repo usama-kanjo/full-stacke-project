@@ -78,37 +78,37 @@ exports.protect = asyncHandler(async (req, res, next) => {
 // };
 
 // Light protection without email verification requirement
-exports.softProtect = asyncHandler(async (req, res, next) => {
-  let token;
-  if (req.cookies.token) {
-    token = req.cookies.token;
-  } else if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  ) {
-    token = req.headers.authorization.split(' ')[1];
-  }
+// exports.softProtect = asyncHandler(async (req, res, next) => {
+//   let token;
+//   if (req.cookies.token) {
+//     token = req.cookies.token;
+//   } else if (
+//     req.headers.authorization &&
+//     req.headers.authorization.startsWith('Bearer')
+//   ) {
+//     token = req.headers.authorization.split(' ')[1];
+//   }
 
-  if (!token) {
-    return next();
-  }
+//   if (!token) {
+//     return next();
+//   }
 
-  try {
-    const decoded = jwt.verify(token, config.JWT_SECRET); // BÜYÜK HARF
-    const currentUser = await prisma.user.findUnique({
-      where: { id: decoded.id }
-    });
+//   try {
+//     const decoded = jwt.verify(token, config.JWT_SECRET); // BÜYÜK HARF
+//     const currentUser = await prisma.user.findUnique({
+//       where: { id: decoded.id }
+//     });
 
-    if (currentUser) {
-      const { password: _, ...userWithoutPassword } = currentUser;
-      req.user = userWithoutPassword;
-    }
-  } catch (err) {
-    // Silently continue if token is invalid
-  }
+//     if (currentUser) {
+//       const { password: _, ...userWithoutPassword } = currentUser;
+//       req.user = userWithoutPassword;
+//     }
+//   } catch (err) {
+//     // Silently continue if token is invalid
+//   }
 
-  next();
-});
+//   next();
+// });
 
 
 

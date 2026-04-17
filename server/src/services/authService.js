@@ -6,9 +6,7 @@ const bcrypt = require('bcryptjs');
 const { sendVerificationCode, generateVerificationCode } = require('./emailService.js');
 const prisma = require('../../prisma/client.js');
 
-exports.register = asynchandler(async (req, res, next) => {
-  const { email, password } = req.body;
-
+exports.register = asynchandler(async (email, password) => {
   const existingUser = await prisma.user.findUnique({
     where: { email: email }
   });
@@ -47,20 +45,8 @@ exports.register = asynchandler(async (req, res, next) => {
     code: verificationCode,
   });
 
-  const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: config.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-  };
-
-  if (process.env.NODE_ENV === 'production' && process.env.COOKIE_DOMAIN) {
-    cookieOptions.domain = process.env.COOKIE_DOMAIN;
-  }
-
-  res.cookie('token', token, cookieOptions);
-
-  const { password: _, emailVerificationCode: __, ...userWithoutPassword } = user;
+  const { passwordHash, emailVerificationCode, ...rest } = user;
+  const userWithoutPassword = { ...rest, passwordHash: undefined, emailVerificationCode: undefined };
 
   if (process.env.NODE_ENV === 'development') {
     console.log('New user registered:', user.email);
@@ -70,7 +56,8 @@ exports.register = asynchandler(async (req, res, next) => {
   return {
     status: 'success',
     message: 'Registration successful! Please check your email for the 6-digit verification code.',
-    data: { user: userWithoutPassword }
+    data: { user: userWithoutPassword },
+    token: token
   };
 });
 
@@ -171,9 +158,7 @@ exports.resendCode = asynchandler(async (userId) => {
   };
 });
 
-exports.login = asynchandler(async (req, res, next) => {
-  const { email, password } = req.body;
-
+exports.login = asynchandler(async (email, password) => {
   if (!email || !password) {
     throw new ApiError('Please provide email and password', 400);
   }
@@ -205,20 +190,8 @@ exports.login = asynchandler(async (req, res, next) => {
     { expiresIn: config.JWT_EXPIRES_IN }
   );
 
-  const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: config.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-  };
-
-  if (process.env.NODE_ENV === 'production' && process.env.COOKIE_DOMAIN) {
-    cookieOptions.domain = process.env.COOKIE_DOMAIN;
-  }
-
-  res.cookie('token', token, cookieOptions);
-
-  const { passwordHash: _, ...userWithoutPassword } = user;
+  const { passwordHash, emailVerificationCode, ...rest } = user;
+  const userWithoutPassword = { ...rest, passwordHash: undefined, emailVerificationCode: undefined };
 
   if (process.env.NODE_ENV === 'development') {
     console.log('User logged in:', user.email);
@@ -226,6 +199,8 @@ exports.login = asynchandler(async (req, res, next) => {
 
   return {
     status: 'success',
+    massage: 'Login successful',
+    token: token,
     data: { user: userWithoutPassword }
   };
 });
