@@ -6,7 +6,7 @@
     "dev": "nodemon src/index.js",
     "start": "NODE_ENV=production node src/index.js",
     "hash": "node scripts/hashPassword.js",
-    "test": "node scripts/test.js"
+    "test": "API_BASE_URL=http://localhost:3000 node scripts/test/index.js"
   },
   "keywords": [],
   "author": "",
