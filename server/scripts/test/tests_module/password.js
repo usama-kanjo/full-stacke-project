@@ -1,8 +1,8 @@
-const { API_ENDPOINTS, DEFAULT_TEST_USER } = require('./config.js');
+const { API_ENDPOINTS, DEFAULT_TEST_USER } = require('../config.js');
 const {
   colors, log, formatResult, makeRequest, delay,
   askQuestion, getHostname, getPort, getAuthHeaders
-} = require('./utils.js');
+} = require('../utils.js');
 
 let currentPassword = DEFAULT_TEST_USER.password;
 

@@ -1,8 +1,8 @@
-const { API_ENDPOINTS } = require('./config.js');
+const { API_ENDPOINTS } = require('../config.js');
 const {
   colors, log, formatResult, makeRequest, delay,
   getHostname, getPort, getAuthHeaders
-} = require('./utils.js');
+} = require('../utils.js');
 
 async function testCompleteProfile(role) {
   console.log('\n' + colors.bold + `🧪 Testing POST /complete-profile as ${role}` + colors.reset);
