@@ -57,6 +57,8 @@ function delay(ms) {
 
 const BASE_URL = 'http://localhost:3000';
 const API_URL = `${BASE_URL}/api/v1/user`;
+const DENTIST_URL = `${BASE_URL}/api/v1/dentist`;
+const TECHNICIAN_URL = `${BASE_URL}/api/v1/technician`;
 
 let authToken = loadToken();
 if (authToken) {
@@ -305,6 +307,91 @@ async function testResetPassword() {
   return res;
 }
 
+async function testCompleteProfile(role) {
+  console.log(`\n🧪 Testing POST /complete-profile as ${role}`);
+  const profileData = {
+    role: role,
+    fullName: role === 'DENTIST' ? 'Dr. Test Dentist' : 'Test Technician',
+    phone: '+90 532 123 4567',
+    clinicName: role === 'DENTIST' ? 'Test Clinic' : undefined,
+    clinicAddress: role === 'DENTIST' ? 'Test Address' : undefined,
+    clinicCity: role === 'DENTIST' ? 'Istanbul' : undefined,
+    labName: role === 'LAB_TECHNICIAN' ? 'Test Lab' : undefined,
+    labAddress: role === 'LAB_TECHNICIAN' ? 'Test Lab Address' : undefined,
+    labCity: role === 'LAB_TECHNICIAN' ? 'Ankara' : undefined
+  };
+
+  const postData = JSON.stringify(profileData);
+
+  const options = {
+    hostname: 'localhost',
+    port: 3000,
+    path: '/api/v1/user/complete-profile',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(postData),
+      ...getAuthHeaders()
+    }
+  };
+
+  const res = await makeRequest(options, postData);
+  console.log(`   Status: ${res.status}`);
+  console.log(`   Response:`, JSON.stringify(res.body, null, 2));
+  await delay(2000);
+  return res;
+}
+
+async function testGetProfile(role) {
+  console.log(`\n🧪 Testing GET /${role.toLowerCase()}/profile`);
+  const profilePath = role === 'DENTIST' ? '/dentist/profile' : '/technician/profile';
+
+  const options = {
+    hostname: 'localhost',
+    port: 3000,
+    path: `/api/v1${profilePath}`,
+    method: 'GET',
+    headers: {
+      ...getAuthHeaders()
+    }
+  };
+
+  const res = await makeRequest(options);
+  console.log(`   Status: ${res.status}`);
+  console.log(`   Response:`, JSON.stringify(res.body, null, 2));
+  await delay(2000);
+  return res;
+}
+
+async function testUpdateProfile(role) {
+  console.log(`\n🧪 Testing PUT /${role.toLowerCase()}/profile`);
+  const profilePath = role === 'DENTIST' ? '/dentist/profile' : '/technician/profile';
+
+  const updateData = role === 'DENTIST'
+    ? { fullName: 'Updated Dr. Test Dentist', clinicCity: 'Izmir' }
+    : { fullName: 'Updated Test Technician', labCity: 'Bursa' };
+
+  const postData = JSON.stringify(updateData);
+
+  const options = {
+    hostname: 'localhost',
+    port: 3000,
+    path: `/api/v1${profilePath}`,
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(postData),
+      ...getAuthHeaders()
+    }
+  };
+
+  const res = await makeRequest(options, postData);
+  console.log(`   Status: ${res.status}`);
+  console.log(`   Response:`, JSON.stringify(res.body, null, 2));
+  await delay(2000);
+  return res;
+}
+
 async function runAllTests() {
   console.log('🚀 Starting API Tests...\n');
   console.log(`Test User Email: ${testUser.email}`);
@@ -313,6 +400,12 @@ async function runAllTests() {
   if (authToken) {
     console.log('\n📌 Found existing token - testing protected routes');
     await testVerifyEmail();
+    await testCompleteProfile('DENTIST');
+    await testGetProfile('DENTIST');
+    await testUpdateProfile('DENTIST');
+    await testCompleteProfile('LAB_TECHNICIAN');
+    await testGetProfile('LAB_TECHNICIAN');
+    await testUpdateProfile('LAB_TECHNICIAN');
     await testChangePassword();
     await testLogout();
     console.log('\n✅ All tests completed!\n');
@@ -320,6 +413,12 @@ async function runAllTests() {
     await testRegister();
     await testResendCode();
     await testVerifyEmail();
+    await testCompleteProfile('DENTIST');
+    await testGetProfile('DENTIST');
+    await testUpdateProfile('DENTIST');
+    await testCompleteProfile('LAB_TECHNICIAN');
+    await testGetProfile('LAB_TECHNICIAN');
+    await testUpdateProfile('LAB_TECHNICIAN');
     await testChangePassword();
     await testLogout();
     await testLogin();
