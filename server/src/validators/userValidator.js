@@ -111,3 +111,37 @@ exports.resetPasswordValidator = [
     .matches(/[0-9]/).withMessage('New password must contain a number'),
   validatorMiddleware,
 ];
+
+exports.completeProfileValidator = [
+  check('role')
+    .notEmpty().withMessage('Role is required')
+    .isIn(['DENTIST', 'LAB_TECHNICIAN']).withMessage('Role must be DENTIST or LAB_TECHNICIAN'),
+  check('fullName')
+    .notEmpty().withMessage('Full name is required')
+    .isLength({ min: 2 }).withMessage('Full name must be at least 2 characters'),
+  check('phone')
+    .notEmpty().withMessage('Phone is required')
+    .matches(/^[0-9+\-\s()]+$/).withMessage('Please enter a valid phone number'),
+
+  check('clinicName')
+    .if((value, { req }) => req.body.role === 'DENTIST')
+    .notEmpty().withMessage('Clinic name is required for Dentist'),
+  check('clinicAddress')
+    .optional({ nullable: true })
+    .trim(),
+  check('clinicCity')
+    .optional({ nullable: true })
+    .trim(),
+
+  check('labName')
+    .if((value, { req }) => req.body.role === 'LAB_TECHNICIAN')
+    .notEmpty().withMessage('Lab name is required for Technician'),
+  check('labAddress')
+    .optional({ nullable: true })
+    .trim(),
+  check('labCity')
+    .optional({ nullable: true })
+    .trim(),
+
+  validatorMiddleware,
+];

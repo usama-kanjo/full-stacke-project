@@ -1,8 +1,9 @@
 const express = require('express');
-const { loginUserValidator, createUserValidator, changePasswordValidator, forgotPasswordValidator, resetPasswordValidator } = require('../../validators/userValidator');
+const { loginUserValidator, createUserValidator, changePasswordValidator, forgotPasswordValidator, resetPasswordValidator, completeProfileValidator } = require('../../validators/userValidator');
 const { protect, softProtect } = require('../../middlewares/authMiddleware');
 
 const authController = require('../../controllers/authController');
+const userController = require('../../controllers/userController');
 
 const router = express.Router();
 
@@ -21,8 +22,11 @@ router.route('/resend-code')
 router.route('/logout')
   .post(protect, authController.logout);
 
+router.route('/complete-profile')
+  .post(protect, completeProfileValidator, userController.completeProfile);
+
 router.route('/change-password')
-  .put(protect, changePasswordValidator, authController.changePassword);
+  .put(protect, changePasswordValidator, userController.changePassword);
 
 router.route('/forgot-password')
   .post(forgotPasswordValidator, authController.forgotPassword);

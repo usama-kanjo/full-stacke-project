@@ -4,6 +4,8 @@ const app = express();
 const cors = require('cors');
 const prismaConnect = require('./config/database');
 const userRoute = require('./routes/v1/userRoute');
+const dentistRoute = require('./routes/v1/dentistRoute');
+const technicianRoute = require('./routes/v1/technicianRoute');
 const ApiError = require('./utils/apiError');
 const globalError = require('./middlewares/errorMiddleware');
 const cookieParser = require('cookie-parser');
@@ -31,6 +33,8 @@ app.use(express.urlencoded({ extended: false }));
 
 // Mounting routes
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/dentist", dentistRoute);
+app.use("/api/v1/technician", technicianRoute);
 
 app.all(/(.*)/, (req, res, next) => {
   next(new ApiError(`Can't find this route: ${req.originalUrl}`, 404));
