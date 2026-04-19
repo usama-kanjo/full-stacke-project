@@ -245,6 +245,15 @@ async function testLogout() {
   const res = await makeRequest(options, '{}');
   console.log(`   Status: ${res.status}`);
   console.log(`   Response:`, JSON.stringify(res.body, null, 2));
+
+  if (res.status === 200) {
+    authToken = null;
+    if (fs.existsSync(TOKEN_FILE)) {
+      fs.unlinkSync(TOKEN_FILE);
+    }
+    console.log(`   🔑 Token deleted`);
+  }
+
   await delay(2000);
   return res;
 }
@@ -416,6 +425,8 @@ async function runAllTests() {
     await testCompleteProfile('DENTIST');
     await testGetProfile('DENTIST');
     await testUpdateProfile('DENTIST');
+    await testRegister();
+    await testVerifyEmail();
     await testCompleteProfile('LAB_TECHNICIAN');
     await testGetProfile('LAB_TECHNICIAN');
     await testUpdateProfile('LAB_TECHNICIAN');
