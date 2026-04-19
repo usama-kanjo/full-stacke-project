@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "NODE_ENV=production node src/index.js",
-    "hash": "node scripts/hashPassword.js"
+    "hash": "node scripts/hashPassword.js",
+    "test": "node scripts/test.js"
   },
   "keywords": [],
   "author": "",

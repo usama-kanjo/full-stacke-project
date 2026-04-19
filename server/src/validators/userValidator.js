@@ -86,3 +86,28 @@ exports.changePasswordValidator = [
     .matches(/[0-9]/).withMessage('New password must contain a number'),
   validatorMiddleware,
 ];
+
+exports.forgotPasswordValidator = [
+  check('email')
+    .trim()
+    .normalizeEmail()
+    .notEmpty().withMessage('Email is required')
+    .isEmail().withMessage('Please enter a valid email address'),
+  validatorMiddleware,
+];
+
+exports.resetPasswordValidator = [
+  check('email')
+    .trim()
+    .normalizeEmail()
+    .notEmpty().withMessage('Email is required')
+    .isEmail().withMessage('Please enter a valid email address'),
+  check('code')
+    .notEmpty().withMessage('Reset code is required')
+    .isLength({ min: 6, max: 6 }).withMessage('Reset code must be 6 digits'),
+  check('newPassword')
+    .isLength({ min: 8 }).withMessage('New password must be at least 8 characters')
+    .matches(/[A-Z]/).withMessage('New password must contain uppercase letter')
+    .matches(/[0-9]/).withMessage('New password must contain a number'),
+  validatorMiddleware,
+];

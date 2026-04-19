@@ -3,7 +3,7 @@ const ApiError = require('../utils/apiError');
 const jwt = require('jsonwebtoken');
 const config = require('../config/jwt');
 const bcrypt = require('bcryptjs');
-const { sendVerificationCode, generateVerificationCode } = require('./emailService.js');
+const { sendVerificationCode, generateVerificationCode, sendPasswordResetEmail } = require('./emailService.js');
 const prisma = require('../../prisma/client.js');
 
 exports.register = asynchandler(async (email, password) => {
@@ -215,5 +215,90 @@ exports.logout = asynchandler(async (req, res) => {
   return {
     status: 'success',
     message: 'Logged out successfully'
+  };
+});
+
+exports.forgotPassword = asynchandler(async (email) => {
+  const user = await prisma.user.findUnique({
+    where: { email: email }
+  });
+
+  if (!user) {
+    throw new ApiError('If the email exists, a reset code will be sent', 200);
+  }
+
+  if (!user.isVerified) {
+    throw new ApiError('Please verify your email first', 400);
+  }
+
+  const resetCode = generateVerificationCode();
+  const resetExpires = new Date(Date.now() + 10 * 60 * 1000);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      passwordResetCode: resetCode,
+      passwordResetExpires: resetExpires
+    }
+  });
+
+  await sendPasswordResetEmail({
+    email: user.email,
+    code: resetCode
+  });
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Password reset requested:', user.email);
+    console.log('Reset code:', resetCode);
+  }
+
+  return {
+    status: 'success',
+    message: 'Password reset code sent to your email'
+  };
+});
+
+exports.resetPassword = asynchandler(async (email, code, newPassword) => {
+  const user = await prisma.user.findUnique({
+    where: { email: email }
+  });
+
+  if (!user) {
+    throw new ApiError('Invalid reset request', 400);
+  }
+
+  if (!user.passwordResetCode || !user.passwordResetExpires) {
+    throw new ApiError('Invalid reset request', 400);
+  }
+
+  if (new Date() > user.passwordResetExpires) {
+    throw new ApiError('Reset code has expired. Please request a new one.', 400);
+  }
+
+  const codeStr = String(code).trim();
+  const dbCodeStr = String(user.passwordResetCode).trim();
+
+  if (dbCodeStr !== codeStr) {
+    throw new ApiError('Invalid reset code', 400);
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      passwordHash: hashedPassword,
+      passwordResetCode: null,
+      passwordResetExpires: null
+    }
+  });
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Password reset successful:', user.email);
+  }
+
+  return {
+    status: 'success',
+    message: 'Password reset successful. You can now login with your new password.'
   };
 });

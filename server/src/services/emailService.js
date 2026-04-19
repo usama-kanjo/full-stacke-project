@@ -74,3 +74,49 @@ ${process.env.COMPANY_NAME || 'Kanjo'} Ekibi`
     throw new Error(`Email could not be sent: ${error.message}`);
   }
 };
+
+exports.sendPasswordResetEmail = async (userData) => {
+  const { email, code, userName = '' } = userData;
+
+  const extractedUserName = extractUserName(email, userName);
+
+  const mailOptions = {
+    from: `"${process.env.COMPANY_NAME || 'Kanjo'}" <${process.env.EMAIL_FROM}>`,
+    to: email,
+    subject: `Şifre Sıfırlama Kodunuz - ${process.env.COMPANY_NAME || 'Kanjo'}`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2>Merhaba ${extractedUserName},</h2>
+        <p>Şifrenizi sıfırlamak için aşağıdaki 6 haneli kodu kullanın:</p>
+        <div style="background: #f4f4f4; padding: 20px; text-align: center; font-size: 32px; 
+                    letter-spacing: 8px; font-weight: bold; border-radius: 8px; margin: 20px 0;">
+          ${code}
+        </div>
+        <p>Bu kod 10 dakika geçerlidir.</p>
+        <p>Eğer şifre sıfırlama talebinde bulunmadıysanız, bu emaili görmezden gelebilirsiniz.</p>
+        <br>
+        <p>İyi günler,<br>${process.env.COMPANY_NAME || 'Kanjo'} Ekibi</p>
+      </div>
+    `,
+    text: `Merhaba ${extractedUserName},
+
+Şifrenizi sıfırlamak için kodunuz: ${code}
+
+Bu kod 10 dakika geçerlidir.
+
+Eğer şifre sıfırlama talebinde bulunmadıysanız, bu emaili görmezden gelebilirsiniz.
+
+İyi günler,
+${process.env.COMPANY_NAME || 'Kanjo'} Ekibi`
+  };
+
+  try {
+    const result = await transporter.sendMail(mailOptions);
+    return {
+      success: true,
+      messageId: result.messageId,
+    };
+  } catch (error) {
+    throw new Error(`Email could not be sent: ${error.message}`);
+  }
+};

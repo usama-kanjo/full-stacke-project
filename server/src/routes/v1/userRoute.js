@@ -1,6 +1,6 @@
 const express = require('express');
-const { loginUserValidator, createUserValidator, changePasswordValidator } = require('../../validators/userValidator');
-const { protect } = require('../../middlewares/authMiddleware');
+const { loginUserValidator, createUserValidator, changePasswordValidator, forgotPasswordValidator, resetPasswordValidator } = require('../../validators/userValidator');
+const { protect, softProtect } = require('../../middlewares/authMiddleware');
 
 const authController = require('../../controllers/authController');
 
@@ -13,15 +13,21 @@ router.route('/login')
   .post(loginUserValidator, authController.login);
 
 router.route('/verify-email')
-  .post(protect, authController.verifyEmail);
+  .post(softProtect, authController.verifyEmail);
 
 router.route('/resend-code')
-  .post(protect, authController.resendCode);
+  .post(softProtect, authController.resendCode);
 
 router.route('/logout')
   .post(protect, authController.logout);
 
 router.route('/change-password')
   .put(protect, changePasswordValidator, authController.changePassword);
+
+router.route('/forgot-password')
+  .post(forgotPasswordValidator, authController.forgotPassword);
+
+router.route('/reset-password')
+  .post(resetPasswordValidator, authController.resetPassword);
 
 module.exports = router;
