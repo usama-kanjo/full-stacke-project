@@ -1,7 +1,8 @@
 const { API_ENDPOINTS, DEFAULT_TEST_USER } = require('../config.js');
 const {
   colors, log, formatResult, logResult, makeRequest, delay,
-  askQuestion, getHostname, getPort, loadToken, extractToken, saveToken
+  askQuestion, getHostname, getPort, loadToken, extractToken, 
+  saveToken, setAuthToken, getAuthHeaders
 } = require('../utils.js');
 
 let testUser = {
@@ -9,12 +10,6 @@ let testUser = {
   password: DEFAULT_TEST_USER.password,
   name: DEFAULT_TEST_USER.name
 };
-
-let authToken = loadToken();
-
-function getAuthHeaders() {
-  return authToken ? { 'Cookie': `token=${authToken}` } : {};
-}
 
 async function testRegister(newEmail = null) {
   if (newEmail) {
@@ -48,9 +43,9 @@ async function testRegister(newEmail = null) {
 
   const newToken = extractToken(res.headers['set-cookie']);
   if (newToken) {
-    authToken = newToken;
-    saveToken(authToken);
-    log('success', `Token received: ${authToken.substring(0, 50)}...`);
+    setAuthToken(newToken);
+    saveToken(newToken);
+    log('success', `Token received: ${newToken.substring(0, 50)}...`);
   }
 
   await delay(2000);
@@ -82,9 +77,9 @@ async function testLogin() {
 
   const newToken2 = extractToken(res.headers['set-cookie']);
   if (newToken2) {
-    authToken = newToken2;
-    saveToken(authToken);
-    log('success', `Token received: ${authToken.substring(0, 50)}...`);
+    setAuthToken(newToken2);
+    saveToken(newToken2);
+    log('success', `Token received: ${newToken2.substring(0, 50)}...`);
   }
   await delay(2000);
   return res;
@@ -109,8 +104,8 @@ async function testLogout() {
   logResult(res.status, res.body);
 
   if (res.status === 200) {
-    authToken = null;
-    const { deleteToken } = require('../utils');
+    const { deleteToken } = require('../utils.js');
+    setAuthToken(null);
     deleteToken();
     log('success', 'Token deleted');
   }
@@ -144,9 +139,9 @@ async function testVerifyEmail() {
 
   const newToken = extractToken(res.headers['set-cookie']);
   if (newToken) {
-    authToken = newToken;
-    saveToken(authToken);
-    log('success', `Token refreshed: ${authToken.substring(0, 50)}...`);
+    setAuthToken(newToken);
+    saveToken(newToken);
+    log('success', `Token refreshed: ${newToken.substring(0, 50)}...`);
   }
 
   await delay(2000);
@@ -180,11 +175,7 @@ function getTestUser() {
 }
 
 function getAuthToken() {
-  return authToken;
-}
-
-function setAuthToken(token) {
-  authToken = token;
+  return loadToken();
 }
 
 function resetTestUser() {
