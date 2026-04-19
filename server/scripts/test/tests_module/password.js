@@ -1,6 +1,6 @@
 const { API_ENDPOINTS, DEFAULT_TEST_USER } = require('../config.js');
 const {
-  colors, log, formatResult, makeRequest, delay,
+  colors, log, formatResult, logResult, makeRequest, delay,
   askQuestion, getHostname, getPort, getAuthHeaders
 } = require('../utils.js');
 
@@ -29,7 +29,7 @@ async function testChangePassword() {
   const res = await makeRequest(options, postData);
   const result = formatResult(res.status);
   log('test', `${result} Status: ${res.status}`);
-  log('info', `Response: ${JSON.stringify(res.body).substring(0, 100)}...`);
+  logResult(res.status, res.body);
   if (res.status === 200) {
     currentPassword = newPassword;
     log('success', 'Password updated successfully');
@@ -59,7 +59,7 @@ async function testForgotPassword(email) {
   const res = await makeRequest(options, postData);
   const result = formatResult(res.status);
   log('test', `${result} Status: ${res.status}`);
-  log('info', `Response: ${JSON.stringify(res.body).substring(0, 100)}...`);
+  logResult(res.status, res.body);
   await delay(2000);
   return res;
 }
@@ -89,7 +89,7 @@ async function testResetPassword(email) {
   const res = await makeRequest(options, postData);
   const result = formatResult(res.status);
   log('test', `${result} Status: ${res.status}`);
-  log('info', `Response: ${JSON.stringify(res.body).substring(0, 100)}...`);
+  logResult(res.status, res.body);
   if (res.status === 200) {
     currentPassword = newPassword;
     log('success', `Password reset to: ${newPassword}`);

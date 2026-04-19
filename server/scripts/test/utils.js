@@ -33,6 +33,15 @@ function formatResult(status) {
   return status >= 200 && status < 400 ? '✅' : '❌';
 }
 
+function logResult(status, body) {
+  const message = body?.message || body?.error?.message || 'No message';
+  if (status >= 200 && status < 400) {
+    log('success', message);
+  } else {
+    log('error', message);
+  }
+}
+
 function saveToken(token) {
   fs.writeFileSync(TOKEN_FILE, token);
   log('success', `Token saved to ${TOKEN_FILE}`);
@@ -134,6 +143,7 @@ module.exports = {
   colors,
   log,
   formatResult,
+  logResult,
   saveToken,
   loadToken,
   extractToken,

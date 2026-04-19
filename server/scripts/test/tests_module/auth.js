@@ -1,6 +1,6 @@
 const { API_ENDPOINTS, DEFAULT_TEST_USER } = require('../config.js');
 const {
-  colors, log, formatResult, makeRequest, delay,
+  colors, log, formatResult, logResult, makeRequest, delay,
   askQuestion, getHostname, getPort, loadToken, extractToken, saveToken
 } = require('../utils.js');
 
@@ -44,7 +44,7 @@ async function testRegister(newEmail = null) {
   const res = await makeRequest(options, postData);
   const result = formatResult(res.status);
   log('test', `${result} Status: ${res.status}`);
-  log('info', `Response: ${JSON.stringify(res.body).substring(0, 100)}...`);
+  logResult(res.status, res.body);
 
   const newToken = extractToken(res.headers['set-cookie']);
   if (newToken) {
@@ -78,7 +78,7 @@ async function testLogin() {
   const res = await makeRequest(options, postData);
   const result = formatResult(res.status);
   log('test', `${result} Status: ${res.status}`);
-  log('info', `Response: ${JSON.stringify(res.body).substring(0, 100)}...`);
+  logResult(res.status, res.body);
 
   const newToken2 = extractToken(res.headers['set-cookie']);
   if (newToken2) {
@@ -106,7 +106,7 @@ async function testLogout() {
   const res = await makeRequest(options, '{}');
   const result = formatResult(res.status);
   log('test', `${result} Status: ${res.status}`);
-  log('info', `Response: ${JSON.stringify(res.body).substring(0, 100)}...`);
+  logResult(res.status, res.body);
 
   if (res.status === 200) {
     authToken = null;
@@ -140,7 +140,15 @@ async function testVerifyEmail() {
   const res = await makeRequest(options, postData);
   const result = formatResult(res.status);
   log('test', `${result} Status: ${res.status}`);
-  log('info', `Response: ${JSON.stringify(res.body).substring(0, 100)}...`);
+  logResult(res.status, res.body);
+
+  const newToken = extractToken(res.headers['set-cookie']);
+  if (newToken) {
+    authToken = newToken;
+    saveToken(authToken);
+    log('success', `Token refreshed: ${authToken.substring(0, 50)}...`);
+  }
+
   await delay(2000);
   return res;
 }
@@ -162,7 +170,7 @@ async function testResendCode() {
   const res = await makeRequest(options, '{}');
   const result = formatResult(res.status);
   log('test', `${result} Status: ${res.status}`);
-  log('info', `Response: ${JSON.stringify(res.body).substring(0, 100)}...`);
+  logResult(res.status, res.body);
   await delay(2000);
   return res;
 }

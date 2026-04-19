@@ -18,6 +18,15 @@ const {
 
 let testResults = { passed: 0, failed: 0, total: 0 };
 
+function trackTestResult(status) {
+  testResults.total++;
+  if (status >= 200 && status < 400) {
+    testResults.passed++;
+  } else {
+    testResults.failed++;
+  }
+}
+
 function printSummary() {
   console.log('\n' + colors.bold + '═'.repeat(50) + colors.reset);
   log('info', `Total: ${testResults.total} | ${colors.green}Passed: ${testResults.passed}${colors.reset} | ${colors.red}Failed: ${testResults.failed}${colors.reset}`);
@@ -47,42 +56,42 @@ async function runAllTests() {
   const authToken = getAuthToken();
   if (authToken) {
     log('warn', 'Found existing token - testing protected routes');
-    await testVerifyEmail();
-    await testCompleteProfile('DENTIST');
-    await testGetProfile('DENTIST');
-    await testUpdateProfile('DENTIST');
-    await testCompleteProfile('LAB_TECHNICIAN');
-    await testGetProfile('LAB_TECHNICIAN');
-    await testUpdateProfile('LAB_TECHNICIAN');
-    await testChangePassword();
-    await testLogout();
+    trackTestResult((await testVerifyEmail()).status);
+    trackTestResult((await testCompleteProfile('DENTIST')).status);
+    trackTestResult((await testGetProfile('DENTIST')).status);
+    trackTestResult((await testUpdateProfile('DENTIST')).status);
+    trackTestResult((await testCompleteProfile('LAB_TECHNICIAN')).status);
+    trackTestResult((await testGetProfile('LAB_TECHNICIAN')).status);
+    trackTestResult((await testUpdateProfile('LAB_TECHNICIAN')).status);
+    trackTestResult((await testChangePassword()).status);
+    trackTestResult((await testLogout()).status);
     printSummary();
   } else {
-    await testRegister();
-    await testResendCode();
-    await testVerifyEmail();
-    await testCompleteProfile('DENTIST');
-    await testGetProfile('DENTIST');
-    await testUpdateProfile('DENTIST');
-    await testChangePassword();
-    await testLogout();
-    await testRegister();
-    await testVerifyEmail();
-    await testCompleteProfile('LAB_TECHNICIAN');
-    await testGetProfile('LAB_TECHNICIAN');
-    await testUpdateProfile('LAB_TECHNICIAN');
-    await testChangePassword();
-    await testLogout();
-    await testRegister();
-    await testResendCode();
-    await testVerifyEmail();
-    await testLogout();
-    await testLogin();
-    await testLogout();
+    trackTestResult((await testRegister()).status);
+    trackTestResult((await testResendCode()).status);
+    trackTestResult((await testVerifyEmail()).status);
+    trackTestResult((await testCompleteProfile('DENTIST')).status);
+    trackTestResult((await testGetProfile('DENTIST')).status);
+    trackTestResult((await testUpdateProfile('DENTIST')).status);
+    trackTestResult((await testChangePassword()).status);
+    trackTestResult((await testLogout()).status);
+    trackTestResult((await testRegister()).status);
+    trackTestResult((await testVerifyEmail()).status);
+    trackTestResult((await testCompleteProfile('LAB_TECHNICIAN')).status);
+    trackTestResult((await testGetProfile('LAB_TECHNICIAN')).status);
+    trackTestResult((await testUpdateProfile('LAB_TECHNICIAN')).status);
+    trackTestResult((await testChangePassword()).status);
+    trackTestResult((await testLogout()).status);
+    trackTestResult((await testRegister()).status);
+    trackTestResult((await testResendCode()).status);
+    trackTestResult((await testVerifyEmail()).status);
+    trackTestResult((await testLogout()).status);
+    trackTestResult((await testLogin()).status);
+    trackTestResult((await testLogout()).status);
     log('warn', 'Testing Forgot Password Flow:');
-    await testForgotPassword(testUser.email);
+    trackTestResult((await testForgotPassword(testUser.email)).status);
     log('warn', 'Check console/email for reset code');
-    await testResetPassword(testUser.email);
+    trackTestResult((await testResetPassword(testUser.email)).status);
     printSummary();
   }
 }

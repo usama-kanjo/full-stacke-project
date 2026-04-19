@@ -1,6 +1,6 @@
 const { API_ENDPOINTS } = require('../config.js');
 const {
-  colors, log, formatResult, makeRequest, delay,
+  colors, log, formatResult, logResult, makeRequest, delay,
   getHostname, getPort, getAuthHeaders
 } = require('../utils.js');
 
@@ -35,7 +35,7 @@ async function testCompleteProfile(role) {
   const res = await makeRequest(options, postData);
   const result = formatResult(res.status);
   log('test', `${result} Status: ${res.status}`);
-  log('info', `Response: ${JSON.stringify(res.body).substring(0, 100)}...`);
+  logResult(res.status, res.body);
   await delay(2000);
   return res;
 }
@@ -57,7 +57,7 @@ async function testGetProfile(role) {
   const res = await makeRequest(options);
   const result = formatResult(res.status);
   log('test', `${result} Status: ${res.status}`);
-  log('info', `Response: ${JSON.stringify(res.body).substring(0, 100)}...`);
+  logResult(res.status, res.body);
   await delay(2000);
   return res;
 }
@@ -87,7 +87,7 @@ async function testUpdateProfile(role) {
   const res = await makeRequest(options, postData);
   const result = formatResult(res.status);
   log('test', `${result} Status: ${res.status}`);
-  log('info', `Response: ${JSON.stringify(res.body).substring(0, 100)}...`);
+  logResult(res.status, res.body);
   await delay(2000);
   return res;
 }
