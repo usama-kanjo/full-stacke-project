@@ -3,4 +3,5 @@ server/node_modules/
 server/.backup-env
 clinet/node_modules/
 server/.ne_yabmam_lazim
-
+server/scripts/token.txt
+server/dist/
