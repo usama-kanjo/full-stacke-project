@@ -1,12 +1,24 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "NODE_ENV=production node src/index.js",
-    "hash": "node scripts/hashPassword.js",
-    "test": "API_BASE_URL=http://localhost:3000 node scripts/test/index.js"
+    "dev": "tsx watch src/index.ts",
+    "dev:debug": "tsx watch --inspect src/index.ts",
+    "dev:offline": "SEND_MSG_METOD=OFFLINE tsx watch src/index.ts",
+    "build": "tsc && tsc -p tsconfig.scripts.json",
+    "start": "NODE_ENV=production node dist/index.js",
+    "hash": "tsc && node dist/scripts/hashPassword.js",
+    "test": "tsc && node dist/scripts/test/index.js",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:prod": "prisma migrate deploy",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:seed": "tsx prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -28,7 +40,25 @@
     "slugify": "^1.6.6"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.13.10",
+    "@types/nodemailer": "^6.4.17",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.2",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.5.5",
     "nodemon": "^3.1.10",
-    "prisma": "^6.17.1"
+    "prettier": "^3.8.3",
+    "prisma": "^6.17.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.7.3"
   }
 }

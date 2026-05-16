@@ -1,7 +1,8 @@
 node_modules
-# Keep environment variables out of version control
 .env
 .backup-env
 /lib/generated/prisma
 .env
 .env.local
+scripts/token.txt
+dist/

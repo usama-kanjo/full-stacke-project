@@ -1,0 +1,57 @@
+import "dotenv/config";
+import express, {
+  type Request,
+  type Response,
+  type NextFunction,
+} from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import { prismaConnect } from "./config/database.js";
+import userRoute from "./routes/v1/userRoute.js";
+import dentistRoute from "./routes/v1/dentistRoute.js";
+import technicianRoute from "./routes/v1/technicianRoute.js";
+import { ApiError } from "./utils/apiError.js";
+import { globalError } from "./middlewares/errorMiddleware.js";
+
+const app = express();
+
+const allowedOrigins = ["http://localhost:3001"];
+
+prismaConnect();
+
+app.use(express.json());
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
+);
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+
+app.use("/api/v1/user", userRoute);
+app.use("/api/v1/dentist", dentistRoute);
+app.use("/api/v1/technician", technicianRoute);
+
+app.use((_req: Request, _res: Response, next: NextFunction) => {
+  next(new ApiError("Route not found", 404));
+});
+
+app.use(globalError);
+
+const port = process.env.PORT || 3000;
+const server = app.listen(port, () =>
+  console.log(
+    `🚀 Server is running on port ${port} and is ranning in http://localhost:${port}`,
+  ),
+);
+
+process.on("unhandledRejection", (err: unknown) => {
+  console.error(
+    `Unhandled Rejection: ${(err as Error).name} | ${(err as Error).message}`,
+  );
+  server.close(() => {
+    console.error("Shutting down...");
+    process.exit(1);
+  });
+});
