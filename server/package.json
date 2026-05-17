@@ -8,7 +8,7 @@
     "dev:debug": "tsx watch --inspect src/index.ts",
     "dev:offline": "SEND_MSG_METOD=OFFLINE tsx watch src/index.ts",
     "build": "tsc && tsc -p tsconfig.scripts.json",
-    "start": "NODE_ENV=production node dist/index.js",
+    "start": "npm run build && NODE_ENV=production node dist/index.js",
     "hash": "tsc && node dist/scripts/hashPassword.js",
     "test": "tsc && node dist/scripts/test/index.js",
     "lint": "eslint src/",
@@ -33,7 +33,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
-    "express-async-handler": "^1.2.0",
+    
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^7.0.5",

@@ -10,7 +10,8 @@ const validatorMiddleware = (
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const messages = errors.array().map(err => err.msg).join(". ");
-    return next(new ApiError(messages, 400));
+    next(new ApiError(messages, 400));
+    return;
   }
   next();
 };

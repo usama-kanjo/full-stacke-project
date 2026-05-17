@@ -1,10 +1,5 @@
-import { check, param } from "express-validator";
+import { check } from "express-validator";
 import validatorMiddleware from "../middlewares/validatorMiddleware.js";
-
-const isIntegerId = (value: string): boolean => {
-  const num = parseInt(value, 10);
-  return Number.isInteger(num) && num > 0;
-};
 
 export const loginUserValidator = [
   check("email")
@@ -37,40 +32,6 @@ export const createUserValidator = [
     .withMessage("Password must contain uppercase letter")
     .matches(/[0-9]/)
     .withMessage("Password must contain a number"),
-  validatorMiddleware,
-];
-
-export const updateUserValidator = [
-  param("id").custom((value) => {
-    if (!isIntegerId(value)) {
-      throw new Error("Invalid user ID format");
-    }
-    return true;
-  }),
-  check("email")
-    .optional()
-    .trim()
-    .normalizeEmail()
-    .isEmail()
-    .withMessage("Please provide a valid email"),
-  validatorMiddleware,
-];
-
-export const getUserValidator = [
-  param("id").custom((value) => {
-    if (!isIntegerId(value))
-    { throw new Error("Invalid user ID format"); }
-    return true;
-  }),
-  validatorMiddleware,
-];
-
-export const deleteUserValidator = [
-  param("id").custom((value) => {
-    if (!isIntegerId(value))
-    { throw new Error("Invalid user ID format"); }
-    return true;
-  }),
   validatorMiddleware,
 ];
 
