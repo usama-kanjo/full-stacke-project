@@ -106,6 +106,22 @@ npm run dev             # http://localhost:3001
 - **express-validator** — Input validation
 - **nodemailer** — Email (Gmail SMTP)
 
+### API Endpoints
+
+| Method | Route | Description |
+|--------|-------|-------------|
+| POST | `/api/v1/user/register` | Register a new user |
+| POST | `/api/v1/user/login` | Login |
+| POST | `/api/v1/user/verify-email` | Verify email with 6-digit code |
+| POST | `/api/v1/user/resend-code` | Resend verification code |
+| POST | `/api/v1/user/logout` | Logout |
+| POST | `/api/v1/user/complete-profile` | Complete profile (select role) |
+| PUT | `/api/v1/user/change-password` | Change password |
+| POST | `/api/v1/user/forgot-password` | Request password reset code |
+| POST | `/api/v1/user/reset-password` | Reset password with code |
+| GET/PUT | `/api/v1/dentist/profile` | Dentist profile |
+| GET/PUT | `/api/v1/technician/profile` | Technician profile |
+
 ### How to Run
 
 ```bash
