@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-imports */
 import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -12,7 +13,7 @@ import dentistRoute from "./routes/v1/dentistRoute.js";
 import technicianRoute from "./routes/v1/technicianRoute.js";
 import userRoute from "./routes/v1/userRoute.js";
 import ApiError from "./utils/apiError.js";
-
+/* eslint-enable perfectionist/sort-imports */
 const app = express();
 
 const allowedOrigins = ["http://localhost:3001"];

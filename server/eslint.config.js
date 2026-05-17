@@ -46,7 +46,7 @@ export default antfu({
     "style/brace-style": "off",
     "ts/consistent-type-definitions": "off",
     "import/consistent-type-specifier-style": "off",
-    "perfectionist/sort-imports": "off",
+    "perfectionist/sort-imports": "warn",
     "perfectionist/sort-named-imports": "warn",
     "perfectionist/sort-named-exports": "warn",
     "antfu/consistent-list-newline": "warn",

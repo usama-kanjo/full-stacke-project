@@ -1,36 +1,78 @@
-# Auth in MERN Stack (Next.js & Express)
+# KanjoLab - Diş Protez Laboratuvarı Sipariş Yönetim Sistemi
 
-*A comprehensive authentication and user management system built with modern web technologies.*
+*Dentistler ve laboratuvar teknisyenleri arasında diş protez siparişlerini yönetmek için web tabanlı platform.*
 
 ---
 
-## 🇹🇷 Türkçe (Turkish)
+## 🇹🇷 Türkçe
 
 ### Bu Projede Ne Var?
 
-Bu proje, istemci (client) ve sunucu (server) olmak üzere iki ana bölümden oluşan **gelişmiş bir kimlik doğrulama (authentication) sistemidir**. Başlığında her ne kadar "MERN" geçse de, geleneksel React yerine modern **Next.js 16** kullanılmış, veritabanı tarafında ise hem **Mongoose** hem de yeni nesil ORM aracı **Prisma** sisteme dahil edilmiştir.
+**KanjoLab**, diş hekimleri (dentist) ve laboratuvar teknisyenleri arasındaki protez sipariş sürecini dijitalleştiren tam kapsamlı bir sipariş yönetim sistemidir. İstemci (Next.js) ve sunucu (Express) olmak üzere iki ana bölümden oluşur.
+
+### Özellikler
+
+- **Kullanıcı Yönetimi:** Kayıt, giriş, email doğrulama (6 haneli kod), şifre sıfırlama, profil tamamlama
+- **Rol Tabanlı Sistem:** Dişçi (DENTIST) ve laboratuvar teknisyeni (LAB_TECHNICIAN) rolleri
+- **Dişçi Paneli:** Klinik bilgileri yönetimi, protez siparişi oluşturma
+- **Teknisyen Paneli:** Laboratuvar bilgileri yönetimi, uzmanlık alanları
+- **Sipariş Yönetimi:** Vakaya özel iş tanımı, diş numarası, renk kodu, aciliyet durumu, fiyatlandırma, deadline takibi
+- **Email Bildirimleri:** Doğrulama kodu ve şifre sıfırlama email gönderimi (Gmail SMTP / OFFLINE konsol modu)
 
 ### Kullanılan Teknolojiler
 
 #### Client (İstemci - Frontend)
-- **Next.js (v16) ve React (v19):** Modern, performanslı ve sunucu taraflı oluşturulabilen (SSR/RSC) arayüz mimarisi.
-- **TypeScript:** Ekstra güvenli ve tip destekli kodlama için.
-- **Axios:** Sunucu ile API haberleşmesi (veri çekme) işlemleri için.
-- **Sonner:** Kullanıcıya gösterilen zarif ve modern bildirimler (toast) için.
+- **Next.js 16 & React 19** — TypeScript ile modern, SSR/RSC destekli arayüz
+- **Axios** — API haberleşmesi
+- **Sonner** — Kullanıcı bildirimleri (toast)
 
 #### Server (Sunucu - Backend)
-- **Node.js & Express.js (v5):** Performanslı ve hafif sunucu altyapısı.
-- **Veritabanı (Mongoose & Prisma):** Veritabanı modellerinin (muhtemelen MongoDB) tanımlanması ve sorguların yönetilmesi için.
-- **Güvenlik ve Kimlik Doğrulama:**
-  - `bcryptjs`: Şifrelerin güvenli bir şekilde hash'lenmesi (kriptolanması) için.
-  - `jsonwebtoken` (JWT) & `cookie-parser`: Oturum yönetimi, kullanıcı doğrulama ve yetkilendirme işlemleri için.
-- **Veri Doğrulama:** `express-validator` sayesinde kullanıcıdan gelen verilerin (örneğin e-posta ve şifre formatı) kontrolü.
-- **E-posta Gönderimi:** Kullanıcı kayıt onaylama veya şifre sıfırlama gibi işlemler için `nodemailer`.
-- **Diğer:** API güvenliği için `cors`, ortam değişkenleri için `dotenv` kullanılmıştır.
+- **Node.js & Express.js 5** — ESM modül sistemi ile modern sunucu
+- **PostgreSQL & Prisma ORM** — Veritabanı yönetimi ve migrasyonlar
+- **JWT & cookie-parser** — Oturum yönetimi ve kimlik doğrulama
+- **bcryptjs** — Şifre hash'leme
+- **express-validator** — Veri doğrulama
+- **nodemailer** — Email gönderimi (Gmail SMTP)
+- **date-fns** — Tarih işlemleri
+
+### API Uç Noktaları
+
+| Metot | Route | Açıklama |
+|-------|-------|----------|
+| POST | `/api/v1/user/register` | Kayıt ol |
+| POST | `/api/v1/user/login` | Giriş yap |
+| POST | `/api/v1/user/verify-email` | Email doğrula |
+| POST | `/api/v1/user/resend-code` | Doğrulama kodunu yeniden gönder |
+| POST | `/api/v1/user/logout` | Çıkış yap |
+| POST | `/api/v1/user/complete-profile` | Profili tamamla (rol seç) |
+| PUT | `/api/v1/user/change-password` | Şifre değiştir |
+| POST | `/api/v1/user/forgot-password` | Şifre sıfırlama kodu gönder |
+| POST | `/api/v1/user/reset-password` | Şifre sıfırla |
+| GET/PUT | `/api/v1/dentist/profile` | Dişçi profili |
+| GET/PUT | `/api/v1/technician/profile` | Teknisyen profili |
 
 ### Nasıl Çalıştırılır?
-1. `server` klasörünün içindeyken terminalde `npm run dev` komutunu çalıştırarak Backend servisini başlatabilirsiniz (Varsayılan olarak index.js takip edilecek).
-2. `client` klasörü içindeyken terminalde `npm run dev` komutu ile Frontend arayüzünü (3001 portunda) başlatabilirsiniz.
+
+```bash
+# 1. Sunucuyu başlat
+cd server
+cp .env.example .env    # .env dosyasını düzenleyin
+npm install
+npx prisma migrate dev  # Veritabanı migrasyonu
+npm run dev             # http://localhost:3000
+
+# 2. İstemciyi başlat
+cd client
+npm install
+npm run dev             # http://localhost:3001
+```
+
+### Veritabanı Şeması
+
+- **User** → email, şifre, rol, doğrulama durumu
+- **Dentist** → dişçi profili (klinik adı, adres, telefon)
+- **Technician** → teknisyen profili (laboratuvar adı, uzmanlıklar)
+- **Order** → sipariş (hasta, diş numarası, iş tipi, renk, durum, fiyat, deadline)
 
 ---
 
@@ -38,26 +80,51 @@ Bu proje, istemci (client) ve sunucu (server) olmak üzere iki ana bölümden ol
 
 ### What is this project?
 
-This project is an **advanced authentication and user management system** composed of two main parts: the client and the server. Although the title mentions "MERN", the project utilizes modern **Next.js 16** instead of traditional React, and for the database layer, it incorporates both **Mongoose** and the modern ORM **Prisma**.
+**KanjoLab** is a comprehensive **dental lab order management system** that digitizes the workflow between dentists and laboratory technicians. It consists of a Next.js client and an Express server.
 
-### Technologies Used
+### Features
 
-#### Client (Frontend)
-- **Next.js (v16) & React (v19):** Modern, high-performance UI architecture with built-in Server Components (RSC) and SSR.
-- **TypeScript:** Ensuring type-safe and reliable codebase.
-- **Axios:** Managing API requests to interact with the backend logic.
-- **Sonner:** A toast notification UI library for providing elegant user feedback.
+- **User Management:** Registration, login, email verification (6-digit code), password reset, profile completion
+- **Role-Based System:** Dentist (DENTIST) and Lab Technician (LAB_TECHNICIAN) roles
+- **Dentist Panel:** Clinic management, order creation for prosthetic work
+- **Technician Panel:** Lab management, specialties
+- **Order Management:** Work type, tooth number, shade code, urgency, pricing, deadline tracking
+- **Email Notifications:** Verification codes and password reset via Gmail SMTP or offline console mode
 
-#### Server (Backend)
-- **Node.js & Express.js (v5):** A fast and minimalist web framework for building robust APIs.
-- **Database (Mongoose & Prisma):** Used for database modeling, interactions, and query management (likely connected to MongoDB).
-- **Security & Authentication:**
-  - `bcryptjs`: Used to securely hash user passwords.
-  - `jsonwebtoken` (JWT) & `cookie-parser`: Used for robust session management, authorization, and authentication tokens.
-- **Data Validation:** `express-validator` limits invalid incoming payloads (checking email/password formats, etc.).
-- **Mailing:** `nodemailer` is included to handle email dispatch for things like account verification and password reset flows.
-- **Miscellaneous:** Includes `cors` for cross-origin security, and `dotenv` for handling environment variables.
+### Tech Stack
+
+#### Client
+- **Next.js 16 & React 19** with TypeScript — SSR/RSC support
+- **Axios** — HTTP client
+- **Sonner** — Toast notifications
+
+#### Server
+- **Node.js & Express.js 5** — ESM modules
+- **PostgreSQL & Prisma ORM** — Database & migrations
+- **JWT & cookie-parser** — Auth & session management
+- **bcryptjs** — Password hashing
+- **express-validator** — Input validation
+- **nodemailer** — Email (Gmail SMTP)
 
 ### How to Run
-1. Go to the `server` directory and run `npm run dev` to start the Node.js backend.
-2. Go to the `client` directory and run `npm run dev` to start the Next.js frontend (running on port 3001).
+
+```bash
+# 1. Start the server
+cd server
+cp .env.example .env    # Edit .env file
+npm install
+npx prisma migrate dev  # Run database migrations
+npm run dev             # http://localhost:3000
+
+# 2. Start the client
+cd client
+npm install
+npm run dev             # http://localhost:3001
+```
+
+### Database Schema
+
+- **User** → email, password, role, verification status
+- **Dentist** → clinic name, address, phone
+- **Technician** → lab name, specialties
+- **Order** → patient info, tooth number, work type, shade, status, price, deadline
