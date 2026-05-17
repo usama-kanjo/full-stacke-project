@@ -1,6 +1,77 @@
-# KanjoLab - Diş Protez Laboratuvarı Sipariş Yönetim Sistemi
+# KanjoLab - Dental Lab Order Management System
 
-*Dentistler ve laboratuvar teknisyenleri arasında diş protez siparişlerini yönetmek için web tabanlı platform.*
+*A web-based platform for managing dental prosthesis orders between dentists and laboratory technicians.*
+
+---
+
+## 🇬🇧 English
+
+### What is this project?
+
+**KanjoLab** is a comprehensive **dental lab order management system** that digitizes the workflow between dentists and laboratory technicians. It consists of a Next.js client and an Express server.
+
+### Features
+
+- **User Management:** Registration, login, email verification (6-digit code), password reset, profile completion
+- **Role-Based System:** Dentist (DENTIST) and Lab Technician (LAB_TECHNICIAN) roles
+- **Dentist Panel:** Clinic management, order creation for prosthetic work
+- **Technician Panel:** Lab management, specialties
+- **Order Management:** Work type, tooth number, shade code, urgency, pricing, deadline tracking
+- **Email Notifications:** Verification codes and password reset via Gmail SMTP or offline console mode
+
+### Tech Stack
+
+#### Client
+- **Next.js 16 & React 19** with TypeScript — SSR/RSC support
+- **Axios** — HTTP client
+- **Sonner** — Toast notifications
+
+#### Server
+- **Node.js & Express.js 5** — ESM modules
+- **PostgreSQL & Prisma ORM** — Database & migrations
+- **JWT & cookie-parser** — Auth & session management
+- **bcryptjs** — Password hashing
+- **express-validator** — Input validation
+- **nodemailer** — Email (Gmail SMTP)
+
+### API Endpoints
+
+| Method | Route | Description |
+|--------|-------|-------------|
+| POST | `/api/v1/user/register` | Register a new user |
+| POST | `/api/v1/user/login` | Login |
+| POST | `/api/v1/user/verify-email` | Verify email with 6-digit code |
+| POST | `/api/v1/user/resend-code` | Resend verification code |
+| POST | `/api/v1/user/logout` | Logout |
+| POST | `/api/v1/user/complete-profile` | Complete profile (select role) |
+| PUT | `/api/v1/user/change-password` | Change password |
+| POST | `/api/v1/user/forgot-password` | Request password reset code |
+| POST | `/api/v1/user/reset-password` | Reset password with code |
+| GET/PUT | `/api/v1/dentist/profile` | Dentist profile |
+| GET/PUT | `/api/v1/technician/profile` | Technician profile |
+
+### How to Run
+
+```bash
+# 1. Start the server
+cd server
+cp .env.example .env    # Edit .env file
+npm install
+npx prisma migrate dev  # Run database migrations
+npm run dev             # http://localhost:3000
+
+# 2. Start the client
+cd client
+npm install
+npm run dev             # http://localhost:3001
+```
+
+### Database Schema
+
+- **User** → email, password, role, verification status
+- **Dentist** → clinic name, address, phone
+- **Technician** → lab name, specialties
+- **Order** → patient info, tooth number, work type, shade, status, price, deadline
 
 ---
 
@@ -73,74 +144,3 @@ npm run dev             # http://localhost:3001
 - **Dentist** → dişçi profili (klinik adı, adres, telefon)
 - **Technician** → teknisyen profili (laboratuvar adı, uzmanlıklar)
 - **Order** → sipariş (hasta, diş numarası, iş tipi, renk, durum, fiyat, deadline)
-
----
-
-## 🇬🇧 English
-
-### What is this project?
-
-**KanjoLab** is a comprehensive **dental lab order management system** that digitizes the workflow between dentists and laboratory technicians. It consists of a Next.js client and an Express server.
-
-### Features
-
-- **User Management:** Registration, login, email verification (6-digit code), password reset, profile completion
-- **Role-Based System:** Dentist (DENTIST) and Lab Technician (LAB_TECHNICIAN) roles
-- **Dentist Panel:** Clinic management, order creation for prosthetic work
-- **Technician Panel:** Lab management, specialties
-- **Order Management:** Work type, tooth number, shade code, urgency, pricing, deadline tracking
-- **Email Notifications:** Verification codes and password reset via Gmail SMTP or offline console mode
-
-### Tech Stack
-
-#### Client
-- **Next.js 16 & React 19** with TypeScript — SSR/RSC support
-- **Axios** — HTTP client
-- **Sonner** — Toast notifications
-
-#### Server
-- **Node.js & Express.js 5** — ESM modules
-- **PostgreSQL & Prisma ORM** — Database & migrations
-- **JWT & cookie-parser** — Auth & session management
-- **bcryptjs** — Password hashing
-- **express-validator** — Input validation
-- **nodemailer** — Email (Gmail SMTP)
-
-### API Endpoints
-
-| Method | Route | Description |
-|--------|-------|-------------|
-| POST | `/api/v1/user/register` | Register a new user |
-| POST | `/api/v1/user/login` | Login |
-| POST | `/api/v1/user/verify-email` | Verify email with 6-digit code |
-| POST | `/api/v1/user/resend-code` | Resend verification code |
-| POST | `/api/v1/user/logout` | Logout |
-| POST | `/api/v1/user/complete-profile` | Complete profile (select role) |
-| PUT | `/api/v1/user/change-password` | Change password |
-| POST | `/api/v1/user/forgot-password` | Request password reset code |
-| POST | `/api/v1/user/reset-password` | Reset password with code |
-| GET/PUT | `/api/v1/dentist/profile` | Dentist profile |
-| GET/PUT | `/api/v1/technician/profile` | Technician profile |
-
-### How to Run
-
-```bash
-# 1. Start the server
-cd server
-cp .env.example .env    # Edit .env file
-npm install
-npx prisma migrate dev  # Run database migrations
-npm run dev             # http://localhost:3000
-
-# 2. Start the client
-cd client
-npm install
-npm run dev             # http://localhost:3001
-```
-
-### Database Schema
-
-- **User** → email, password, role, verification status
-- **Dentist** → clinic name, address, phone
-- **Technician** → lab name, specialties
-- **Order** → patient info, tooth number, work type, shade, status, price, deadline
