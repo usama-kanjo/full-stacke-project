@@ -1,15 +1,15 @@
 import express from "express";
-import {
-  loginUserValidator,
-  createUserValidator,
-  changePasswordValidator,
-  forgotPasswordValidator,
-  resetPasswordValidator,
-  completeProfileValidator,
-} from "../../validators/userValidator.js";
-import { protect, softProtect } from "../../middlewares/authMiddleware.js";
 import * as authController from "../../controllers/authController.js";
 import * as userController from "../../controllers/userController.js";
+import { protect, softProtect } from "../../middlewares/authMiddleware.js";
+import {
+  changePasswordValidator,
+  completeProfileValidator,
+  createUserValidator,
+  forgotPasswordValidator,
+  loginUserValidator,
+  resetPasswordValidator,
+} from "../../validators/userValidator.js";
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
 import { check, param } from "express-validator";
-import { validatorMiddleware } from "../middlewares/validatorMiddleware.js";
+import validatorMiddleware from "../middlewares/validatorMiddleware.js";
 
 const isIntegerId = (value: string): boolean => {
   const num = parseInt(value, 10);
@@ -58,7 +58,8 @@ export const updateUserValidator = [
 
 export const getUserValidator = [
   param("id").custom((value) => {
-    if (!isIntegerId(value)) throw new Error("Invalid user ID format");
+    if (!isIntegerId(value))
+    { throw new Error("Invalid user ID format"); }
     return true;
   }),
   validatorMiddleware,
@@ -66,7 +67,8 @@ export const getUserValidator = [
 
 export const deleteUserValidator = [
   param("id").custom((value) => {
-    if (!isIntegerId(value)) throw new Error("Invalid user ID format");
+    if (!isIntegerId(value))
+    { throw new Error("Invalid user ID format"); }
     return true;
   }),
   validatorMiddleware,

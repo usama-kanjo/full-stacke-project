@@ -1,7 +1,7 @@
-import type { Request, Response, NextFunction } from "express";
+import type { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 
-export const validatorMiddleware = (
+const validatorMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -9,6 +9,9 @@ export const validatorMiddleware = (
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     res.status(400).json({ errors: errors.array() });
+    return;
   }
   next();
 };
+
+export default validatorMiddleware;

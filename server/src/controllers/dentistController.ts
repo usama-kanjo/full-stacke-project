@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
+import type { NextFunction, Request, Response } from "express";
 import * as dentistService from "../services/dentistService.js";
 
 export const getProfile = async (

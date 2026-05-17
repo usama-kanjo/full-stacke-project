@@ -27,6 +27,6 @@ export const prismaConnect = async (): Promise<void> => {
       "Error Details:",
       err instanceof Error ? err.message : "Unknown error",
     );
-    process.exit(1);
+    process.exit(1);// eslint-disable-line no-process-exit
   }
 };

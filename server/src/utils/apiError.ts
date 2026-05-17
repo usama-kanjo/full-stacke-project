@@ -1,4 +1,4 @@
-export class ApiError extends Error {
+class ApiError extends Error {
   readonly statusCode: number;
 
   readonly status: "fail" | "error";
@@ -13,3 +13,5 @@ export class ApiError extends Error {
     Error.captureStackTrace(this, this.constructor);
   }
 }
+
+export default ApiError;

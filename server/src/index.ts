@@ -1,17 +1,17 @@
-import "dotenv/config";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import express, {
+  type NextFunction,
   type Request,
   type Response,
-  type NextFunction,
 } from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
 import { prismaConnect } from "./config/database.js";
-import userRoute from "./routes/v1/userRoute.js";
+import globalError from "./middlewares/errorMiddleware.js";
 import dentistRoute from "./routes/v1/dentistRoute.js";
 import technicianRoute from "./routes/v1/technicianRoute.js";
-import { ApiError } from "./utils/apiError.js";
-import { globalError } from "./middlewares/errorMiddleware.js";
+import userRoute from "./routes/v1/userRoute.js";
+import ApiError from "./utils/apiError.js";
+import "dotenv/config";
 
 const app = express();
 
@@ -40,11 +40,11 @@ app.use((_req: Request, _res: Response, next: NextFunction) => {
 app.use(globalError);
 
 const port = process.env.PORT || 3000;
-const server = app.listen(port, () =>
+const server = app.listen(port, () => {
   console.log(
-    `🚀 Server is running on port ${port} and is ranning in http://localhost:${port}`,
-  ),
-);
+    `🚀 Server is running on port ${port} and is running in http://localhost:${port}`,
+  );
+});
 
 process.on("unhandledRejection", (err: unknown) => {
   console.error(
@@ -52,6 +52,6 @@ process.on("unhandledRejection", (err: unknown) => {
   );
   server.close(() => {
     console.error("Shutting down...");
-    process.exit(1);
+    process.exit(1);// eslint-disable-line no-process-exit
   });
 });

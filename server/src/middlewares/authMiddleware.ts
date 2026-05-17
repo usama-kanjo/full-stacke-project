@@ -1,9 +1,9 @@
-import type { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import type { NextFunction, Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import { jwtConfig } from "../config/jwt.js";
+import jwt from "jsonwebtoken";
 import { prisma } from "../config/database.js";
-import { ApiError } from "../utils/apiError.js";
+import jwtConfig from "../config/jwt.js";
+import ApiError from "../utils/apiError.js";
 
 export const protect = asyncHandler(
   async (req: Request, _res: Response, next: NextFunction) => {
@@ -80,7 +80,7 @@ export const softProtect = asyncHandler(
         const { passwordHash: _, ...userWithoutPassword } = currentUser;
         req.user = userWithoutPassword;
       }
-    } catch (_err) {}
+    } catch { }
 
     next();
   },

@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../config/database.js";
-import { ApiError } from "../utils/apiError.js";
+import ApiError from "../utils/apiError.js";
 
 interface ProfileData {
   role?: string;

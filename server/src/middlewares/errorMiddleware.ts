@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
+import type { NextFunction, Request, Response } from "express";
 
 interface ErrorWithStatus {
   statusCode?: number;
@@ -7,7 +7,7 @@ interface ErrorWithStatus {
   stack?: string;
 }
 
-export const globalError = (
+const globalError = (
   err: ErrorWithStatus,
   _req: Request,
   res: Response,
@@ -38,3 +38,5 @@ const sendErrorForProd = (err: ErrorWithStatus, res: Response) => {
     message: err.message,
   });
 };
+
+export default globalError;

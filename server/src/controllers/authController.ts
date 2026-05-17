@@ -1,7 +1,7 @@
-import type { Request, Response, NextFunction } from "express";
+import type { NextFunction, Request, Response } from "express";
+import jwtConfig from "../config/jwt.js";
 import * as authService from "../services/authService.js";
 import * as userService from "../services/userService.js";
-import { jwtConfig } from "../config/jwt.js";
 
 type CookieOptions = {
   httpOnly: boolean;

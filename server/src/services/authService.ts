@@ -1,13 +1,13 @@
-import jwt, { type SignOptions } from "jsonwebtoken";
 import type { Request, Response } from "express";
 import bcrypt from "bcryptjs";
+import jwt, { type SignOptions } from "jsonwebtoken";
 import { prisma } from "../config/database.js";
-import { jwtConfig } from "../config/jwt.js";
-import { ApiError } from "../utils/apiError.js";
+import jwtConfig from "../config/jwt.js";
+import ApiError from "../utils/apiError.js";
 import {
-  sendVerificationCode,
   generateVerificationCode,
   sendPasswordResetEmail,
+  sendVerificationCode,
 } from "./emailService.js";
 
 export const register = async (email: string, password: string) => {
