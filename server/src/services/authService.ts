@@ -225,7 +225,10 @@ export const forgotPassword = async (email: string) => {
   const user = await prisma.user.findUnique({ where: { email } });
 
   if (!user) {
-    throw new ApiError("If the email exists, a reset code will be sent", 200);
+    return {
+      status: "success",
+      message: "If the email exists, a reset code will be sent",
+    };
   }
 
   if (!user.isVerified) {

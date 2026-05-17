@@ -5,15 +5,24 @@ import { prisma } from "../config/database.js";
 import jwtConfig from "../config/jwt.js";
 import ApiError from "../utils/apiError.js";
 
+const extractToken = (req: Request): string | undefined => {
+  if (req.cookies?.token) {
+    return req.cookies.token;
+  }
+  if (req.headers.authorization?.startsWith("Bearer")) {
+    return req.headers.authorization.split(" ")[1];
+  }
+  return undefined;
+};
+
+const getUserFromToken = async (token: string) => {
+  const decoded = jwt.verify(token, jwtConfig.JWT_SECRET) as { id: number };
+  return prisma.user.findUnique({ where: { id: decoded.id } });
+};
+
 export const protect = asyncHandler(
   async (req: Request, _res: Response, next: NextFunction) => {
-    let token: string | undefined;
-
-    if (req.cookies?.token) {
-      token = req.cookies.token;
-    } else if (req.headers.authorization?.startsWith("Bearer")) {
-      token = req.headers.authorization.split(" ")[1];
-    }
+    const token = extractToken(req);
 
     if (!token) {
       return next(
@@ -24,11 +33,7 @@ export const protect = asyncHandler(
       );
     }
 
-    const decoded = jwt.verify(token, jwtConfig.JWT_SECRET) as { id: number };
-
-    const currentUser = await prisma.user.findUnique({
-      where: { id: decoded.id },
-    });
+    const currentUser = await getUserFromToken(token);
 
     if (!currentUser) {
       return next(
@@ -53,13 +58,7 @@ export const protect = asyncHandler(
 
 export const softProtect = asyncHandler(
   async (req: Request, _res: Response, next: NextFunction) => {
-    let token: string | undefined;
-
-    if (req.cookies?.token) {
-      token = req.cookies.token;
-    } else if (req.headers.authorization?.startsWith("Bearer")) {
-      token = req.headers.authorization.split(" ")[1];
-    }
+    const token = extractToken(req);
 
     if (!token) {
       return next(
@@ -71,11 +70,7 @@ export const softProtect = asyncHandler(
     }
 
     try {
-      const decoded = jwt.verify(token, jwtConfig.JWT_SECRET) as { id: number };
-      const currentUser = await prisma.user.findUnique({
-        where: { id: decoded.id },
-      });
-
+      const currentUser = await getUserFromToken(token);
       if (currentUser) {
         const { passwordHash: _, ...userWithoutPassword } = currentUser;
         req.user = userWithoutPassword;

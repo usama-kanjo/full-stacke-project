@@ -1,3 +1,4 @@
+import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, {
@@ -11,7 +12,6 @@ import dentistRoute from "./routes/v1/dentistRoute.js";
 import technicianRoute from "./routes/v1/technicianRoute.js";
 import userRoute from "./routes/v1/userRoute.js";
 import ApiError from "./utils/apiError.js";
-import "dotenv/config";
 
 const app = express();
 
