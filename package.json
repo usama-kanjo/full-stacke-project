@@ -1,0 +1,19 @@
+{
+  "name": "authinmern",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "client": "yarn workspace client dev",
+    "server": "yarn workspace server dev",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "build": "yarn workspaces run build",
+    "lint": "yarn workspaces run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
