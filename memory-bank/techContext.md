@@ -21,6 +21,7 @@
 - **Styling**: CSS Modules (`.module.css`)
 - **Mimari**: Atomic Design Pattern
 - **Storybook**: `.storybook/` kurulu
+- **Code Generator**: Plop (scaffolding)
 
 ## Development Setup
 - **Package Manager**: yarn (workspaces)

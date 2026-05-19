@@ -24,6 +24,7 @@
 ### Frontend (Client — Sıfırdan Yazılıyor)
 - [x] Next.js 16 App Router kurulumu (temiz)
 - [x] `.storybook` konfigürasyonu
+- [x] **Plop** code generator eklendi
 - [ ] Atomic Design klasör yapısı
 - [ ] Atom component'lar (Button, Input, Label, Icon, Spinner)
 - [ ] Molecule component'lar (FormField, PasswordInput, Card)

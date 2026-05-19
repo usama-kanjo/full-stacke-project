@@ -13,6 +13,7 @@ Server tarafı zaten tamamen çalışır durumda — sadece frontend'e odaklanı
 - `.storybook` eklendi
 - `next.config.ts`, `layout.tsx`, `page.tsx` sadeleştirildi
 - `yarn.lock` güncellendi
+- **Plop** (`plop`) eklendi — code generator (scaffolding) aracı
 
 ## Active Decisions
 - **Atomic Design Pattern**: `atoms/` → `molecules/` → `organisms/` → `templates/` → `pages/` hiyerarşisi
@@ -34,6 +35,7 @@ Server tarafı zaten tamamen çalışır durumda — sadece frontend'e odaklanı
 5. Order management frontendi henüz yok — future task
 
 ## Next Steps
+- [ ] Plop generator template'leri oluştur (atom, molecule, organism)
 - [ ] Atomic Design klasör yapısını oluştur
 - [ ] Atom component'larını yaz (Button, Input, Label, Icon, Spinner)
 - [ ] Molecule component'larını yaz (FormField, PasswordInput, Card)
