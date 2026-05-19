@@ -66,6 +66,27 @@ npm install
 npm run dev             # http://localhost:3001
 ```
 
+### Code Generation (Plop)
+
+The client uses **Plop** to scaffold components following the Atomic Design pattern.
+
+| Command | Creates |
+|---|---|
+| `yarn plop` | Interactive — choose a generator |
+| `yarn plop:atom` | `src/components/atoms/ComponentName/` (index.tsx + .module.css + .stories.tsx) |
+| `yarn plop:molecule` | `src/components/molecules/ComponentName/` (same 3 files) |
+| `yarn plop:organism` | `src/components/organisms/ComponentName/` (same 3 files) |
+| `yarn plop:page` | `src/app/page-name/page.tsx` (page only) |
+
+Example:
+```bash
+yarn plop:atom        # Prompts: "Component name (PascalCase):"
+# Enter: Button
+# → src/components/atoms/Button/index.tsx
+# → src/components/atoms/Button/Button.module.css
+# → src/components/atoms/Button/Button.stories.tsx
+```
+
 ### Database Schema
 
 - **User** → email, password, role, verification status
@@ -136,6 +157,28 @@ npm run dev             # http://localhost:3000
 cd client
 npm install
 npm run dev             # http://localhost:3001
+```
+
+### Code Generation (Plop) — Bileşen Oluşturma
+
+Client projesinde **Plop** ile Atomic Design bileşenlerini hızlıca oluşturabilirsin.
+
+| Komut | Ne oluşturur? |
+|---|---|
+| `yarn plop` | Interaktif — generator seçmeni bekler |
+| `yarn plop:atom` | `src/components/atoms/BilesenAdi/` (index.tsx + .module.css + .stories.tsx) |
+| `yarn plop:molecule` | `src/components/molecules/BilesenAdi/` (aynı 3 dosya) |
+| `yarn plop:organism` | `src/components/organisms/BilesenAdi/` (aynı 3 dosya) |
+| `yarn plop:page` | `src/app/sayfa-adi/page.tsx` (sadece sayfa) |
+
+Örnek:
+```bash
+yarn plop:atom
+# Sorus: "Component name (PascalCase):"
+# Cevap: Button
+# → src/components/atoms/Button/index.tsx
+# → src/components/atoms/Button/Button.module.css
+# → src/components/atoms/Button/Button.stories.tsx
 ```
 
 ### Veritabanı Şeması

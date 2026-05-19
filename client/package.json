@@ -9,7 +9,12 @@
     "start": "next start",
     "lint": "eslint src/",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "plop": "plop",
+    "plop:atom": "plop atom",
+    "plop:molecule": "plop molecule",
+    "plop:organism": "plop organism",
+    "plop:page": "plop page"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
