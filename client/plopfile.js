@@ -12,15 +12,15 @@ export default function (plop) {
       {
         type: 'add',
         path: 'src/components/atoms/{{name}}/index.tsx',
-        template: `type {{name}}Props = {
+        template: `import styles from "./{{name}}.module.css";
+
+type {{name}}Props = {
   children?: React.ReactNode;
 };
 
 export default function {{name}}({ children }: {{name}}Props) {
   return <div className={styles.container}>{children}</div>;
 }
-
-import styles from "./{{name}}.module.css";
 `,
       },
       {
@@ -69,15 +69,15 @@ export const Default: Story = {
       {
         type: 'add',
         path: 'src/components/molecules/{{name}}/index.tsx',
-        template: `type {{name}}Props = {
+        template: `import styles from "./{{name}}.module.css";
+
+type {{name}}Props = {
   children?: React.ReactNode;
 };
 
 export default function {{name}}({ children }: {{name}}Props) {
   return <div className={styles.container}>{children}</div>;
 }
-
-import styles from "./{{name}}.module.css";
 `,
       },
       {
@@ -126,15 +126,15 @@ export const Default: Story = {
       {
         type: 'add',
         path: 'src/components/organisms/{{name}}/index.tsx',
-        template: `type {{name}}Props = {
+        template: `import styles from "./{{name}}.module.css";
+
+type {{name}}Props = {
   children?: React.ReactNode;
 };
 
 export default function {{name}}({ children }: {{name}}Props) {
   return <div className={styles.container}>{children}</div>;
 }
-
-import styles from "./{{name}}.module.css";
 `,
       },
       {
