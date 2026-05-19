@@ -12,46 +12,18 @@ export default function (plop) {
       {
         type: 'add',
         path: 'src/components/atoms/{{name}}/index.tsx',
-        template: `import styles from "./{{name}}.module.css";
-
-type {{name}}Props = {
-  children?: React.ReactNode;
-};
-
-export default function {{name}}({ children }: {{name}}Props) {
-  return <div className={styles.container}>{children}</div>;
-}
-`,
+        templateFile: 'plop-templates/component/index.tsx.hbs',
       },
       {
         type: 'add',
         path: 'src/components/atoms/{{name}}/{{name}}.module.css',
-        template: `.container {
-  /* {{name}} styles */
-}
-`,
+        templateFile: 'plop-templates/component/module.css.hbs',
       },
       {
         type: 'add',
         path: 'src/components/atoms/{{name}}/{{name}}.stories.tsx',
-        template: `import type { Meta, StoryObj } from "@storybook/react";
-import {{name}} from "./index";
-
-const meta: Meta<typeof {{name}}> = {
-  title: "Atoms/{{name}}",
-  component: {{name}},
-  tags: ["autodocs"],
-};
-
-export default meta;
-type Story = StoryObj<typeof {{name}}>;
-
-export const Default: Story = {
-  args: {
-    children: "{{name}}",
-  },
-};
-`,
+        templateFile: 'plop-templates/component/story.tsx.hbs',
+        data: { componentType: 'Atoms' },
       },
     ],
   });
@@ -69,46 +41,18 @@ export const Default: Story = {
       {
         type: 'add',
         path: 'src/components/molecules/{{name}}/index.tsx',
-        template: `import styles from "./{{name}}.module.css";
-
-type {{name}}Props = {
-  children?: React.ReactNode;
-};
-
-export default function {{name}}({ children }: {{name}}Props) {
-  return <div className={styles.container}>{children}</div>;
-}
-`,
+        templateFile: 'plop-templates/component/index.tsx.hbs',
       },
       {
         type: 'add',
         path: 'src/components/molecules/{{name}}/{{name}}.module.css',
-        template: `.container {
-  /* {{name}} styles */
-}
-`,
+        templateFile: 'plop-templates/component/module.css.hbs',
       },
       {
         type: 'add',
         path: 'src/components/molecules/{{name}}/{{name}}.stories.tsx',
-        template: `import type { Meta, StoryObj } from "@storybook/react";
-import {{name}} from "./index";
-
-const meta: Meta<typeof {{name}}> = {
-  title: "Molecules/{{name}}",
-  component: {{name}},
-  tags: ["autodocs"],
-};
-
-export default meta;
-type Story = StoryObj<typeof {{name}}>;
-
-export const Default: Story = {
-  args: {
-    children: "{{name}}",
-  },
-};
-`,
+        templateFile: 'plop-templates/component/story.tsx.hbs',
+        data: { componentType: 'Molecules' },
       },
     ],
   });
@@ -126,46 +70,18 @@ export const Default: Story = {
       {
         type: 'add',
         path: 'src/components/organisms/{{name}}/index.tsx',
-        template: `import styles from "./{{name}}.module.css";
-
-type {{name}}Props = {
-  children?: React.ReactNode;
-};
-
-export default function {{name}}({ children }: {{name}}Props) {
-  return <div className={styles.container}>{children}</div>;
-}
-`,
+        templateFile: 'plop-templates/component/index.tsx.hbs',
       },
       {
         type: 'add',
         path: 'src/components/organisms/{{name}}/{{name}}.module.css',
-        template: `.container {
-  /* {{name}} styles */
-}
-`,
+        templateFile: 'plop-templates/component/module.css.hbs',
       },
       {
         type: 'add',
         path: 'src/components/organisms/{{name}}/{{name}}.stories.tsx',
-        template: `import type { Meta, StoryObj } from "@storybook/react";
-import {{name}} from "./index";
-
-const meta: Meta<typeof {{name}}> = {
-  title: "Organisms/{{name}}",
-  component: {{name}},
-  tags: ["autodocs"],
-};
-
-export default meta;
-type Story = StoryObj<typeof {{name}}>;
-
-export const Default: Story = {
-  args: {
-    children: "{{name}}",
-  },
-};
-`,
+        templateFile: 'plop-templates/component/story.tsx.hbs',
+        data: { componentType: 'Organisms' },
       },
     ],
   });
@@ -183,10 +99,7 @@ export const Default: Story = {
       {
         type: 'add',
         path: 'src/app/{{name}}/page.tsx',
-        template: `export default function {{pascalCase name}}Page() {
-  return <div>{/* {{name}} page */}</div>;
-}
-`,
+        templateFile: 'plop-templates/page/page.tsx.hbs',
       },
     ],
   });
