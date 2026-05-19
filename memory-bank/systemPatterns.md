@@ -1,13 +1,13 @@
 # System Patterns
 
-## Architecture
-The application follows a Client-Server architecture:
-- **Client**: Next.js 16 (App Router) + React 19, TypeScript, CSS Modules
-- **Server**: Express.js 5 with clean layered architecture
-
-## Server Architecture (Layered)
+## Architecture Overview
 ```
-src/
+Client (Next.js 16 - Atomic Design)  →  API (Express 5)  →  Services  →  Prisma ORM  →  PostgreSQL
+```
+
+## Server Architecture (Değişmiyor - Çalışır Durumda)
+```
+server/src/
 ├── config/          # DB connection (Prisma), JWT config
 ├── controllers/     # Request handlers (thin, delegates to services)
 ├── middlewares/     # Auth (protect/softProtect), Error handling, Validation
@@ -18,35 +18,75 @@ src/
 └── validators/     # express-validator chains
 ```
 
-## Client Architecture (Next.js App Router)
+## Client Architecture (YENİ — Atomic Design Pattern)
+
 ```
 client/src/
-├── app/            # Pages (auth/login, auth/rigister, dashboard/, etc.)
-├── components/     # UI components (LoginForm, SignUpForm, Header, Sidebar, etc.)
-├── lib/            # Axios instance configuration
-├── services/       # API service layer (authService)
-└── types/          # TypeScript types (user, settings)
+├── app/                 # Next.js App Router sayfaları (thin pages)
+├── components/
+│   ├── atoms/           # En küçük, yeniden kullanılabilir UI birimleri
+│   │   ├── Button/
+│   │   ├── Input/
+│   │   ├── Label/
+│   │   ├── Icon/
+│   │   ├── Spinner/
+│   │   └── Typography/
+│   ├── molecules/       # Atomların birleşimiyle oluşan gruplar
+│   │   ├── FormField/   # Label + Input + ErrorMessage
+│   │   ├── Card/
+│   │   ├── NavItem/
+│   │   ├── PasswordInput/  # Input + EyeToggle
+│   │   └── Toast/
+│   ├── organisms/       # Karmaşık, bağımsız bölümler
+│   │   ├── Header/
+│   │   ├── Sidebar/
+│   │   ├── LoginForm/
+│   │   ├── RegisterForm/
+│   │   ├── EmailVerificationForm/
+│   │   ├── ForgotPasswordForm/
+│   │   ├── ResetPasswordForm/
+│   │   └── ProfileCompletionForm/
+│   └── templates/       # Sayfa düzenleri / layout'lar
+│       ├── AuthTemplate/      # Login/Register gibi auth sayfaları için ortak layout
+│       └── DashboardTemplate/ # Header + Sidebar + Content alanı
+├── lib/                 # Axios instance, utility fonksiyonlar
+├── services/            # API servis katmanı (authService, userService, etc.)
+├── hooks/               # Custom React hooks (useAuth, useForm, etc.)
+├── context/             # React Context providers (AuthContext, etc.)
+└── types/               # TypeScript type definitions
 ```
 
 ## Data Flow
 ```
-Client (Axios)  →  API Routes (/api/v1/user/*)  →  Controllers  →  Services  →  Prisma ORM  →  PostgreSQL
+Page → Template → Organism → Service (Axios) → API Route → Controller → Service → DB
+                                       ↕
+                                Context / Hooks (state management)
 ```
 
-## Authentication Flow
-1. Register → JWT token set in httpOnly cookie → Redirect to email verification
-2. Verify email with 6-digit code → New JWT token issued (isVerified: true)
-3. Complete profile (choose role + fill details)
-4. Login → JWT token set in httpOnly cookie → Dashboard
-5. All protected routes use `protect` middleware (checks cookie/Bearer token)
-6. `softProtect` middleware used for email verification (optional auth context)
-
 ## Key Design Decisions
-- **JWT in httpOnly cookies**: Prevents XSS access, with Bearer token fallback for non-browser clients
-- **Service layer pattern**: Controllers are thin, business logic lives in services
-- **Error handling**: Centralized `globalError` middleware with dev/prod modes; custom `ApiError` class with status code
-- **Email modes**: `ONLINE` (real Gmail SMTP) and `OFFLINE` (console.log for development)
-- **Password validation**: Must contain uppercase letter + number, min 8 chars
-- **Profile completion**: Uses Prisma `$transaction` to atomically create Dentist/Technician + update User
-- **CSS Modules**: Per-component scoped styling
-- **Code style**: ESLint with `@antfu/eslint-config`
+
+### Atomic Design
+- **Atoms**: Tek bir sorumluluğu olan, bağımsız UI elementleri. Kendi başlarına bir anlam ifade etmezler.
+- **Molecules**: Atomları bir araya getiren, tek bir işlevi olan gruplar. (örn. FormField = Label + Input + Error)
+- **Organisms**: Molekülleri ve atomları birleştiren, belirgin bir UI bölümü. (örn. LoginForm)
+- **Templates**: Organism'leri sayfa düzenine yerleştiren, içerikten bağımsız layout'lar.
+- **Pages**: Template + gerçek içerik = tam sayfa.
+
+### Component Kuralları
+- Her component kendi klasöründe: `ComponentName/index.tsx` + `ComponentName.module.css`
+- Props tipleri `ComponentName.types.ts` (opsiyonel, küçükse inline)
+- Her component tek bir sorumluluğa sahip
+- State management mümkün olduğunca yukarı taşınır (lifting state up)
+
+### JWT Auth (Değişmiyor)
+- JWT httpOnly cookie'de saklanır (XSS koruması)
+- Bearer token fallback (non-browser client'lar için)
+- `protect` middleware tüm korumalı route'larda
+
+### Error Handling (Değişmiyor)
+- Backend: Merkezi `globalError` middleware, dev/prod modları, custom `ApiError` class
+- Frontend: Axios interceptor + toast notifications
+
+### Email Modes (Değişmiyor)
+- `ONLINE`: Gerçek Gmail SMTP
+- `OFFLINE`: console.log (geliştirme)

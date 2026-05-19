@@ -1,30 +1,40 @@
 # Project Brief
 
 ## Project Name
-Dental Lab Order Management System (authInMern / kanjoLab)
+Dental Lab Order Management System (KanjoLab)
+
+## Branch
+`refactor/frontend-rewrite`
 
 ## Overview
-Full-stack web application - Dişçi (Dentist) ve Laborant (Lab Technician) arasında protez/diş işi sipariş yönetim sistemi.
+Full-stack web application — Dişçi (Dentist) ve Laborant (Lab Technician) arasında protez/diş işi sipariş yönetim sistemi.
 
-## Core Goals
-- Secure authentication (Register, Login, Email Verification with 6-digit code)
-- Role-Based Access Control (Dentist, Lab Technician)
-- Order creation and tracking (dentist -> technician) with direct assignment
-- Professional dental lab workflow management
+Bu branch'in amacı: **Frontend'i sıfırdan yazmak.**
 
-## Tech Stack
+## Core Goals (This Branch)
+- Frontend'i **Atomic Design Pattern** ile yeniden inşa etmek
+  - `atoms/` — En küçük UI birimleri (Button, Input, Label, Icon)
+  - `molecules/` — Birden çok atomun birleşimi (FormField, Card, NavItem)
+  - `organisms/` — Karmaşık UI bölümleri (Header, Sidebar, LoginForm)
+  - `templates/` — Sayfa şablonları (AuthTemplate, DashboardTemplate)
+  - `pages/` — Tam sayfalar
+- **System Design** prensipleriyle ölçeklenebilir, bakımı kolay frontend mimarisi kurmak
+- Server API'si ile tam uyumlu, tip-güvenli bir client katmanı oluşturmak
+
+## Tech Stack (This Branch)
 - **Frontend**: Next.js 16 (React 19), TypeScript, CSS Modules
-- **Backend**: Express.js 5 (Node.js), TypeScript
-- **Database**: PostgreSQL via Prisma ORM
-- **Auth**: JWT (cookie-based, httpOnly), bcryptjs
-- **Validation**: express-validator
-- **Email**: Nodemailer (Gmail SMTP) with ONLINE/OFFLINE modes
+- **Mimari**: Atomic Design Pattern
 - **HTTP Client**: Axios (withCredentials)
 - **Notifications**: Sonner (toast library)
+- **State Management**: React Context + hooks (gerektikçe)
+
+## Backend (Değişmiyor, çalışır durumda)
+- Express.js 5, TypeScript, Prisma ORM (PostgreSQL)
+- JWT (httpOnly cookie), bcryptjs, express-validator, nodemailer
 
 ## User Roles
-1. **DENTIST** - Dişçi, sipariş oluşturur, işi atar
-2. **LAB_TECHNICIAN** - Laborant, işi yapar, durumu günceller
+1. **DENTIST** — Dişçi, sipariş oluşturur, işi atar
+2. **LAB_TECHNICIAN** — Laborant, işi yapar, durumu günceller
 
 ## API Base URL
 - Server: `http://localhost:3000/api/v1`

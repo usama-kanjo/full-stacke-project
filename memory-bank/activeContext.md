@@ -1,32 +1,50 @@
 # Active Context
 
+## Current Branch
+`refactor/frontend-rewrite`
+
 ## Current Focus
-Authentication system is fully implemented on the backend (register, login, email verification, password management, profile completion). The frontend has basic login/register pages but there are **discrepancies between client-side API calls and actual server endpoints**.
+Frontend'i **Atomic Design Pattern** ile sıfırdan yazıyoruz. Eski client componentları tamamen temizlendi. Sıfırdan, sistemli ve ölçeklenebilir bir frontend mimarisi kuruluyor.
+
+Server tarafı zaten tamamen çalışır durumda — sadece frontend'e odaklanıyoruz.
 
 ## Recent Changes
-- Memory Bank created and populated with full project scan
-- Identified server-side auth flow working correctly
-- Identified client-server API mismatches (see Known Issues)
+- Eski client componentları temizlendi (rigister, LoginPage, dashboard, rootPage, Footer vs.)
+- `.storybook` eklendi
+- `next.config.ts`, `layout.tsx`, `page.tsx` sadeleştirildi
+- `yarn.lock` güncellendi
 
 ## Active Decisions
-- Auth uses JWT in httpOnly cookies (not localStorage) for security
-- Email verification uses 6-digit code (not URL token) for simplicity
-- Direct assignment model for orders (no bidding system)
-- Turkish UI with English backend messages
+- **Atomic Design Pattern**: `atoms/` → `molecules/` → `organisms/` → `templates/` → `pages/` hiyerarşisi
+- **Her component kendi klasöründe**: `ComponentName/index.tsx` + `ComponentName.module.css`
+- **CSS Modules** kullanılmaya devam edilecek
+- **Server API'si değişmiyor** — client mevcut endpoint'lere göre yazılacak
+- **AuthContext** ile global auth state yönetimi (Context API)
+- **Custom hooks** ile logic/UI ayrıştırması (useAuth, useForm)
+- **Storybook** component geliştirme ve dokümantasyon için
 
-## Known Issues
-1. **Client authService.ts calls non-existent routes**: `getProfile` hits `/auth/profile` (should be `/user/profile` or `/dentist/profile`), `emailVerify` hits `GET /user/verify-email/:token` but server expects `POST /user/verify-email` with `{ verificationCode }` in body, `resendVerificationEmail` hits `/user/resend-verification-email` but server expects `POST /user/resend-code`
-2. **Typo in directory name**: `rigister` instead of `register` (applies to both page route and component folder)
-3. **Broken icon imports**: Register form imports `EyeIconeeee` and `GoogleIconeeee` which likely don't exist in Icons.tsx
-4. **Order management**: Schema exists but no routes, controllers, or services implemented yet
-5. **No role-based route guards**: Dashboard doesn't check user role or redirect unauthenticated users
-6. **Test scripts (dist/scripts/test/)**: Test suite exists but source is compiled-only; no source TypeScript found for tests
+## Known Issues (Backend)
+- Server çalışıyor, dokunmuyoruz
+
+## Known Issues (Frontend — Yeni branch'te çözülecek)
+1. Eski `authService.ts` endpoint'leri server'la uyuşmuyordu — sıfırdan yazılacak
+2. `rigister` typo'su — atomic tasarımda düzeltilecek
+3. Kırık icon importları — yeni Icon atom'u ile çözülecek
+4. Auth guard eksik — AuthContext + protected route ile eklenecek
+5. Order management frontendi henüz yok — future task
 
 ## Next Steps
-- [ ] Fix client-server API mismatches in authService.ts
-- [ ] Fix import errors in register form (icons)
-- [ ] Implement order management CRUD
-- [ ] Add role-based access middleware
-- [ ] Add dashboard authentication guard
-- [ ] Add comprehensive error pages
-- [ ] Write proper tests
+- [ ] Atomic Design klasör yapısını oluştur
+- [ ] Atom component'larını yaz (Button, Input, Label, Icon, Spinner)
+- [ ] Molecule component'larını yaz (FormField, PasswordInput, Card)
+- [ ] Organism component'larını yaz (LoginForm, RegisterForm, Header, Sidebar)
+- [ ] Template'leri oluştur (AuthTemplate, DashboardTemplate)
+- [ ] AuthContext + useAuth hook
+- [ ] Axios instance + apiClient katmanı
+- [ ] Auth servisini yaz (server endpoint'leriyle uyumlu)
+- [ ] Login sayfası
+- [ ] Register sayfası
+- [ ] Email verification sayfası
+- [ ] Forgot/Reset password sayfaları
+- [ ] Profile completion sayfası
+- [ ] Dashboard layout + sayfaları

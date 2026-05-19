@@ -1,70 +1,73 @@
 # Progress
 
+## Branch: `refactor/frontend-rewrite`
+
 ## What Works
-### Backend (Server - Complete)
-- [x] Express 5 server setup with TypeScript
-- [x] Prisma ORM connected to PostgreSQL (8 migrations applied)
-- [x] User registration with email + password (bcrypt hashing)
-- [x] Email verification with 6-digit code (ONLINE/OFFLINE modes)
+### Backend (Server — Tamamen Çalışıyor, Dokunulmuyor)
+- [x] Express 5 server with TypeScript (ESM)
+- [x] Prisma ORM (PostgreSQL, 8 migrations)
+- [x] User registration + bcrypt hashing
+- [x] Email verification (6-digit code, ONLINE/OFFLINE)
 - [x] Resend verification code
-- [x] JWT token generation (httpOnly cookie + Bearer fallback)
-- [x] Login with email/password
-- [x] Logout (cookie clearing)
-- [x] Forgot password (6-digit code via email)
-- [x] Reset password with code
+- [x] JWT token (httpOnly cookie + Bearer fallback)
+- [x] Login/Logout
+- [x] Forgot/Reset password (6-digit code)
 - [x] Change password (authenticated)
-- [x] Profile completion (Dentist or Lab Technician via Prisma transaction)
-- [x] Dentist profile CRUD (get/update)
-- [x] Technician profile CRUD (get/update)
-- [x] Input validation (express-validator chains)
-- [x] Centralized error handling (dev/prod modes)
+- [x] Profile completion (Dentist/Technician via Prisma transaction)
+- [x] Dentist profile CRUD
+- [x] Technician profile CRUD
+- [x] Input validation (express-validator)
+- [x] Centralized error handling (dev/prod)
 - [x] CORS configuration
-- [x] Custom test scripts (auth, password, profile flows)
+- [x] Custom test scripts
 
-### Frontend (Client - Partial)
-- [x] Next.js 16 App Router setup
-- [x] Axios instance with credentials
-- [x] Login page (Turkish UI)
-- [x] Register page (Turkish UI)
-- [x] Forgot password page
-- [x] Email verification page (dynamic [token] route)
-- [x] Dashboard layout (Header + Sidebar)
-- [x] Dashboard main page (placeholder data)
-- [x] Dashboard profile page
-- [x] Dashboard settings page
+### Frontend (Client — Sıfırdan Yazılıyor)
+- [x] Next.js 16 App Router kurulumu (temiz)
+- [x] `.storybook` konfigürasyonu
+- [ ] Atomic Design klasör yapısı
+- [ ] Atom component'lar (Button, Input, Label, Icon, Spinner)
+- [ ] Molecule component'lar (FormField, PasswordInput, Card)
+- [ ] Organism component'lar (LoginForm, RegisterForm, Header, Sidebar)
+- [ ] Template'ler (AuthTemplate, DashboardTemplate)
+- [ ] AuthContext + useAuth hook
+- [ ] Axios instance + apiClient
+- [ ] Auth servisi (server uyumlu)
+- [ ] Login sayfası
+- [ ] Register sayfası
+- [ ] Email verification sayfası
+- [ ] Forgot/Reset password sayfaları
+- [ ] Profile completion sayfası
+- [ ] Dashboard layout + sayfaları
 
-### Database (Schema Complete)
-- [x] User model (with verification & reset fields)
+### Database (Schema — Tamamen Çalışıyor)
+- [x] User model
 - [x] Dentist model
 - [x] Technician model
 - [x] Order model (with OrderStatus enum)
 - [x] All indexes and relations
 
-## What's Left to Build
-### High Priority
-- [ ] Fix client-side authService.ts API mismatches (wrong endpoints)
-- [ ] Fix broken icon imports in register form (EyeIconeeee, GoogleIconeeee)
-- [ ] Add authentication guard to dashboard pages (redirect to login if no cookie)
-- [ ] Implement 404 / error pages properly
+## Milestones
 
-### Medium Priority
-- [ ] Order management (create, read, update, delete, status tracking)
-- [ ] Role-based access control middleware (restrict dentist vs technician endpoints)
-- [ ] Assign technician to order flow
-- [ ] Technician order view (assigned orders)
+### Milestone 1: Foundation (Atomic Yapı)
+- [ ] Klasör yapısını oluştur
+- [ ] Tüm atom component'lar
+- [ ] Storybook stories
 
-### Low Priority
-- [ ] Admin panel
-- [ ] Real-time notifications (WebSocket)
-- [ ] File upload (patient images/X-rays)
-- [ ] Multi-language support (tr/en/ar - types already defined)
-- [ ] Dark mode / theme switching (types already defined)
-- [ ] Google OAuth integration (UI buttons exist)
+### Milestone 2: Auth Flow (Page'ler)
+- [ ] Tüm auth sayfaları (login, register, verify, password reset, profile completion)
+- [ ] AuthContext ile global state
+- [ ] Axios interceptor + error handling
+
+### Milestone 3: Dashboard
+- [ ] Dashboard layout (Header + Sidebar)
+- [ ] Dashboard ana sayfa
+- [ ] Dashboard profil
+- [ ] Dashboard ayarlar
+
+### Milestone 4: Order Management (Future)
+- [ ] Order list, create, detail sayfaları
+- [ ] Role-based routing
 
 ## Known Issues
-1. **Client-server API mismatch**: `authService.ts` calls routes that don't match server implementation (see activeContext.md)
-2. **Typo**: `rigister` instead of `register` throughout client
-3. **Broken icon imports**: `EyeIconeeee`, `GoogleIconeeee` in register component
-4. **Order management**: Schema exists but no implementation
-5. **No auth guard**: Dashboard accessible without login
-6. **Test scripts**: Only in compiled `dist/`, no source TypeScript in `scripts/test/`
+- Backend'de sorun yok
+- Frontend henüz daha başlangıç aşamasında — eski component'lar temizlendi, yenileri yazılacak
