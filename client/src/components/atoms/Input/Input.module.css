@@ -1,0 +1,131 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.wrapper--full {
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-weight: var(--font-regular);
+  color: var(--color-neutral-800);
+  background-color: var(--color-neutral-0);
+  border: 1.5px solid var(--color-neutral-300);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--color-neutral-400);
+}
+
+.input:focus-visible {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+.input--disabled {
+  background-color: var(--color-neutral-100);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.input--error {
+  border-color: var(--color-error);
+}
+
+.input--error:focus-visible {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px var(--color-error-light);
+}
+
+.input--sm {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.input--md {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+}
+
+.input--lg {
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-lg);
+}
+
+.input--hasLeftIcon {
+  padding-left: calc(var(--space-3) + 1.2em + var(--space-2));
+}
+
+.input--hasRightIcon {
+  padding-right: calc(var(--space-3) + 1.2em + var(--space-2));
+}
+
+.input--clickableRightIcon {
+  padding-right: calc(var(--space-2) + 1.2em + var(--space-2));
+}
+
+.input--full {
+  width: 100%;
+}
+
+.leftIcon {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  color: var(--color-neutral-400);
+  pointer-events: none;
+  left: var(--space-3);
+}
+
+.rightIcon {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  color: var(--color-neutral-400);
+  pointer-events: none;
+  right: var(--space-3);
+}
+
+.rightIconBtn {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  color: var(--color-neutral-500);
+  right: var(--space-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-fast);
+}
+
+.rightIconBtn:hover {
+  color: var(--color-primary-500);
+}
+
+.errorText {
+  position: absolute;
+  bottom: -1.25rem;
+  left: 0;
+  font-size: var(--text-xs);
+  color: var(--color-error);
+  line-height: 1;
+}
