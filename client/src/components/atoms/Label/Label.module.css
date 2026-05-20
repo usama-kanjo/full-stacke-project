@@ -1,0 +1,22 @@
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-neutral-700);
+  line-height: var(--line-height-normal);
+  cursor: pointer;
+  user-select: none;
+}
+
+.label--disabled {
+  color: var(--color-neutral-400);
+  cursor: not-allowed;
+}
+
+.asterisk {
+  color: var(--color-error);
+  font-weight: var(--font-bold);
+}
