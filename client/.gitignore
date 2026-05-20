@@ -6,3 +6,5 @@ build/
 *.log
 coverage/
 storybook-static/
+.next/
+.next/dev/
