@@ -17,6 +17,7 @@
     "plop:page": "plop page"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^9.0.0",
     "@eslint/js": "^10.0.1",
     "@storybook/addon-essentials": "^8.6.14",
     "@storybook/blocks": "^8.6.14",

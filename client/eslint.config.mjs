@@ -1,20 +1,66 @@
-import js from "@eslint/js";
-import tseslint from "typescript-eslint";
-import globals from "globals";
+import antfu from "@antfu/eslint-config";
 
-export default [
-  {
-    ignores: [".next/", "dist/", "node_modules/", "storybook-static/"],
+export default antfu({
+  type: "app",
+  stylistic: {
+    indent: 2,
+    quotes: "double",
+    semi: true,
   },
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
-  {
-    files: ["**/*.{js,jsx,mjs,cjs,ts,tsx}"],
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
+  typescript: true,
+  ignores: ["dist/", "scripts/", "prisma/"],
+  rules: {
+    eqeqeq: "error",
+    curly: "error",
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-new-func": "error",
+    "no-throw-literal": "error",
+    "prefer-promise-reject-errors": "error",
+    "no-console": "off",
+    "no-empty": "off",
+    "no-process-exit": "error",
+    "no-undef": "error",
+    "no-unused-vars": "off",
+    "prefer-destructuring": "off",
+    "func-names": "off",
+    "object-shorthand": "off",
+    "spaced-comment": "error",
+    "consistent-return": "off",
+    "no-param-reassign": "off",
+    "no-return-await": "off",
+    "no-underscore-dangle": "off",
+    "no-use-before-define": "off",
+    "no-shadow": "off",
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "warn",
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "n/no-unsupported-features/es-syntax": "off",
+    "n/no-missing-import": "off",
+    "n/no-process-exit": "off",
+    "node/prefer-global/process": "off",
+    "preserve-caught-error": "off",
+    "antfu/top-level-function": "off",
+    "unicorn/prefer-number-properties": "off",
+    "style/brace-style": "off",
+    "ts/consistent-type-definitions": "off",
+    "import/consistent-type-specifier-style": "off",
+    "perfectionist/sort-imports": "warn",
+    "perfectionist/sort-named-imports": "warn",
+    "perfectionist/sort-named-exports": "warn",
+    "antfu/consistent-list-newline": "warn",
+    "antfu/if-newline": "warn",
+    "ts/no-use-before-define": "off",
+    "regexp/prefer-d": "off",
+    "unused-imports/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        caughtErrorsIgnorePattern: "^_",
       },
-    },
+    ],
   },
-];
+});
