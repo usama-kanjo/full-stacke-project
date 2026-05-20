@@ -1,25 +1,34 @@
 import React from "react";
 import styles from "./Badge.module.css";
 
-type BadgeProps = {
-  children?: React.ReactNode;
-  disabled?: boolean;
-  onClick?: () => void;
-};
+export type BadgeVariant = "primary" | "success" | "warning" | "error" | "neutral";
+export type BadgeSize = "sm" | "md" | "lg";
+
+export interface BadgeProps {
+  variant?: BadgeVariant;
+  size?: BadgeSize;
+  dot?: boolean;
+
+  children: React.ReactNode;
+}
 
 export const Badge: React.FC<BadgeProps> = ({
+  variant = "primary",
+  size = "md",
+  dot = false,
   children,
-  disabled = false,
-  onClick,
 }) => {
+  const classes = [
+    styles.badge,
+    styles[`badge--${variant}`],
+    styles[`badge--${size}`],
+  ].join(" ");
+
   return (
-    <div
-      className={`${styles.container} ${disabled ? styles.disabled : ""}`}
-      onClick={onClick}
-      aria-disabled={disabled}
-    >
+    <span className={classes}>
+      {dot && <span className={styles.dot} aria-hidden="true" />}
       {children}
-    </div>
+    </span>
   );
 };
 

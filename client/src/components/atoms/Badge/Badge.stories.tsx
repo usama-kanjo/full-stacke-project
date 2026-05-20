@@ -6,15 +6,19 @@ const meta: Meta<typeof Badge> = {
   component: Badge,
   tags: ["autodocs"],
   argTypes: {
-    children: {
-      control: { type: "text" },
-      description: "Component content",
+    variant: {
+      control: { type: "select" },
+      options: ["primary", "success", "warning", "error", "neutral"],
+      description: "لون الـ Badge بناءً على المعنى الدلالي",
     },
-    disabled: {
+    size: {
+      control: { type: "radio" },
+      options: ["sm", "md", "lg"],
+    },
+    dot: {
       control: { type: "boolean" },
-      description: "Disable the component",
+      description: "إضافة نقطة ملوّنة قبل النص",
     },
-    onClick: { action: "clicked" },
   },
 };
 
@@ -22,14 +26,43 @@ export default meta;
 type Story = StoryObj<typeof Badge>;
 
 export const Default: Story = {
-  args: {
-    children: "Badge",
-  },
+  args: { children: "جديد", variant: "primary" },
 };
 
-export const Disabled: Story = {
-  args: {
-    children: "Badge",
-    disabled: true,
-  },
+export const AllVariants: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+      <Badge variant="primary">أساسي</Badge>
+      <Badge variant="success">مكتمل ✓</Badge>
+      <Badge variant="warning">قيد الانتظار</Badge>
+      <Badge variant="error">خطأ</Badge>
+      <Badge variant="neutral">مؤرشف</Badge>
+    </div>
+  ),
+};
+
+export const WithDot: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "8px" }}>
+      <Badge variant="success" dot>
+        متصل
+      </Badge>
+      <Badge variant="error" dot>
+        غير متصل
+      </Badge>
+      <Badge variant="warning" dot>
+        في انتظار الموافقة
+      </Badge>
+    </div>
+  ),
+};
+
+export const AllSizes: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+      <Badge size="sm">صغير</Badge>
+      <Badge size="md">متوسط</Badge>
+      <Badge size="lg">كبير</Badge>
+    </div>
+  ),
 };

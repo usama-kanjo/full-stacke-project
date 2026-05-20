@@ -2,7 +2,7 @@
 
 ## Technologies
 
-### Backend (server/) — Değişmiyor, çalışır durumda
+### Backend (server/) — Unchanged, Working
 - **Runtime**: Node.js (ESM, `"type": "module"`)
 - **Framework**: Express 5 (`^5.1.0`)
 - **Language**: TypeScript
@@ -12,22 +12,26 @@
 - **Email**: `nodemailer` 8 (Gmail SMTP)
 - **Dev Tools**: `tsx` (TypeScript execution), Prisma Studio
 
-### Frontend (client/) — YENİDEN YAZILIYOR
+### Frontend (client/) — BEING REWRITTEN
 - **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **UI Library**: React 19
 - **HTTP Client**: Axios (withCredentials: true)
 - **Notifications**: Sonner
 - **Styling**: CSS Modules (`.module.css`)
-- **Mimari**: Atomic Design Pattern
-- **Storybook**: `.storybook/` kurulu
-- **Code Generator**: Plop (scaffolding)
+- **Architecture**: Atomic Design Pattern
+- **Storybook**: `.storybook/` configured and working
+- **Code Generator**: Plop (scaffolding) with custom templates
+- **Design Tokens**: Custom tokens system (colors, spacing, typography)
+- **Linting**: `@antfu/eslint-config`
+- **Validation**: zod
 
 ## Development Setup
 - **Package Manager**: yarn (workspaces)
 - **Server Dev**: `yarn server` (tsx watch, port 3000)
 - **Client Dev**: `yarn client` (next dev -p 3001)
 - **Full Dev**: `yarn dev` (concurrently runs both)
+- **Storybook**: `yarn workspace client storybook`
 
 ## NPM Scripts (Server)
 | Script | Command |
@@ -61,7 +65,7 @@
 - **CORS**: Allowed origin `http://localhost:3001` with credentials
 - **Path alias**: `@/*` maps to `./client/src/*`
 
-## Prisma Migrations (8 total — Değişmiyor)
+## Prisma Migrations (8 total — Unchanged)
 1. `init` — Initial schema
 2. `update_relations_to_one_to_many` — Relation fixes
 3. `add_role_to_user` — Role field on User

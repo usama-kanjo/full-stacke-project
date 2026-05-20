@@ -13,13 +13,13 @@ export const {{name}}: React.FC<{{name}}Props> = ({
   onClick,
 }) => {
   return (
-    <div
+    <button
       className={`${styles.container} ${disabled ? styles.disabled : ""}`}
       onClick={onClick}
-      aria-disabled={disabled}
+      disabled={disabled}
     >
       {children}
-    </div>
+    </button>
   );
 };
 
