@@ -1,17 +1,24 @@
+// ============================================================
+// .storybook/main.ts
+// ============================================================
+// Storybook configuration: where to look for stories and which addons are enabled
+// ============================================================
+
 import type { StorybookConfig } from "@storybook/nextjs";
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: [
-    "@storybook/addon-essentials",
-    "@storybook/blocks",
-    "@storybook/test",
-  ],
+  stories: ["../src/**/*.stories.@(ts|tsx)"],
+
+  addons: ["@storybook/addon-essentials", "@storybook/addon-interactions"],
+
   framework: {
     name: "@storybook/nextjs",
     options: {},
   },
-  staticDirs: ["../public"],
+
+  docs: {
+    autodocs: "tag",
+  },
 };
 
 export default config;
