@@ -1,0 +1,61 @@
+.card {
+  display: block;
+  border-radius: var(--radius-xl);
+  text-align: left;
+  font-family: var(--font-sans);
+  transition:
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.card--outlined {
+  border: 1px solid var(--color-neutral-200);
+  background-color: var(--color-neutral-0);
+  box-shadow: none;
+}
+
+.card--elevated {
+  border: 1px solid var(--color-neutral-200);
+  background-color: var(--color-neutral-0);
+  box-shadow: var(--shadow-base);
+}
+
+.card--flat {
+  border: none;
+  background-color: var(--color-neutral-50);
+  box-shadow: none;
+}
+
+.card--hoverable:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-200);
+}
+
+.card--clickable {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.card--clickable:active {
+  transform: translateY(1px);
+}
+
+.card--pad-none {
+  padding: 0;
+}
+
+.card--pad-sm {
+  padding: var(--space-3);
+}
+
+.card--pad-md {
+  padding: var(--space-5);
+}
+
+.card--pad-lg {
+  padding: var(--space-8);
+}

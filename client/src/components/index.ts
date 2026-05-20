@@ -5,5 +5,6 @@ export { Input } from "./atoms/Input";
 export { Label } from "./atoms/Label";
 export { Spinner } from "./atoms/Spinner";
 export { Typography } from "./atoms/Typography";
+export { Card } from "./molecules/Card";
 export { FormField } from "./molecules/FormField";
 export { PasswordInput } from "./molecules/PasswordInput";
