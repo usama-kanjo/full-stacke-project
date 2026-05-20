@@ -1,13 +1,13 @@
 import React from "react";
-import styles from "./{{name}}.module.css";
+import styles from "./Badge.module.css";
 
-type {{name}}Props = {
+type BadgeProps = {
   children?: React.ReactNode;
   disabled?: boolean;
   onClick?: () => void;
 };
 
-export const {{name}}: React.FC<{{name}}Props> = ({
+export const Badge: React.FC<BadgeProps> = ({
   children,
   disabled = false,
   onClick,
@@ -23,4 +23,4 @@ export const {{name}}: React.FC<{{name}}Props> = ({
   );
 };
 
-export default {{name}};
+export default Badge;
