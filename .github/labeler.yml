@@ -1,0 +1,11 @@
+client:
+  - changed-files:
+      - any-glob-to-any-file: 'client/**'
+
+server:
+  - changed-files:
+      - any-glob-to-any-file: 'server/**'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: ['*.md', 'docs/**']
