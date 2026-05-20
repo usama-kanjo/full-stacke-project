@@ -11,8 +11,13 @@ export default function (plop) {
     actions: [
       {
         type: 'add',
-        path: 'src/components/atoms/{{name}}/index.tsx',
-        templateFile: 'plop-templates/component/index.tsx.hbs',
+        path: 'src/components/atoms/{{name}}/index.ts',
+        templateFile: 'plop-templates/component/index.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/components/atoms/{{name}}/{{name}}.tsx',
+        templateFile: 'plop-templates/component/component.tsx.hbs',
       },
       {
         type: 'add',
@@ -40,8 +45,13 @@ export default function (plop) {
     actions: [
       {
         type: 'add',
-        path: 'src/components/molecules/{{name}}/index.tsx',
-        templateFile: 'plop-templates/component/index.tsx.hbs',
+        path: 'src/components/molecules/{{name}}/index.ts',
+        templateFile: 'plop-templates/component/index.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/components/molecules/{{name}}/{{name}}.tsx',
+        templateFile: 'plop-templates/component/component.tsx.hbs',
       },
       {
         type: 'add',
@@ -69,8 +79,13 @@ export default function (plop) {
     actions: [
       {
         type: 'add',
-        path: 'src/components/organisms/{{name}}/index.tsx',
-        templateFile: 'plop-templates/component/index.tsx.hbs',
+        path: 'src/components/organisms/{{name}}/index.ts',
+        templateFile: 'plop-templates/component/index.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/components/organisms/{{name}}/{{name}}.tsx',
+        templateFile: 'plop-templates/component/component.tsx.hbs',
       },
       {
         type: 'add',
