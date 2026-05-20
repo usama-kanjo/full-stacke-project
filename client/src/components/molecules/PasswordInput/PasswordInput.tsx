@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Icon } from "@/components/atoms/Icon";
 import { Input, type InputProps } from "@/components/atoms/Input";
 
 export interface PasswordInputProps extends Omit<InputProps, "type" | "rightIcon" | "onRightIconClick"> {}
@@ -9,11 +10,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = (props) => {
   return (
     <Input
       type={show ? "text" : "password"}
-      rightIcon={(
-        <span style={{ fontSize: "1.1em" }}>
-          {show ? "👁️" : "👁️‍🗨️"}
-        </span>
-      )}
+      rightIcon={<Icon name={show ? "eye" : "eyeOff"} />}
       onRightIconClick={() => setShow(prev => !prev)}
       {...props}
     />
