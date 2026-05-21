@@ -6,25 +6,30 @@
 - **Runtime**: Node.js (ESM, `"type": "module"`)
 - **Framework**: Express 5 (`^5.1.0`)
 - **Language**: TypeScript
-- **Database ORM**: Prisma 7 (PostgreSQL provider)
+- **Database ORM**: Prisma 7 (`^7.8.0`, PostgreSQL provider)
 - **Auth**: `jsonwebtoken` 9, `bcryptjs` 3
 - **Validation**: `express-validator` 7
 - **Email**: `nodemailer` 8 (Gmail SMTP)
 - **Dev Tools**: `tsx` (TypeScript execution), Prisma Studio
 
 ### Frontend (client/) — BEING REWRITTEN
-- **Framework**: Next.js 16 (App Router)
-- **Language**: TypeScript
-- **UI Library**: React 19
-- **HTTP Client**: Axios (withCredentials: true)
-- **Notifications**: Sonner
+- **Framework**: Next.js 16 (`^16.2.6`, App Router)
+- **Language**: TypeScript (`^6.0.3`)
+- **UI Library**: React 19 (`^19.2.6`)
 - **Styling**: CSS Modules (`.module.css`)
 - **Architecture**: Atomic Design Pattern
-- **Storybook**: `.storybook/` configured and working
-- **Code Generator**: Plop (scaffolding) with custom templates
+- **Storybook**: `@storybook/nextjs ^10.4.0`, configured and working
+- **Code Generator**: Plop (`plopfile.js`) with custom `.hbs` templates
 - **Design Tokens**: Custom tokens system (colors, spacing, typography)
 - **Linting**: `@antfu/eslint-config`
-- **Validation**: zod
+- **Validation**: zod (`^4.4.3`)
+
+### Planned / Future Dependencies
+- **HTTP Client**: Axios (withCredentials: true)
+- **Notifications**: Sonner (toast library)
+- **WebSocket**: Socket.IO (real-time notifications)
+- **Global State Management**: TBD (Context API / Zustand / Redux)
+- **i18n**: next-intl or react-i18next (Arabic + English)
 
 ## Development Setup
 - **Package Manager**: yarn (workspaces)

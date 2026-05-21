@@ -29,6 +29,14 @@ The server is fully functional — we are only focusing on the frontend.
 - Created **Badge** atom component with:
   - 3 variants: `default`, `success`, `warning`
   - Storybook stories
+- Created **Icon** atom component with SVG icon list
+- Created **Input** atom component
+- Created **Label** atom component
+- Created **Spinner** atom component
+- Created **Typography** atom component
+- Created **Card** molecule component
+- Created **FormField** molecule component (Label + Input + Error)
+- Created **PasswordInput** molecule component (Input + visibility toggle)
 - Created **MainLayout** template (empty — ready for implementation)
 - Created **Home** page component (empty — ready for implementation)
 - Fixed Storybook config and design tokens integration
@@ -50,6 +58,9 @@ The server is fully functional — we are only focusing on the frontend.
 - **Plop** for code scaffolding to enforce consistency
 - **zod** for client-side form validation
 - **@antfu/eslint-config** for code quality
+- **Future: i18n** — Arabic + English UI support
+- **Future: WebSocket** — Socket.IO for real-time notifications
+- **Future: Global State Management** — beyond simple Context API
 
 ## Known Issues (Backend)
 - Server is working, not touching it
@@ -57,7 +68,7 @@ The server is fully functional — we are only focusing on the frontend.
 ## Known Issues (Frontend — To Be Resolved in This Branch)
 1. Old `authService.ts` endpoints did not match the server — to be rewritten from scratch
 2. `rigister` typo — to be fixed in atomic design rewrite
-3. Broken icon imports — to be resolved with new Icon atom
+3. Broken icon imports — resolved with new Icon atom
 4. Missing auth guard — to be added with AuthContext + protected routes
 5. Order management frontend does not exist yet — future task
 
@@ -65,18 +76,19 @@ The server is fully functional — we are only focusing on the frontend.
 - [x] Plop generator templates created (atom, molecule, organism)
 - [x] Atomic Design folder structure created
 - [x] Design tokens system created (colors, spacing, typography)
-- [x] Button atom component done
-- [x] Badge atom component done
-- [ ] More atom components (Input, Label, Icon, Spinner, Typography)
-- [ ] Molecule components (FormField, PasswordInput, Card)
-- [ ] Organism components (LoginForm, RegisterForm, Header, Sidebar)
-- [ ] Templates (AuthTemplate, DashboardTemplate, MainLayout)
+- [x] All atom components (Button, Badge, Input, Label, Icon, Spinner, Typography)
+- [x] All molecule components (FormField, PasswordInput, Card)
+- [ ] Axios + Sonner installation
+- [ ] Organism components (LoginForm, RegisterForm, Header, Sidebar, EmailVerificationForm, ForgotPasswordForm, ResetPasswordForm, ProfileCompletionForm)
+- [ ] Templates (AuthTemplate, DashboardTemplate)
 - [ ] AuthContext + useAuth hook
-- [ ] Axios instance + apiClient layer
-- [ ] Auth service (matching server endpoints)
+- [ ] API client layer + auth service
 - [ ] Login page
 - [ ] Register page
 - [ ] Email verification page
 - [ ] Forgot/Reset password pages
 - [ ] Profile completion page
 - [ ] Dashboard layout + pages
+- [ ] Global state management
+- [ ] WebSocket notifications (frontend + backend)
+- [ ] i18n — Arabic + English UI support

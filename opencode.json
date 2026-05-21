@@ -1,15 +1,13 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "playwright": {
+    "chrome-devtools": {
       "type": "local",
       "command": [
         "npx",
         "-y",
-        "@playwright/mcp@latest",
-        "--browser=firefox"
-      ],
-      "enabled": true
+        "chrome-devtools-mcp@latest"
+      ]
     }
   }
 }

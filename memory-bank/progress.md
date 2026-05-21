@@ -30,20 +30,28 @@
 - [x] **zod** client-side validation library
 - [x] **Button** atom component (3 variants, 3 sizes, loading, disabled)
 - [x] **Badge** atom component (3 variants)
-- [x] Atomic Design folder structure created
-- [ ] More atom components (Input, Label, Icon, Spinner, Typography)
-- [ ] Molecule components (FormField, PasswordInput, Card)
-- [ ] Organism components (LoginForm, RegisterForm, Header, Sidebar)
+- [x] **Input** atom component
+- [x] **Label** atom component
+- [x] **Icon** atom component (with icons list)
+- [x] **Spinner** atom component
+- [x] **Typography** atom component
+- [x] **Card** molecule component
+- [x] **FormField** molecule component
+- [x] **PasswordInput** molecule component
+- [ ] Organism components (LoginForm, RegisterForm, Header, Sidebar, etc.)
 - [ ] Templates (AuthTemplate, DashboardTemplate, MainLayout)
+- [ ] Axios + Sonner (to be installed)
 - [ ] AuthContext + useAuth hook
-- [ ] Axios instance + apiClient
-- [ ] Auth service (server-compatible)
+- [ ] API client + auth service
 - [ ] Login page
 - [ ] Register page
 - [ ] Email verification page
 - [ ] Forgot/Reset password pages
 - [ ] Profile completion page
 - [ ] Dashboard layout + pages
+- [ ] Global state management
+- [ ] WebSocket notifications (frontend + backend)
+- [ ] i18n — Arabic + English UI support
 
 ### Database (Schema — Fully Working)
 - [x] User model
@@ -58,10 +66,8 @@
 - [x] Folder structure created
 - [x] Design tokens system
 - [x] Plop generator
-- [x] Button atom component + Storybook
-- [x] Badge atom component + Storybook
-- [ ] All atom components
-- [ ] Storybook stories for all atoms
+- [x] All atom components + Storybook stories
+- [x] All molecule components + Storybook stories
 
 ### Milestone 2: Auth Flow (Pages)
 - [ ] All auth pages (login, register, verify, password reset, profile completion)
@@ -77,6 +83,21 @@
 ### Milestone 4: Order Management (Future)
 - [ ] Order list, create, detail pages
 - [ ] Role-based routing
+
+### Milestone 5: Global State Management
+- [ ] Evaluate state management approach (Context API / Zustand / Redux)
+- [ ] Implement global state layer
+
+### Milestone 6: WebSocket Notifications
+- [ ] Backend WebSocket setup (Socket.IO)
+- [ ] Frontend WebSocket integration
+- [ ] Real-time notification system
+
+### Milestone 7: i18n (Arabic + English)
+- [ ] i18n library setup (next-intl / react-i18next)
+- [ ] English translations
+- [ ] Arabic translations
+- [ ] RTL layout support
 
 ## Known Issues
 - Backend: No issues

@@ -24,17 +24,25 @@ This branch aims to: **Rewrite the frontend from scratch.**
   - `pages/` — Full pages
 - Build a scalable, maintainable frontend architecture using **System Design** principles
 - Create a type-safe client layer fully compatible with the server API
+- Support **i18n** (Arabic + English) in the future
+- Add **WebSocket** real-time notifications (future)
 
 ## Tech Stack (This Branch)
 
 - **Frontend**: Next.js 16 (React 19), TypeScript, CSS Modules
 - **Architecture**: Atomic Design Pattern
+- **Code Generator**: Plop (`plopfile.js`) — scaffolding
+- **Design Tokens**: Custom tokens system (colors, spacing, typography)
+- **Storybook**: Component development and documentation
+- **Linting**: `@antfu/eslint-config`
+- **Validation**: zod
+
+### Planned Dependencies
 - **HTTP Client**: Axios (withCredentials)
 - **Notifications**: Sonner (toast library)
-- **State Management**: Global State
-- **Design Tokens**: Custom tokens system (colors, spacing, typography)
-- **Code Generator**: Plop (scaffolding)
-- **Storybook**: Component development and documentation
+- **WebSocket**: Socket.IO (planned)
+- **Global State**: TBD (Context API / Zustand / Redux — planned)
+- **i18n**: next-intl or react-i18next (Arabic + English — planned)
 
 ## Backend (Unchanged — Working)
 

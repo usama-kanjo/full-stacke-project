@@ -23,10 +23,12 @@ We are not touching the backend in this branch. Only the frontend is being rewri
 - **Password Management**: Change password (authenticated), Forgot/Reset password (6-digit code)
 - **Logout**: Token cookie clearing
 - **JWT Auth**: httpOnly cookie-based with Bearer token fallback
+- [ ] WebSocket notification support (planned)
 
 ## Core Features (Frontend — To Be Built From Scratch)
 
-- [ ] Rebuild all UI components with Atomic Design
+- [x] All atom components (Button, Badge, Input, Label, Icon, Spinner, Typography)
+- [x] All molecule components (FormField, PasswordInput, Card)
 - [ ] Login page
 - [ ] Register page
 - [ ] Email verification page
@@ -37,6 +39,9 @@ We are not touching the backend in this branch. Only the frontend is being rewri
 - [ ] Dashboard profile page
 - [ ] Dashboard settings page
 - [ ] Order management (future)
+- [ ] Global state management (planned)
+- [ ] WebSocket notifications (planned)
+- [ ] i18n — Arabic + English UI support (planned)
 
 ## Database Models (Unchanged)
 
@@ -47,5 +52,5 @@ We are not touching the backend in this branch. Only the frontend is being rewri
 
 ## Language
 
-- UI: English (login/register pages, email templates)
+- Future: UI will support **English** and **Arabic** (RTL)
 - Backend validation messages: English

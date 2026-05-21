@@ -4,6 +4,8 @@
 
 ```
 Client (Next.js 16 - Atomic Design)  →  API (Express 5)  →  Services  →  Prisma ORM  →  PostgreSQL
+                                                        ↕
+                                           WebSocket (Socket.IO — planned)
 ```
 
 ## Server Architecture (Unchanged — Working)
@@ -25,7 +27,10 @@ server/src/
 ```
 client/src/
 ├── app/                 # Next.js App Router pages (thin)
+│   ├── layout.tsx
+│   └── page.tsx
 ├── assets/              # Static assets (images, fonts, etc.)
+│   └── fonts/
 ├── components/
 │   ├── atoms/           # Smallest reusable UI units
 │   │   ├── Button/
@@ -38,30 +43,25 @@ client/src/
 │   ├── molecules/       # Groups formed by combining atoms
 │   │   ├── FormField/   # Label + Input + ErrorMessage
 │   │   ├── Card/
-│   │   ├── NavItem/
-│   │   ├── PasswordInput/  # Input + EyeToggle
-│   │   └── Toast/
-│   ├── organisms/       # Complex, independent sections
-│   │   ├── Header/
-│   │   ├── Sidebar/
-│   │   ├── LoginForm/
-│   │   ├── RegisterForm/
-│   │   ├── EmailVerificationForm/
-│   │   ├── ForgotPasswordForm/
-│   │   ├── ResetPasswordForm/
-│   │   └── ProfileCompletionForm/
+│   │   └── PasswordInput/  # Input + EyeToggle
+│   ├── organisms/       # Complex, independent sections (to be built)
+│   │   └── (empty)
 │   ├── templates/       # Page layouts
-│   │   ├── AuthTemplate/       # Common layout for auth pages
-│   │   ├── MainLayout/        # Main application layout
-│   │   └── DashboardTemplate/ # Header + Sidebar + Content area
+│   │   └── MainLayout/  # (empty — ready for implementation)
 │   └── pages/           # Full page components
-│       └── Home/
+│       └── Home/        # (empty — ready for implementation)
 ├── tokens/              # Design tokens (colors, spacing, typography)
-├── lib/                 # Axios instance, utility functions
-├── services/            # API service layer (authService, userService, etc.)
-├── hooks/               # Custom React hooks (useAuth, useForm, etc.)
-├── context/             # React Context providers (AuthContext, etc.)
-└── types/               # TypeScript type definitions
+│   ├── colors.ts
+│   ├── spacing.ts
+│   ├── typography.ts
+│   ├── tokens.css
+│   └── index.ts
+├── types/               # TypeScript type definitions
+│   └── css.d.ts
+├── lib/                 # Axios instance, utility functions (planned)
+├── services/            # API service layer (planned)
+├── hooks/               # Custom React hooks (planned)
+└── context/             # React Context providers (planned)
 ```
 
 ## Data Flow
@@ -69,7 +69,9 @@ client/src/
 ```
 Page → Template → Organism → Service (Axios) → API Route → Controller → Service → DB
                                        ↕
-                                Global State (state management)
+                                Global State (state management — planned)
+                                       ↕
+                              WebSocket Notifications (planned)
 ```
 
 ## Key Design Decisions
@@ -97,6 +99,7 @@ Page → Template → Organism → Service (Axios) → API Route → Controller 
 
 ### Code Generation (Plop)
 
+- Plopfile at `client/plopfile.js`
 - Plop generators for scaffolding atoms, molecules, organisms
 - Each generated component includes: index.tsx, module.css, stories.tsx, index.ts
 - Reduces boilerplate and enforces consistency
@@ -116,3 +119,9 @@ Page → Template → Organism → Service (Axios) → API Route → Controller 
 
 - `ONLINE`: Real Gmail SMTP
 - `OFFLINE`: console.log (development)
+
+### Future Architecture Additions
+
+- **Global State Management**: TBD (Context API / Zustand / Redux)
+- **WebSocket**: Socket.IO for real-time notifications
+- **i18n**: next-intl or react-i18next for Arabic + English UI
