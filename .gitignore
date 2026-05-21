@@ -6,3 +6,4 @@ server/.ne_yabmam_lazim
 server/scripts/token.txt
 server/dist/
 node_modules/
+*.tsbuildinfo
