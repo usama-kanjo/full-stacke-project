@@ -39,7 +39,8 @@
 - [x] **FormField** molecule component
 - [x] **PasswordInput** molecule component
 - [ ] Organism components (LoginForm, RegisterForm, Header, Sidebar, etc.)
-- [ ] Templates (AuthTemplate, DashboardTemplate, MainLayout)
+- [x] Templates (MainLayout — empty scaffold)
+- [ ] Templates (AuthTemplate, DashboardTemplate)
 - [ ] Axios + Sonner (to be installed)
 - [ ] AuthContext + useAuth hook
 - [ ] API client + auth service

@@ -65,14 +65,14 @@ EMAIL_FROM="noreply@kanjolab.com"
 COMPANY_NAME="kanjoLab"
 
 # Email Mode: "ONLINE" (real emails) or "OFFLINE" (console.log)
-SEND_MSG_METOD="OFFLINE"
+SEND_MSG_METHOD="OFFLINE"
 
 # Environment
 NODE_ENV="development"
 PORT=3000
 ```
 
-> **Note about Gmail App Passwords:** If using Gmail SMTP with `SEND_MSG_METOD=ONLINE`, you need an [App Password](https://support.google.com/accounts/answer/185833) (not your regular password). Enable 2-Factor Authentication on your Google account first, then generate an App Password.
+> **Note about Gmail App Passwords:** If using Gmail SMTP with `SEND_MSG_METHOD=ONLINE`, you need an [App Password](https://support.google.com/accounts/answer/185833) (not your regular password). Enable 2-Factor Authentication on your Google account first, then generate an App Password.
 
 ### Client Configuration
 

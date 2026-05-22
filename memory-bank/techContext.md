@@ -6,7 +6,9 @@
 - **Runtime**: Node.js (ESM, `"type": "module"`)
 - **Framework**: Express 5 (`^5.1.0`)
 - **Language**: TypeScript
-- **Database ORM**: Prisma 7 (`^7.8.0`, PostgreSQL provider)
+- **Database ORM**: Prisma 7 (`^7.8.0`, PostgreSQL provider) with `@prisma/adapter-pg`
+- **Prisma Config**: `prisma.config.ts` at server root (replaces `url` in schema.prisma)
+- **Generated Client**: `src/generated/prisma/` (import with `.js` extension for ESM)
 - **Auth**: `jsonwebtoken` 9, `bcryptjs` 3
 - **Validation**: `express-validator` 7
 - **Email**: `nodemailer` 8 (Gmail SMTP)
@@ -20,7 +22,8 @@
 - **Architecture**: Atomic Design Pattern
 - **Storybook**: `@storybook/nextjs ^10.4.0`, configured and working
 - **Code Generator**: Plop (`plopfile.js`) with custom `.hbs` templates
-- **Design Tokens**: Custom tokens system (colors, spacing, typography)
+- **Design Tokens**: Custom tokens system (colors, spacing, typography, z-index, transitions)
+- **Barrel Export**: `components/index.ts` re-exports all 10 components
 - **Linting**: `@antfu/eslint-config`
 - **Validation**: zod (`^4.4.3`)
 
@@ -42,7 +45,7 @@
 | Script | Command |
 |--------|---------|
 | dev | `tsx watch src/index.ts` |
-| dev:offline | `SEND_MSG_METOD=OFFLINE tsx watch src/index.ts` |
+| dev:offline | `SEND_MSG_METHOD=OFFLINE tsx watch src/index.ts` |
 | build | `tsc && tsc -p tsconfig.scripts.json` |
 | test | `tsc && node dist/scripts/test/index.js` |
 | lint | `eslint src/` |
@@ -58,12 +61,32 @@
 - `JWT_COOKIE_EXPIRES` — Cookie expiry in days (default: 90)
 - `EMAIL_USERNAME` / `EMAIL_PASSWORD` — Gmail SMTP credentials
 - `EMAIL_FROM` / `COMPANY_NAME` — Sender identity
-- `SEND_MSG_METOD` — "ONLINE" or "OFFLINE" (console)
+- `SEND_MSG_METHOD` — "ONLINE" or "OFFLINE" (console)
+- `BASE_URL` — Client base URL (default: http://localhost:3001/)
+- `SUPPORT_EMAIL` — Support email address (default: destek@kanjo.com)
+- `COOKIE_DOMAIN` — Cookie domain (default: localhost)
 - `NODE_ENV` — "development" or "production"
 - `PORT` — Server port (default: 3000)
 
+## Client Source Details
+- **Tokens**: `spacing.ts` exports `spacingTokens`, `zIndexTokens`, and `transitionTokens`
+- **CSS**: `tokens.css` includes global CSS reset and body base styles alongside custom properties
+- **Fonts**: `assets/fonts/primary.ttf` — custom "Lalezar" font used in design tokens
+- **Components barrel export**: `components/index.ts` re-exports all atoms (7) and molecules (3)
+
 ## Client Environment
 - `NEXT_PUBLIC_API_URL` — API base URL (default: http://localhost:3000/api/v1)
+
+## Prisma 7 Migration Notes
+- `prisma.config.ts` created at `server/prisma.config.ts` — defines datasource URL for CLI
+- `schema.prisma` removed `url` from `datasource` block, changed generator to `prisma-client-js` with `output = "../src/generated/prisma"`
+- `@prisma/adapter-pg` + `pg` added for runtime database connection
+- `database.ts` uses `PrismaPg` adapter in `PrismaClient({ adapter })`
+- All imports from `@prisma/client` changed to `../generated/prisma/index.js`
+
+## Unused Dependencies (server/package.json)
+- `date-fns` — installed but not used anywhere in source
+- `slugify` — installed but not used anywhere in source
 
 ## Constraints
 - **Ports**: Frontend 3001, Backend 3000

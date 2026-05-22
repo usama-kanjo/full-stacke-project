@@ -56,7 +56,7 @@ const sendEmail = async (options: SendEmailOptions) => {
 export const sendVerificationCode = async (
   userData: UserEmailData,
 ): Promise<{ success: boolean; messageId?: string }> => {
-  if (process.env.SEND_MSG_METOD === "ONLINE") {
+  if (process.env.SEND_MSG_METHOD === "ONLINE") {
     const { email, code, userName } = userData;
     const extractedUserName = extractUserName(email, userName);
     const companyName = process.env.COMPANY_NAME || "Kanjo";
@@ -90,7 +90,7 @@ ${companyName} Ekibi`,
     });
   }
 
-  if (process.env.SEND_MSG_METOD === "OFFLINE") {
+  if (process.env.SEND_MSG_METHOD === "OFFLINE") {
     console.log(userData.code);
     return { success: true };
   }
@@ -101,7 +101,7 @@ ${companyName} Ekibi`,
 export const sendPasswordResetEmail = async (
   userData: UserEmailData,
 ): Promise<{ success: boolean; messageId?: string }> => {
-  if (process.env.SEND_MSG_METOD === "ONLINE") {
+  if (process.env.SEND_MSG_METHOD === "ONLINE") {
     const { email, code, userName } = userData;
     const extractedUserName = extractUserName(email, userName);
     const companyName = process.env.COMPANY_NAME || "Kanjo";
@@ -135,7 +135,7 @@ ${companyName} Ekibi`,
     });
   }
 
-  if (process.env.SEND_MSG_METOD === "OFFLINE") {
+  if (process.env.SEND_MSG_METHOD === "OFFLINE") {
     console.log(userData.code);
     return { success: true };
   }

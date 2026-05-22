@@ -90,8 +90,8 @@ The platform uses **Nodemailer** with **Gmail SMTP** for sending emails. You nee
 
 ### What are ONLINE and OFFLINE email modes?
 
-- **ONLINE** (`SEND_MSG_METOD=ONLINE`): Actually sends real emails via Gmail SMTP
-- **OFFLINE** (`SEND_MSG_METOD=OFFLINE`): Prints verification codes to the server console — useful for development without email setup
+- **ONLINE** (`SEND_MSG_METHOD=ONLINE`): Actually sends real emails via Gmail SMTP
+- **OFFLINE** (`SEND_MSG_METHOD=OFFLINE`): Prints verification codes to the server console — useful for development without email setup
 
 ### Can I use a different email provider?
 
@@ -186,7 +186,7 @@ Yes:
 3. Configure CORS to allow your production domain
 4. Use a production PostgreSQL instance
 5. Set `COOKIE_DOMAIN` for cookie sharing across subdomains if needed
-6. Configure `SEND_MSG_METOD=ONLINE` with valid SMTP credentials
+6. Configure `SEND_MSG_METHOD=ONLINE` with valid SMTP credentials
 
 ---
 

@@ -22,7 +22,7 @@ This guide explains how to use the kanjoLab platform from end to end.
 
 After registration, a 6-digit verification code is sent to your email.
 
-- **If using OFFLINE mode** (`SEND_MSG_METOD=OFFLINE`): Check the server console for the code. It will be printed as a 6-digit number.
+- **If using OFFLINE mode** (`SEND_MSG_METHOD=OFFLINE`): Check the server console for the code. It will be printed as a 6-digit number.
 - **If using ONLINE mode**: Check your email inbox (and spam folder).
 
 Enter the 6-digit code on the verification page to activate your account.
@@ -182,7 +182,7 @@ This opens a web interface at `http://localhost:5555`.
 | Problem | Solution |
 |---------|----------|
 | Cannot register | Ensure password meets requirements (8+ chars, uppercase, number) |
-| Verification code not received | Use `SEND_MSG_METOD=OFFLINE` mode and check server console |
+| Verification code not received | Use `SEND_MSG_METHOD=OFFLINE` mode and check server console |
 | Code expired | Click "Resend Code" on the verification page |
 | Login fails | Make sure your email is verified first |
 | Profile completion fails | Verify your email before completing your profile |
