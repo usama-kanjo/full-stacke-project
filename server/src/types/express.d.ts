@@ -1,5 +1,5 @@
-import type { Dentist, Technician, User } from "@prisma/client";
 import type { Request } from "express";
+import type { Dentist, Technician, User } from "../generated/prisma/index.js";
 
 declare global {
   namespace Express {
