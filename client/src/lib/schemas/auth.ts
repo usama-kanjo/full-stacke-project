@@ -1,31 +1,37 @@
 import { z } from "zod";
 
-export const emailSchema = z.string().email("Geçerli bir email adresi girin");
+export const emailSchema = z
+  .string()
+  .min(1, "Email is required")
+  .email("Please enter a valid email address");
 
 export const passwordSchema = z
   .string()
-  .min(8, "Şifre en az 8 karakter olmalıdır")
-  .regex(/[A-Z]/, "Şifre en az bir büyük harf içermelidir")
-  .regex(/[0-9]/, "Şifre en az bir rakam içermelidir");
+  .min(8, "Password must be at least 8 characters")
+  .regex(/[A-Z]/, "Password must contain uppercase letter")
+  .regex(/[0-9]/, "Password must contain a number");
 
 export const verificationCodeSchema = z
   .string()
-  .length(6, "6 haneli doğrulama kodu gereklidir")
-  .regex(/^\d{6}$/, "Doğrulama kodu yalnızca rakamlardan oluşmalıdır");
+  .min(1, "Reset code is required")
+  .length(6, "Reset code must be 6 digits");
 
 export const loginSchema = z.object({
   email: emailSchema,
-  password: z.string().min(1, "Şifre gereklidir"),
+  password: z
+    .string()
+    .min(1, "Password is required")
+    .min(8, "Password must be at least 8 characters"),
 });
 
 export const registerSchema = z
   .object({
     email: emailSchema,
     password: passwordSchema,
-    confirmPassword: z.string().min(1, "Şifre tekrarı gereklidir"),
+    confirmPassword: z.string().min(1, "Confirm password is required"),
   })
   .refine(data => data.password === data.confirmPassword, {
-    message: "Şifreler eşleşmiyor",
+    message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 
@@ -41,9 +47,9 @@ export const resetPasswordSchema = z
   .object({
     code: verificationCodeSchema,
     newPassword: passwordSchema,
-    confirmPassword: z.string().min(1, "Şifre tekrarı gereklidir"),
+    confirmPassword: z.string().min(1, "Confirm password is required"),
   })
   .refine(data => data.newPassword === data.confirmPassword, {
-    message: "Şifreler eşleşmiyor",
+    message: "Passwords do not match",
     path: ["confirmPassword"],
   });

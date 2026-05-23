@@ -1,14 +1,20 @@
 import { z } from "zod";
 
+const phoneRegex = /^[0-9+\-\s()]+$/;
+
 export const profileCompletionSchema = z
   .object({
     role: z.enum(["DENTIST", "LAB_TECHNICIAN"], {
-      message: "Lütfen bir rol seçin",
+      message: "Role must be DENTIST or LAB_TECHNICIAN",
     }),
     fullName: z
       .string()
-      .min(2, "İsim en az 2 karakter olmalıdır"),
-    phone: z.string().min(1, "Telefon numarası gereklidir"),
+      .min(1, "Full name is required")
+      .min(2, "Full name must be at least 2 characters"),
+    phone: z
+      .string()
+      .min(1, "Phone is required")
+      .regex(phoneRegex, "Please enter a valid phone number"),
     clinicName: z.string().optional(),
     clinicAddress: z.string().optional(),
     clinicCity: z.string().optional(),
@@ -21,14 +27,14 @@ export const profileCompletionSchema = z
       ctx.addIssue({
         code: "custom",
         path: ["clinicName"],
-        message: "Klinik adı gereklidir",
+        message: "Clinic name is required for Dentist",
       });
     }
     if (data.role === "LAB_TECHNICIAN" && !data.labName) {
       ctx.addIssue({
         code: "custom",
         path: ["labName"],
-        message: "Laboratuvar adı gereklidir",
+        message: "Lab name is required for Technician",
       });
     }
   });
