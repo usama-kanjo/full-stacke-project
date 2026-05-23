@@ -1,11 +1,3 @@
-// ============================================================
-// .storybook/preview.ts
-// ============================================================
-// Global preview configuration for Storybook:
-// - Import CSS tokens so they apply to every story
-// - Set text direction
-// ============================================================
-
 import type { Preview } from "@storybook/react";
 
 import "../src/tokens/tokens.css";
@@ -13,11 +5,11 @@ import "../src/tokens/tokens.css";
 const preview: Preview = {
   parameters: {
     backgrounds: {
-      default: "light",
+      default: "cream",
       values: [
-        { name: "light", value: "#F9FAFB" },
+        { name: "cream", value: "#FCFAF7" },
         { name: "white", value: "#FFFFFF" },
-        { name: "dark", value: "#111827" },
+        { name: "dark", value: "#2C1810" },
       ],
     },
 
@@ -26,13 +18,15 @@ const preview: Preview = {
     },
 
     docs: {
-      theme: undefined,
+      toc: true,
     },
 
     html: {
       dir: "ltr",
     },
   },
+
+  tags: ["autodocs"],
 };
 
 export default preview;

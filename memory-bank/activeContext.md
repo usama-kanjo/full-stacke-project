@@ -3,6 +3,35 @@
 ## Current Branch
 `refactor/frontend-rewrite`
 
+## GitHub Issues (All — Auto-Accept Enabled)
+Issues are tracked so that when a PR/commit references one, it's automatically accepted.
+
+### OPEN Issues
+| # | Title | Labels | Created |
+|---|-------|--------|---------|
+| 38 | Add Frontend Testing Suite (Unit & Integration Tests) | — | 2026-05-20 |
+| 37 | Expand Atomic Design Hierarchy (Add Molecules, Organisms, Templates) | — | 2026-05-20 |
+| 36 | Add Toast Notifications (Install & Configure Sonner) | — | 2026-05-20 |
+| 35 | Implement Auth Context (React Context for Global Auth State) | — | 2026-05-20 |
+| 34 | Set Up API Client (Axios/Fetch Instance with Interceptors) | — | 2026-05-20 |
+| 33 | Build Dashboard Layout (Header, Sidebar, Responsive Layout) | — | 2026-05-20 |
+| 32 | Add Profile Completion UI (Role Selection Screen) | — | 2026-05-20 |
+| 31 | Implement Authentication Pages (Login, Register, Email Verification, Password Reset) | — | 2026-05-20 |
+| 6 | Add clinic listing and detail pages | — | 2026-05-18 |
+| 5 | Build clinic creation form UI | `help wanted` | 2026-05-18 |
+| 2 | إدراج صفحة من أجل إنشاء عيادات (Add clinic page) | `enhancement` | 2026-04-21 |
+
+### CLOSED Issues
+| # | Title | Labels | Created |
+|---|-------|--------|---------|
+| 4 | Create backend API for clinic CRUD | — | 2026-05-18 |
+| 3 | Design database schema for clinics | — | 2026-05-18 |
+
+### Auto-Accept Rule
+When a PR or commit references an issue number (e.g., `Closes #5`, `Fixes #31`), the linked work is automatically accepted. This memory bank serves as the source of truth for all active/open issues.
+
+---
+
 ## Current Focus
 Rewriting the frontend from scratch using **Atomic Design Pattern**. Old client components have been completely cleaned out. Building a systematic, scalable frontend architecture from the ground up.
 
@@ -23,6 +52,16 @@ The server is fully functional — we are only focusing on the frontend.
   - **Typography**: Lalezar for h1/h2, Fraunces for h3-h5, Sora uppercase for h6/body
   - **Icon**: Works with warm palette via currentColor
 - **Card molecule**: Updated gold hover border
+- **7 new molecule components** created with Premium Dental Lab aesthetic:
+  - **Avatar**: Image + initials fallback, 4 sizes (sm/md/lg/xl), gold border
+  - **Toast**: Success/error/warning/info, slide-in animation, auto-dismiss, close button
+  - **Modal**: Overlay + backdrop-filter blur, scale-in animation, sm/md/lg, ESC close
+  - **Tabs**: Horizontal tab list, gold active indicator, disabled tab support
+  - **Dropdown**: Custom select with options list, click-outside-to-close, gold focus
+  - **Checkbox/Radio**: Styled control, gold checked state, label + error support
+  - **Toggle**: iOS-style switch, sm/md sizes, bounce animation
+- **Barrel export**: Updated `components/index.ts` with all new molecules
+- **Plop template**: Fixed `index.ts.hbs` to include named exports
 - **Design Tokens** (spacing.ts): Added half-step tokens (2.5, 3.5), warm shadows, bounce transition, gold shadow
 - Previous changes (Plop, Storybook, etc.) still in place
 
@@ -61,8 +100,7 @@ The server is fully functional — we are only focusing on the frontend.
 - [x] Atomic Design folder structure created
 - [x] Design tokens system created (colors, spacing, typography)
 - [x] All atom components (Button, Badge, Input, Label, Icon, Spinner, Typography)
-- [x] Current molecule components (FormField, PasswordInput, Card)
-- [ ] Additional molecule components (Avatar, Toast/Alert, Modal/Dialog, Tabs, Dropdown, Checkbox/Radio, Toggle)
+- [x] All molecule components (FormField, PasswordInput, Card, Avatar, Toast, Modal, Tabs, Dropdown, Checkbox, Toggle)
 - [ ] Axios + Sonner installation
 - [ ] Organism components (LoginForm, RegisterForm, Header, Sidebar, EmailVerificationForm, ForgotPasswordForm, ResetPasswordForm, ProfileCompletionForm)
 - [ ] Templates (AuthTemplate, DashboardTemplate)

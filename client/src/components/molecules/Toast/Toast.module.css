@@ -1,0 +1,97 @@
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  border: 1px solid;
+  font-family: var(--font-sans);
+  min-width: 280px;
+  max-width: 420px;
+  box-shadow: var(--shadow-lg);
+  transition: opacity var(--transition-fast), transform var(--transition-normal);
+}
+
+.toast--enter {
+  animation: slideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.toast--exit {
+  animation: slideOut 0.2s ease-in forwards;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(100%) scale(0.95); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes slideOut {
+  from { opacity: 1; transform: translateX(0) scale(1); }
+  to { opacity: 0; transform: translateX(100%) scale(0.95); }
+}
+
+.toast--success {
+  background-color: var(--color-success-light);
+  border-color: var(--color-success);
+  color: var(--color-success-dark);
+}
+
+.toast--error {
+  background-color: var(--color-error-light);
+  border-color: var(--color-error);
+  color: var(--color-error-dark);
+}
+
+.toast--warning {
+  background-color: var(--color-warning-light);
+  border-color: var(--color-warning);
+  color: var(--color-warning-dark);
+}
+
+.toast--info {
+  background-color: var(--color-gold-50);
+  border-color: var(--color-gold-300);
+  color: var(--color-gold-900);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.message {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  line-height: var(--line-height-normal);
+}
+
+.description {
+  font-size: var(--text-xs);
+  font-weight: var(--font-regular);
+  line-height: var(--line-height-normal);
+  opacity: 0.85;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: var(--text-xs);
+  color: inherit;
+  opacity: 0.6;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  transition: opacity var(--transition-fast), background-color var(--transition-fast);
+}
+
+.close:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.08);
+}

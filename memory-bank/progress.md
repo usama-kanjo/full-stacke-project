@@ -2,6 +2,25 @@
 
 ## Branch: `refactor/frontend-rewrite`
 
+## GitHub Issues Mapping
+Each milestone item maps to a GitHub issue for auto-accept:
+
+| Issue | Title | Status in Repo |
+|-------|-------|----------------|
+| #2 | Clinic creation page | OPEN |
+| #5 | Build clinic creation form UI | OPEN |
+| #6 | Add clinic listing and detail pages | OPEN |
+| #31 | Implement Authentication Pages | OPEN |
+| #32 | Add Profile Completion UI | OPEN |
+| #33 | Build Dashboard Layout | OPEN |
+| #34 | Set Up API Client | OPEN |
+| #35 | Implement Auth Context | OPEN |
+| #36 | Add Toast Notifications | OPEN |
+| #37 | Expand Atomic Design Hierarchy | OPEN |
+| #38 | Add Frontend Testing Suite | OPEN |
+
+---
+
 ## What Works
 ### Backend (Server — Fully Working, Not Touched)
 - [x] Express 5 server with TypeScript (ESM)
