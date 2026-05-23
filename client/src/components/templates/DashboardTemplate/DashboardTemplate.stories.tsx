@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { DashboardHome } from "@/components/organisms/DashboardHome";
 import { AuthContext } from "@/context/AuthContext";
 import { DashboardTemplate } from "./DashboardTemplate";
 
@@ -49,4 +50,29 @@ export const Default: Story = {
   args: {
     children: <div style={{ padding: "2rem" }}>Page Content Here</div>,
   },
+};
+
+export const WithDashboard: Story = {
+  args: {
+    children: <DashboardHome />,
+  },
+  decorators: [
+    Story => (
+      <AuthContext.Provider
+        value={{
+          ...mockAuthValue,
+          user: {
+            id: 1,
+            email: "doctor@example.com",
+            isVerified: true,
+            isProfileComplete: true,
+            role: "DENTIST",
+          },
+          isAuthenticated: true,
+        }}
+      >
+        <Story />
+      </AuthContext.Provider>
+    ),
+  ],
 };
