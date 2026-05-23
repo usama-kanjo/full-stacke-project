@@ -16,8 +16,8 @@ export function AuthTemplate() {
       <main className={styles.hero}>
         <h1 className={styles.brand}>KanjoLab</h1>
         <p className={styles.tagline}>
-          Dental protez siparişlerinizi dijital ortamda yönetin.
-          Diş hekimleri ve laboratuvar teknisyenlerini buluşturan platform.
+          Manage your dental prosthesis orders digitally.
+          The platform connecting dentists and lab technicians.
         </p>
       </main>
       <AuthModal

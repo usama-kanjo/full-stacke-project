@@ -15,15 +15,17 @@ type NavItem = {
 
 const dentistNav: NavItem[] = [
   { label: "Dashboard", icon: "grid", href: "/dashboard" },
-  { label: "Siparişler", icon: "list", href: "/dashboard/orders" },
-  { label: "Yeni Sipariş", icon: "plus", href: "/dashboard/orders/new" },
-  { label: "Profil", icon: "user", href: "/dashboard/profile" },
+  { label: "Orders", icon: "list", href: "/dashboard/orders" },
+  { label: "New Order", icon: "plus", href: "/dashboard/orders/new" },
+  { label: "Profile", icon: "user", href: "/dashboard/profile" },
+  { label: "Settings", icon: "settings", href: "/dashboard/settings" },
 ];
 
 const technicianNav: NavItem[] = [
   { label: "Dashboard", icon: "grid", href: "/dashboard" },
-  { label: "Siparişler", icon: "list", href: "/dashboard/orders" },
-  { label: "Profil", icon: "user", href: "/dashboard/profile" },
+  { label: "Orders", icon: "list", href: "/dashboard/orders" },
+  { label: "Profile", icon: "user", href: "/dashboard/profile" },
+  { label: "Settings", icon: "settings", href: "/dashboard/settings" },
 ];
 
 export function Sidebar() {

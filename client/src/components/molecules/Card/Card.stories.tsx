@@ -52,10 +52,10 @@ export const WithContent: Story = {
   render: () => (
     <Card variant="elevated" padding="md" style={{ maxWidth: "300px" }}>
       <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        <Badge variant="success">Tamamlandı</Badge>
-        <Typography variant="h4">Sipariş #1234</Typography>
-        <Typography variant="body-sm">Hasta: Ahmet Yılmaz</Typography>
-        <Typography variant="body-sm">İş: Tam Protez Üst</Typography>
+        <Badge variant="success">Completed</Badge>
+        <Typography variant="h4">Order #1234</Typography>
+        <Typography variant="body-sm">Patient: John Doe</Typography>
+        <Typography variant="body-sm">Procedure: Full Upper Denture</Typography>
       </div>
     </Card>
   ),
@@ -65,8 +65,8 @@ export const Clickable: Story = {
   render: () => (
     <Card variant="elevated" hoverable onClick={() => {}} style={{ maxWidth: "300px" }}>
       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-        <Typography variant="h5">Dashboard Kartı</Typography>
-        <Typography variant="body-sm">Tıklanabilir kart</Typography>
+        <Typography variant="h5">Dashboard Card</Typography>
+        <Typography variant="body-sm">Clickable card</Typography>
       </div>
     </Card>
   ),

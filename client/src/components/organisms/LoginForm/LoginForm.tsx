@@ -30,9 +30,9 @@ export function LoginForm({
     e.preventDefault();
     const newErrors: Record<string, string> = {};
     if (!email.trim())
-    { newErrors.email = "E-posta adresi gerekli"; }
+    { newErrors.email = "Email address is required"; }
     if (!password)
-    { newErrors.password = "Şifre gerekli"; }
+    { newErrors.password = "Password is required"; }
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0)
@@ -41,9 +41,9 @@ export function LoginForm({
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Giriş Yap" size="sm">
+    <Modal open={open} onClose={onClose} title="Log In" size="sm">
       <form onSubmit={handleSubmit} className={styles.form} noValidate>
-        <FormField label="E-posta" error={errors.email}>
+        <FormField label="Email" error={errors.email}>
           <Input
             type="email"
             placeholder="ornek@email.com"
@@ -51,7 +51,7 @@ export function LoginForm({
             onChange={e => setEmail(e.target.value)}
           />
         </FormField>
-        <FormField label="Şifre" error={errors.password}>
+        <FormField label="Password" error={errors.password}>
           <Input
             type="password"
             placeholder="••••••••"
@@ -60,7 +60,7 @@ export function LoginForm({
           />
         </FormField>
         <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
-          {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
+          {isLoading ? "Logging in..." : "Log In"}
         </Button>
         <div className={styles.links}>
           <button
@@ -68,14 +68,14 @@ export function LoginForm({
             className={styles.link}
             onClick={() => onNavigate("register")}
           >
-            Hesabın yok mu? Kayıt ol
+            Don't have an account? Register
           </button>
           <button
             type="button"
             className={styles.link}
             onClick={() => onNavigate("forgot-password")}
           >
-            Şifremi unuttum
+            Forgot password
           </button>
         </div>
       </form>

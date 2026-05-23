@@ -21,6 +21,65 @@ export type ProfileResponse = AuthResponse & {
   };
 };
 
+export type DentistProfile = {
+  id: number;
+  userId: number;
+  fullName: string;
+  phone: string;
+  clinicName: string;
+  clinicAddress: string | null;
+  clinicCity: string | null;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    id: number;
+    email: string;
+    role: "DENTIST";
+    isVerified: boolean;
+    isProfileComplete: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
+};
+
+export type TechnicianProfile = {
+  id: number;
+  userId: number;
+  fullName: string;
+  phone: string;
+  labName: string;
+  labAddress: string | null;
+  labCity: string | null;
+  specialties: string[];
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    id: number;
+    email: string;
+    role: "LAB_TECHNICIAN";
+    isVerified: boolean;
+    isProfileComplete: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
+};
+
+export type DentistUpdateData = {
+  fullName?: string;
+  phone?: string;
+  clinicName?: string;
+  clinicAddress?: string;
+  clinicCity?: string;
+};
+
+export type TechnicianUpdateData = {
+  fullName?: string;
+  phone?: string;
+  labName?: string;
+  labAddress?: string;
+  labCity?: string;
+};
+
 export const authService = {
   register(data: { email: string; password: string }) {
     return api.post<AuthResponse>("/user/register", data);
@@ -66,5 +125,15 @@ export const authService = {
 
   changePassword(data: { currentPassword: string; newPassword: string }) {
     return api.put<AuthResponse>("/user/change-password", data);
+  },
+
+  getProfile(role: "DENTIST" | "LAB_TECHNICIAN") {
+    const endpoint = role === "DENTIST" ? "/dentist/profile" : "/technician/profile";
+    return api.get<{ status: string; data: DentistProfile | TechnicianProfile }>(endpoint);
+  },
+
+  updateProfile(role: "DENTIST" | "LAB_TECHNICIAN", data: DentistUpdateData | TechnicianUpdateData) {
+    const endpoint = role === "DENTIST" ? "/dentist/profile" : "/technician/profile";
+    return api.put<{ status: string; message: string; data: DentistProfile | TechnicianProfile }>(endpoint, data);
   },
 };

@@ -17,14 +17,14 @@ type Story = StoryObj<typeof Label>;
 
 export const Default: Story = {
   args: {
-    children: "E-posta",
+    children: "Email",
     htmlFor: "email",
   },
 };
 
 export const Required: Story = {
   args: {
-    children: "Şifre",
+    children: "Password",
     required: true,
     htmlFor: "password",
   },
@@ -32,7 +32,7 @@ export const Required: Story = {
 
 export const Disabled: Story = {
   args: {
-    children: "Ad Soyad",
+    children: "Full Name",
     disabled: true,
     htmlFor: "name",
   },

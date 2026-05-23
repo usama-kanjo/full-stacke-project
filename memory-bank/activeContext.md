@@ -37,7 +37,13 @@ Rewriting the frontend from scratch using **Atomic Design Pattern**. Old client 
 
 The server is fully functional — we are only focusing on the frontend.
 
+All milestone 1 (Foundation) and milestone 2 (Auth Flow) items are complete. Currently polishing existing components and optimizing performance.
+
 ## Recent Changes
+- **Vercel React Best Practices Applied** (`feae766`) — 22 files optimized with `useCallback`, `useMemo`, memo, early returns, event handler refs, and other Vercel performance patterns
+- **Storybook Runtime Errors Fixed** (`0dc5646`) — Fixed broken stories (Input, Card, Modal) and added missing stories (DashboardHome, Header, AuthTemplate, DashboardTemplate)
+- **Self-Contained Modal Auth Forms** (`9e3ed40`) — Refactored each auth form to be an independent modal with its own `open`/`onClose` props, removing the single-modal approach with step management. Each form now pops up as its own modal.
+- **Emoji → SVG Icon Component** (`c76b293`, `af5118d`) — Replaced emoji icons with the new SVG `Icon` component in Sidebar, ProfileCompletionForm, and DashboardHome
 - **COMPLETE DESIGN SYSTEM OVERHAUL** — Premium Dental Lab aesthetic
   - Colors: Cold blue → Warm gold/terracotta/cream palette
   - Typography: Inter → Lalezar (display/Arabic) + Fraunces (serif/English) + Sora (body)
@@ -70,7 +76,7 @@ The server is fully functional — we are only focusing on the frontend.
   - AuthContext (`context/AuthContext.tsx`) — global auth state
   - `useAuth` + `useAuthModal` hooks
 - **ALL ORGANISM COMPONENTS CREATED** (10 adet):
-  - **AuthModal** — Step management + CSS slide animasyonları (login/register/verify/forgot-password/reset-password akışı)
+  - **AuthModal** — Orchestrator that renders each auth form as a self-contained modal popup (login/register/verify/forgot-password/reset-password)
   - **LoginForm, RegisterForm, EmailVerificationForm** — Auth modal formları
   - **ForgotPasswordForm, ResetPasswordForm** — Password reset akışı (modal içinde)
   - **Header** — Logo + "Giriş Yap" button / kullanıcı menüsü
@@ -106,11 +112,13 @@ The server is fully functional — we are only focusing on the frontend.
 - Server is working, not touching it
 
 ## Known Issues (Frontend — To Be Resolved in This Branch)
-1. Old `authService.ts` endpoints did not match the server — to be rewritten from scratch
-2. `rigister` typo — to be fixed in atomic design rewrite
-3. Broken icon imports — resolved with new Icon atom
-4. Missing auth guard — to be added with AuthContext + protected routes
-5. Order management frontend does not exist yet — future task
+1. ~~Old `authService.ts` endpoints did not match the server — to be rewritten from scratch~~ ✅ Resolved
+2. ~~`rigister` typo — to be fixed in atomic design rewrite~~ ✅ Resolved
+3. ~~Broken icon imports — resolved with new Icon atom~~ ✅ Resolved
+4. ~~Missing auth guard — added with AuthContext + protected routes~~ ✅ Resolved
+5. Emoji usage in some components should be replaced with SVG Icon component — ongoing
+6. Storybook stories for all organisms and templates — mostly done, verify coverage
+7. Order management frontend does not exist yet — future task
 
 ## Next Steps
 - [x] Plop generator templates created (atom, molecule, organism)
@@ -121,18 +129,14 @@ The server is fully functional — we are only focusing on the frontend.
 - [x] Axios + Sonner installation
 - [x] API client layer + auth service (lib/api.ts + services/authService.ts)
 - [x] AuthContext + useAuth hook + useAuthModal hook
-- [x] All organism components:
-  - AuthModal (step management + slide animasyon)
-  - LoginForm, RegisterForm, EmailVerificationForm
-  - ForgotPasswordForm, ResetPasswordForm
-  - Header (logo + Giriş Yap butonu)
-  - ProfileCompletionForm (rol seçimi + conditional fields)
-  - Sidebar (role-based nav, dashboard)
-  - DashboardHome (stats overview)
+- [x] All organism components (AuthModal, LoginForm, RegisterForm, EmailVerificationForm, ForgotPasswordForm, ResetPasswordForm, Header, ProfileCompletionForm, Sidebar, DashboardHome)
 - [x] Templates (AuthTemplate, DashboardTemplate)
-- [x] Auth modal flow (modal içinde slide geçişleri)
+- [x] Self-contained modal auth flow (each form is its own modal)
 - [x] Root page (/) → AuthTemplate + AuthModal
 - [x] Dashboard page (/dashboard) → ProfileCompletion modal if isProfileComplete=false
-- [ ] Global state management
-- [ ] WebSocket notifications (frontend + backend)
-- [ ] i18n — Arabic + English UI support
+- [x] Vercel React best practices applied across all components
+- [x] Storybook stories for all atoms, molecules, organisms, templates
+- [x] Emoji → SVG Icon migration (Sidebar, ProfileCompletionForm, DashboardHome)
+- [ ] Global state management (future)
+- [ ] WebSocket notifications (frontend + backend) (future)
+- [ ] i18n — Arabic + English UI support (future)

@@ -42,7 +42,7 @@ Each milestone item maps to a GitHub issue for auto-accept:
 
 ### Frontend (Client — Being Written From Scratch)
 - [x] Next.js 16 App Router setup (clean)
-- [x] `.storybook` configuration
+- [x] `.storybook` configuration — all stories fixed and verified
 - [x] **Plop** code generator with `.hbs` templates
 - [x] **Design Tokens** system (colors, spacing, typography) — **Premium Dental Lab palette**
 - [x] **@antfu/eslint-config** linting setup
@@ -67,22 +67,23 @@ Each milestone item maps to a GitHub issue for auto-accept:
 - [x] Axios + Sonner (installed)
 - [x] API client + auth service (lib/api.ts + services/authService.ts)
 - [x] AuthContext + useAuth hook + useAuthModal hook
-- [x] **AuthModal** organism — Step management, slide animasyon
+- [x] **AuthModal** organism — Each auth form is a self-contained modal popup
 - [x] **LoginForm**, **RegisterForm**, **EmailVerificationForm** organisms
 - [x] **ForgotPasswordForm**, **ResetPasswordForm** organisms
 - [x] **Header** organism — Logo + Giriş Yap butonu / kullanıcı menüsü
 - [x] **ProfileCompletionForm** organism — Rol seçimi, conditional alanlar
 - [x] **Sidebar** organism — Role-based nav menü
-- [x] **DashboardHome** organism — Dashboard overview
+- [x] **DashboardHome** organism — Dashboard overview (emoji → SVG Icon)
 - [x] **AuthTemplate** — Landing page layout
 - [x] **DashboardTemplate** — Sidebar + Header + content layout
-- [x] Root page (/) — Auth modal flow (slide geçişleri)
+- [x] Self-contained modal auth flow (each form opens as own modal)
 - [x] Dashboard page (/dashboard) — Profile completion check on mount
+- [x] **Vercel React best practices** applied across all 22+ components
+- [x] **Storybook** runtime errors fixed, missing stories added
+- [x] **Emoji → SVG Icon** migration (Sidebar, ProfileCompletionForm, DashboardHome)
 - [ ] Global state management (future)
-- [ ] WebSocket notifications (frontend + backend)
-- [ ] i18n — Arabic + English UI support
-- [ ] WebSocket notifications (frontend + backend)
-- [ ] i18n — Arabic + English UI support
+- [ ] WebSocket notifications (frontend + backend) (future)
+- [ ] i18n — Arabic + English UI support (future)
 
 ### Database (Schema — Fully Working)
 - [x] User model
@@ -101,14 +102,16 @@ Each milestone item maps to a GitHub issue for auto-accept:
 - [x] Core molecule components (FormField, PasswordInput, Card)
 - [x] Additional molecule components (Avatar, Toast/Alert, Modal/Dialog, Tabs, Dropdown, Checkbox/Radio, Toggle)
 
-### Milestone 2: Auth Flow (Modal-based)
-- [x] AuthModal with step management (form → form slide transitions)
-- [x] LoginForm, RegisterForm, EmailVerificationForm
-- [x] ForgotPasswordForm, ResetPasswordForm
+### Milestone 2: Auth Flow (Self-Contained Modal Popups)
+- [x] AuthModal — renders each auth form as independent modal
+- [x] LoginForm, RegisterForm, EmailVerificationForm (self-contained modals)
+- [x] ForgotPasswordForm, ResetPasswordForm (self-contained modals)
 - [x] AuthContext with global state
 - [x] Axios interceptor + error handling
 - [x] Profile completion check on dashboard mount
 - [x] API client + auth service layer
+- [x] Vercel React best practices applied
+- [x] Storybook stories fixed for all components
 
 ### Milestone 3: Dashboard
 - [x] Dashboard layout (Header + Sidebar)
@@ -137,4 +140,4 @@ Each milestone item maps to a GitHub issue for auto-accept:
 
 ## Known Issues
 - Backend: No issues
-- Frontend: Still in early stages — old components cleaned out, new ones being built
+- Frontend: Auth flow and dashboard scaffolding complete. Performance optimization done. Next up: profile/settings pages, order management, global state, WebSocket, i18n.

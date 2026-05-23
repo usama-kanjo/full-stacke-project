@@ -46,11 +46,11 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
       setIsLoading(true);
       try {
         await login(data.email, data.password);
-        toast.success("Giriş başarılı");
+        toast.success("Login successful");
         handleClose();
         onLoginSuccess?.();
       } catch (err) {
-        toast.error(err instanceof Error ? err.message : "Giriş başarısız");
+        toast.error(err instanceof Error ? err.message : "Login failed");
       } finally {
         setIsLoading(false);
       }
@@ -65,9 +65,9 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
         await register(data.email, data.password);
         setSharedEmail(data.email);
         navigate("verify");
-        toast.success("Kayıt başarılı! Lütfen e-postanızı doğrulayın.");
+        toast.success("Registration successful! Please verify your email.");
       } catch (err) {
-        toast.error(err instanceof Error ? err.message : "Kayıt başarısız");
+        toast.error(err instanceof Error ? err.message : "Registration failed");
       } finally {
         setIsLoading(false);
       }
@@ -80,12 +80,12 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
       setIsLoading(true);
       try {
         await verifyEmail(data.verificationCode);
-        toast.success("E-posta doğrulandı!");
+        toast.success("Email verified!");
         handleClose();
         onLoginSuccess?.();
       } catch (err) {
         toast.error(
-          err instanceof Error ? err.message : "Doğrulama başarısız",
+          err instanceof Error ? err.message : "Verification failed",
         );
       } finally {
         setIsLoading(false);
@@ -100,10 +100,10 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
       try {
         setSharedEmail(data.email);
         navigate("reset-password");
-        toast.success("Şifre sıfırlama kodu e-postanıza gönderildi.");
+        toast.success("Password reset code sent to your email.");
       } catch (err) {
         toast.error(
-          err instanceof Error ? err.message : "İşlem başarısız",
+          err instanceof Error ? err.message : "Operation failed",
         );
       } finally {
         setIsLoading(false);
@@ -122,11 +122,11 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
           code: data.code,
           newPassword: data.newPassword,
         });
-        toast.success("Şifreniz başarıyla sıfırlandı. Giriş yapabilirsiniz.");
+        toast.success("Password reset successfully. You can log in.");
         navigate("login");
       } catch (err) {
         toast.error(
-          err instanceof Error ? err.message : "Şifre sıfırlama başarısız",
+          err instanceof Error ? err.message : "Password reset failed",
         );
       } finally {
         setIsLoading(false);
@@ -138,10 +138,10 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
   const handleResendCode = useCallback(async () => {
     try {
       await resendCode();
-      toast.success("Yeni doğrulama kodu gönderildi.");
+      toast.success("New verification code sent.");
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "Kod gönderilemedi",
+        err instanceof Error ? err.message : "Failed to send code",
       );
     }
   }, [resendCode]);

@@ -5,9 +5,9 @@ import { AuthProvider } from "@/context/AuthContext";
 import "@/tokens/tokens.css";
 
 export const metadata: Metadata = {
-  title: "KanjoLab - Dental Lab Sipariş Yönetimi",
+  title: "KanjoLab - Dental Lab Order Management",
   description:
-    "Diş hekimleri ve laboratuvar teknisyenleri için sipariş yönetim platformu",
+    "Order management platform for dentists and lab technicians",
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="tr">
+    <html lang="en">
       <body>
         <AuthProvider>
           {children}

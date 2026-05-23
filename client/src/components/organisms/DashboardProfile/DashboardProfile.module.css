@@ -1,0 +1,122 @@
+.container {
+  padding: var(--space-8);
+  max-width: 720px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  color: var(--color-neutral-800);
+}
+
+.editActions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.card {
+  background: var(--color-neutral-0);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+}
+
+.section {
+  padding: var(--space-6);
+}
+
+.sectionTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-neutral-800);
+  margin-bottom: var(--space-4);
+}
+
+.infoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.infoLabel {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-neutral-500);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.infoValue {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-neutral-800);
+}
+
+.roleBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-gold-50);
+  border: 1px solid var(--color-gold-200);
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-gold-700);
+  width: fit-content;
+}
+
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-neutral-200);
+  margin: 0 var(--space-6);
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-16);
+}
+
+.errorText {
+  font-family: var(--font-sans);
+  color: var(--color-error);
+  font-size: var(--text-base);
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-error-light);
+  color: var(--color-error-dark);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+}

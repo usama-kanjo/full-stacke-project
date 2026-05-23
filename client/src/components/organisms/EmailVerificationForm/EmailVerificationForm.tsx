@@ -32,7 +32,7 @@ export function EmailVerificationForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!code.trim() || code.length !== 6) {
-      setError("Lütfen 6 haneli doğrulama kodunu girin");
+      setError("Please enter the 6-digit verification code");
       return;
     }
     setError("");
@@ -40,12 +40,12 @@ export function EmailVerificationForm({
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="E-posta Doğrulama" size="sm">
+    <Modal open={open} onClose={onClose} title="Email Verification" size="sm">
       <form onSubmit={handleSubmit} className={styles.form} noValidate>
         <p className={styles.description}>
-          E-posta adresinize gönderilen 6 haneli doğrulama kodunu girin.
+          Enter the 6-digit verification code sent to your email.
         </p>
-        <FormField label="Doğrulama Kodu" error={error}>
+        <FormField label="Verification Code" error={error}>
           <Input
             type="text"
             placeholder="123456"
@@ -58,7 +58,7 @@ export function EmailVerificationForm({
           />
         </FormField>
         <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
-          {isLoading ? "Doğrulanıyor..." : "Doğrula"}
+          {isLoading ? "Verifying..." : "Verify"}
         </Button>
         <div className={styles.actions}>
           {onResend && (
@@ -67,7 +67,7 @@ export function EmailVerificationForm({
               className={styles.link}
               onClick={onResend}
             >
-              Kodu tekrar gönder
+              Resend code
             </button>
           )}
           <button
@@ -75,7 +75,7 @@ export function EmailVerificationForm({
             className={styles.link}
             onClick={() => onNavigate("login")}
           >
-            Giriş sayfasına dön
+            Back to login
           </button>
         </div>
       </form>

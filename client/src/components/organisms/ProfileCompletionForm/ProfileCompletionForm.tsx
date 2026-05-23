@@ -48,16 +48,16 @@ export function ProfileCompletionForm({
     const newErrors: Record<string, string> = {};
 
     if (!role)
-    { newErrors.role = "Lütfen rol seçin"; }
+    { newErrors.role = "Please select a role"; }
     if (!fullName.trim() || fullName.trim().length < 2)
-    { newErrors.fullName = "Ad soyad en az 2 karakter olmalı"; }
+    { newErrors.fullName = "Full name must be at least 2 characters"; }
     if (!phone.trim())
-    { newErrors.phone = "Telefon numarası gerekli"; }
+    { newErrors.phone = "Phone number is required"; }
 
     if (role === "DENTIST" && !clinicName.trim())
-    { newErrors.clinicName = "Klinik adı gerekli"; }
+    { newErrors.clinicName = "Clinic name is required"; }
     if (role === "LAB_TECHNICIAN" && !labName.trim())
-    { newErrors.labName = "Laboratuvar adı gerekli"; }
+    { newErrors.labName = "Lab name is required"; }
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0)
@@ -88,21 +88,21 @@ export function ProfileCompletionForm({
     <Modal
       open={open}
       onClose={onClose ?? (() => {})}
-      title="Profili Tamamla"
+      title="Complete Profile"
       size="md"
     >
       {isSuccess ? (
         <div className={styles.success}>
           <div className={styles.successIcon}><Icon name="check" size="xl" /></div>
-          <h2 className={styles.successTitle}>Profil Tamamlandı!</h2>
+          <h2 className={styles.successTitle}>Profile Completed!</h2>
           <p className={styles.successDescription}>
-            Hoş geldiniz! Dashboard'a yönlendiriliyorsunuz...
+            Welcome! Redirecting to dashboard...
           </p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
           <div className={styles.section}>
-            <FormField label="Rol Seçin" error={errors.role}>
+            <FormField label="Select Role" error={errors.role}>
               <div className={styles.roleGroup}>
                 <button
                   type="button"
@@ -110,7 +110,7 @@ export function ProfileCompletionForm({
                   onClick={() => setRole("DENTIST")}
                 >
                   <span className={styles.roleIcon}><Icon name="tooth" size="lg" /></span>
-                  Diş Hekimi
+                  Dentist
                 </button>
                 <button
                   type="button"
@@ -118,22 +118,22 @@ export function ProfileCompletionForm({
                   onClick={() => setRole("LAB_TECHNICIAN")}
                 >
                   <span className={styles.roleIcon}><Icon name="settings" size="lg" /></span>
-                  Laboratuvar Teknisyeni
+                  Lab Technician
                 </button>
               </div>
             </FormField>
           </div>
 
           <div className={styles.section}>
-            <FormField label="Ad Soyad" error={errors.fullName}>
+            <FormField label="Full Name" error={errors.fullName}>
               <Input
                 type="text"
-                placeholder="Adınız ve soyadınız"
+                placeholder="Your full name"
                 value={fullName}
                 onChange={e => setFullName(e.target.value)}
               />
             </FormField>
-            <FormField label="Telefon" error={errors.phone}>
+            <FormField label="Phone" error={errors.phone}>
               <Input
                 type="tel"
                 placeholder="+90 555 123 4567"
@@ -145,26 +145,26 @@ export function ProfileCompletionForm({
 
           {role === "DENTIST" && (
             <div className={styles.section}>
-              <FormField label="Klinik Adı" error={errors.clinicName}>
+              <FormField label="Clinic Name" error={errors.clinicName}>
                 <Input
                   type="text"
-                  placeholder="Klinik adı"
+                  placeholder="Clinic name"
                   value={clinicName}
                   onChange={e => setClinicName(e.target.value)}
                 />
               </FormField>
-              <FormField label="Klinik Adresi">
+              <FormField label="Clinic Address">
                 <Input
                   type="text"
-                  placeholder="Adres"
+                  placeholder="Address"
                   value={clinicAddress}
                   onChange={e => setClinicAddress(e.target.value)}
                 />
               </FormField>
-              <FormField label="Klinik Şehir">
+              <FormField label="Clinic City">
                 <Input
                   type="text"
-                  placeholder="Şehir"
+                  placeholder="City"
                   value={clinicCity}
                   onChange={e => setClinicCity(e.target.value)}
                 />
@@ -174,26 +174,26 @@ export function ProfileCompletionForm({
 
           {role === "LAB_TECHNICIAN" && (
             <div className={styles.section}>
-              <FormField label="Laboratuvar Adı" error={errors.labName}>
+              <FormField label="Lab Name" error={errors.labName}>
                 <Input
                   type="text"
-                  placeholder="Laboratuvar adı"
+                  placeholder="Lab name"
                   value={labName}
                   onChange={e => setLabName(e.target.value)}
                 />
               </FormField>
-              <FormField label="Laboratuvar Adresi">
+              <FormField label="Lab Address">
                 <Input
                   type="text"
-                  placeholder="Adres"
+                  placeholder="Address"
                   value={labAddress}
                   onChange={e => setLabAddress(e.target.value)}
                 />
               </FormField>
-              <FormField label="Laboratuvar Şehir">
+              <FormField label="Lab City">
                 <Input
                   type="text"
-                  placeholder="Şehir"
+                  placeholder="City"
                   value={labCity}
                   onChange={e => setLabCity(e.target.value)}
                 />
@@ -202,7 +202,7 @@ export function ProfileCompletionForm({
           )}
 
           <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
-            {isLoading ? "Kaydediliyor..." : "Profili Tamamla"}
+            {isLoading ? "Saving..." : "Complete Profile"}
           </Button>
         </form>
       )}

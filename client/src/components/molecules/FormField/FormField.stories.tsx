@@ -20,15 +20,15 @@ type Story = StoryObj<typeof FormField>;
 
 export const Default: Story = {
   args: {
-    label: "Ad Soyad",
+    label: "Full Name",
     required: true,
-    children: <Input placeholder="Adınızı girin" />,
+    children: <Input placeholder="Enter your name" />,
   },
 };
 
 export const WithIcon: Story = {
   args: {
-    label: "E-posta",
+    label: "Email",
     required: true,
     leftIcon: <Icon name="mail" />,
     children: <Input type="email" placeholder="mail@example.com" />,
@@ -37,16 +37,16 @@ export const WithIcon: Story = {
 
 export const WithError: Story = {
   args: {
-    label: "Şifre",
+    label: "Password",
     required: true,
-    error: "Şifre en az 8 karakter olmalıdır",
+    error: "Password must be at least 8 characters",
     children: <PasswordInput placeholder="••••••••" />,
   },
 };
 
 export const Optional: Story = {
   args: {
-    label: "Telefon (opsiyonel)",
+    label: "Phone (optional)",
     children: <Input type="tel" placeholder="05xx xxx xx xx" />,
   },
 };

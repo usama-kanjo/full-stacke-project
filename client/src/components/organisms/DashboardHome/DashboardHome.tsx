@@ -10,13 +10,13 @@ export function DashboardHome() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Dashboard</h1>
-      <p className={styles.subtitle}>Hoş geldiniz! İşte genel bakış.</p>
+      <p className={styles.subtitle}>Welcome! Here's an overview.</p>
       <div className={styles.stats}>
         <div className={styles.statCard}>
           <span className={styles.statLabel}>Rol</span>
           <span className={styles.roleBadge}>
             <Icon name={user?.role === "DENTIST" ? "tooth" : "settings"} size="sm" />
-            {user?.role === "DENTIST" ? "Diş Hekimi" : "Laboratuvar Teknisyeni"}
+            {user?.role === "DENTIST" ? "Dentist" : "Lab Technician"}
           </span>
         </div>
         <div className={styles.statCard}>

@@ -32,18 +32,18 @@ export function RegisterForm({
     const newErrors: Record<string, string> = {};
 
     if (!email.trim())
-    { newErrors.email = "E-posta adresi gerekli"; }
+    { newErrors.email = "Email address is required"; }
     if (!password) {
-      newErrors.password = "Şifre gerekli";
+      newErrors.password = "Password is required";
     } else if (password.length < 8) {
-      newErrors.password = "Şifre en az 8 karakter olmalı";
+      newErrors.password = "Password must be at least 8 characters";
     } else if (!/[A-Z]/.test(password)) {
-      newErrors.password = "Şifre en az bir büyük harf içermeli";
+      newErrors.password = "Password must contain at least one uppercase letter";
     } else if (!/[0-9]/.test(password)) {
-      newErrors.password = "Şifre en az bir rakam içermeli";
+      newErrors.password = "Password must contain at least one number";
     }
     if (password !== confirmPassword) {
-      newErrors.confirmPassword = "Şifreler eşleşmiyor";
+      newErrors.confirmPassword = "Passwords do not match";
     }
 
     setErrors(newErrors);
@@ -53,9 +53,9 @@ export function RegisterForm({
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Kayıt Ol" size="sm">
+    <Modal open={open} onClose={onClose} title="Register" size="sm">
       <form onSubmit={handleSubmit} className={styles.form} noValidate>
-        <FormField label="E-posta" error={errors.email}>
+        <FormField label="Email" error={errors.email}>
           <Input
             type="email"
             placeholder="ornek@email.com"
@@ -63,24 +63,24 @@ export function RegisterForm({
             onChange={e => setEmail(e.target.value)}
           />
         </FormField>
-        <FormField label="Şifre" error={errors.password}>
+        <FormField label="Password" error={errors.password}>
           <Input
             type="password"
-            placeholder="En az 8 karakter"
+            placeholder="At least 8 characters"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
         </FormField>
-        <FormField label="Şifre Tekrar" error={errors.confirmPassword}>
+        <FormField label="Confirm Password" error={errors.confirmPassword}>
           <Input
             type="password"
-            placeholder="Şifrenizi tekrar girin"
+            placeholder="Re-enter your password"
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
           />
         </FormField>
         <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
-          {isLoading ? "Kaydediliyor..." : "Kayıt Ol"}
+          {isLoading ? "Saving..." : "Register"}
         </Button>
         <div className={styles.links}>
           <button
@@ -88,7 +88,7 @@ export function RegisterForm({
             className={styles.link}
             onClick={() => onNavigate("login")}
           >
-            Zaten hesabın var mı? Giriş yap
+            Already have an account? Log in
           </button>
         </div>
       </form>

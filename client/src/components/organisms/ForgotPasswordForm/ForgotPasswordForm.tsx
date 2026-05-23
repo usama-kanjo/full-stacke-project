@@ -28,7 +28,7 @@ export function ForgotPasswordForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) {
-      setError("E-posta adresi gerekli");
+      setError("Email address is required");
       return;
     }
     setError("");
@@ -36,13 +36,12 @@ export function ForgotPasswordForm({
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Şifremi Unuttum" size="sm">
+    <Modal open={open} onClose={onClose} title="Forgot Password" size="sm">
       <form onSubmit={handleSubmit} className={styles.form} noValidate>
         <p className={styles.description}>
-          Şifrenizi sıfırlamak için e-posta adresinizi girin. Size 6 haneli bir
-          kod göndereceğiz.
+          Enter your email to reset your password. We'll send you a 6-digit code.
         </p>
-        <FormField label="E-posta" error={error}>
+        <FormField label="Email" error={error}>
           <Input
             type="email"
             placeholder="ornek@email.com"
@@ -51,7 +50,7 @@ export function ForgotPasswordForm({
           />
         </FormField>
         <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
-          {isLoading ? "Gönderiliyor..." : "Kod Gönder"}
+          {isLoading ? "Sending..." : "Send Code"}
         </Button>
         <div className={styles.actions}>
           <button
@@ -59,7 +58,7 @@ export function ForgotPasswordForm({
             className={styles.link}
             onClick={() => onNavigate("login")}
           >
-            Giriş sayfasına dön
+            Back to login
           </button>
         </div>
       </form>

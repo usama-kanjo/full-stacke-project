@@ -36,9 +36,9 @@ export default function DashboardPage() {
         isProfileComplete: true,
       });
       setShowProfileModal(false);
-      toast.success("Profil başarıyla tamamlandı!");
+      toast.success("Profile completed successfully!");
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Profil tamamlanamadı");
+      toast.error(err instanceof Error ? err.message : "Failed to complete profile");
     } finally {
       setIsSubmitting(false);
     }

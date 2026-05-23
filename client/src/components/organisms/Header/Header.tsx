@@ -20,13 +20,13 @@ export function Header({ onLoginClick }: HeaderProps) {
               <div className={styles.userMenu}>
                 <span className={styles.email}>{user.email}</span>
                 <Button variant="ghost" onClick={logout}>
-                  Çıkış Yap
+                  Log Out
                 </Button>
               </div>
             )
           : (
               <Button variant="primary" onClick={onLoginClick}>
-                Giriş Yap
+                Log In
               </Button>
             )}
       </div>

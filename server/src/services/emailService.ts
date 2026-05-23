@@ -63,30 +63,30 @@ export const sendVerificationCode = async (
 
     return sendEmail({
       email,
-      subject: `Doğrulama Kodunuz - ${companyName}`,
+      subject: `Your Verification Code - ${companyName}`,
       htmlContent: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2>Merhaba ${extractedUserName},</h2>
-        <p>Hesabınızı doğrulamak için aşağıdaki 6 haneli kodu kullanın:</p>
+        <h2>Hello ${extractedUserName},</h2>
+        <p>Use the 6-digit code below to verify your account:</p>
         <div style="background: #f4f4f4; padding: 20px; text-align: center; font-size: 32px; 
                     letter-spacing: 8px; font-weight: bold; border-radius: 8px; margin: 20px 0;">
           ${code}
         </div>
-        <p>Bu kod 10 dakika geçerlidir.</p>
-        <p>Eğer bu hesabı siz oluşturmadıysanız, bu emaili görmezden gelebilirsiniz.</p>
+        <p>This code is valid for 10 minutes.</p>
+        <p>If you did not create this account, you can ignore this email.</p>
         <br>
-        <p>İyi günler,<br>${companyName} Ekibi</p>
+        <p>Best regards,<br>The ${companyName} Team</p>
       </div>`,
-      textContent: `Merhaba ${extractedUserName},
+      textContent: `Hello ${extractedUserName},
 
-Hesabınızı doğrulamak için kodunuz: ${code}
+Use the following code to verify your account: ${code}
 
-Bu kod 10 dakika geçerlidir.
+This code is valid for 10 minutes.
 
-Eğer bu hesabı siz oluşturmadıysanız, bu emaili görmezden gelebilirsiniz.
+If you did not create this account, you can ignore this email.
 
-İyi günler,
-${companyName} Ekibi`,
+Best regards,
+The ${companyName} Team`,
     });
   }
 
@@ -108,30 +108,30 @@ export const sendPasswordResetEmail = async (
 
     return sendEmail({
       email,
-      subject: `Şifre Sıfırlama Kodunuz - ${companyName}`,
+      subject: `Your Password Reset Code - ${companyName}`,
       htmlContent: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2>Merhaba ${extractedUserName},</h2>
-        <p>Şifrenizi sıfırlamak için aşağıdaki 6 haneli kodu kullanın:</p>
+        <h2>Hello ${extractedUserName},</h2>
+        <p>Use the 6-digit code below to reset your password:</p>
         <div style="background: #f4f4f4; padding: 20px; text-align: center; font-size: 32px; 
                     letter-spacing: 8px; font-weight: bold; border-radius: 8px; margin: 20px 0;">
           ${code}
         </div>
-        <p>Bu kod 10 dakika geçerlidir.</p>
-        <p>Eğer şifre sıfırlama talebinde bulunmadıysanız, bu emaili görmezden gelebilirsiniz.</p>
+        <p>This code is valid for 10 minutes.</p>
+        <p>If you did not request a password reset, you can ignore this email.</p>
         <br>
-        <p>İyi günler,<br>${companyName} Ekibi</p>
+        <p>Best regards,<br>The ${companyName} Team</p>
       </div>`,
-      textContent: `Merhaba ${extractedUserName},
+      textContent: `Hello ${extractedUserName},
 
-Şifrenizi sıfırlamak için kodunuz: ${code}
+Use the following code to reset your password: ${code}
 
-Bu kod 10 dakika geçerlidir.
+This code is valid for 10 minutes.
 
-Eğer şifre sıfırlama talebinde bulunmadıysanız, bu emaili görmezden gelebilirsiniz.
+If you did not request a password reset, you can ignore this email.
 
-İyi günler,
-${companyName} Ekibi`,
+Best regards,
+The ${companyName} Team`,
     });
   }
 

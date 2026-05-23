@@ -35,19 +35,19 @@ export function ResetPasswordForm({
     const newErrors: Record<string, string> = {};
 
     if (!code.trim() || code.length !== 6) {
-      newErrors.code = "Lütfen 6 haneli kodu girin";
+      newErrors.code = "Please enter the 6-digit code";
     }
     if (!newPassword) {
-      newErrors.newPassword = "Yeni şifre gerekli";
+      newErrors.newPassword = "New password is required";
     } else if (newPassword.length < 8) {
-      newErrors.newPassword = "Şifre en az 8 karakter olmalı";
+      newErrors.newPassword = "Password must be at least 8 characters";
     } else if (!/[A-Z]/.test(newPassword)) {
-      newErrors.newPassword = "Şifre en az bir büyük harf içermeli";
+      newErrors.newPassword = "Password must contain at least one uppercase letter";
     } else if (!/[0-9]/.test(newPassword)) {
-      newErrors.newPassword = "Şifre en az bir rakam içermeli";
+      newErrors.newPassword = "Password must contain at least one number";
     }
     if (newPassword !== confirmPassword) {
-      newErrors.confirmPassword = "Şifreler eşleşmiyor";
+      newErrors.confirmPassword = "Passwords do not match";
     }
 
     setErrors(newErrors);
@@ -57,12 +57,12 @@ export function ResetPasswordForm({
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Şifre Sıfırla" size="sm">
+    <Modal open={open} onClose={onClose} title="Reset Password" size="sm">
       <form onSubmit={handleSubmit} className={styles.form} noValidate>
         <p className={styles.description}>
-          E-postanıza gönderilen 6 haneli kodu ve yeni şifrenizi girin.
+          Enter the 6-digit code sent to your email and your new password.
         </p>
-        <FormField label="Doğrulama Kodu" error={errors.code}>
+        <FormField label="Verification Code" error={errors.code}>
           <Input
             type="text"
             placeholder="123456"
@@ -74,24 +74,24 @@ export function ResetPasswordForm({
             maxLength={6}
           />
         </FormField>
-        <FormField label="Yeni Şifre" error={errors.newPassword}>
+        <FormField label="New Password" error={errors.newPassword}>
           <Input
             type="password"
-            placeholder="En az 8 karakter"
+            placeholder="At least 8 characters"
             value={newPassword}
             onChange={e => setNewPassword(e.target.value)}
           />
         </FormField>
-        <FormField label="Yeni Şifre Tekrar" error={errors.confirmPassword}>
+        <FormField label="Confirm New Password" error={errors.confirmPassword}>
           <Input
             type="password"
-            placeholder="Şifrenizi tekrar girin"
+            placeholder="Re-enter your password"
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
           />
         </FormField>
         <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
-          {isLoading ? "Sıfırlanıyor..." : "Şifreyi Sıfırla"}
+          {isLoading ? "Resetting..." : "Reset Password"}
         </Button>
         <div className={styles.actions}>
           <button
@@ -99,7 +99,7 @@ export function ResetPasswordForm({
             className={styles.link}
             onClick={() => onNavigate("login")}
           >
-            Giriş sayfasına dön
+            Back to login
           </button>
         </div>
       </form>
