@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@/components/atoms/Icon";
 import { useAuth } from "@/hooks/useAuth";
 import styles from "./DashboardHome.module.css";
 
@@ -14,12 +15,13 @@ export function DashboardHome() {
         <div className={styles.statCard}>
           <span className={styles.statLabel}>Rol</span>
           <span className={styles.roleBadge}>
-            {user?.role === "DENTIST" ? "🦷 Diş Hekimi" : "⚙️ Laboratuvar Teknisyeni"}
+            <Icon name={user?.role === "DENTIST" ? "tooth" : "settings"} size="sm" />
+            {user?.role === "DENTIST" ? "Diş Hekimi" : "Laboratuvar Teknisyeni"}
           </span>
         </div>
         <div className={styles.statCard}>
           <span className={styles.statLabel}>Durum</span>
-          <span className={styles.statValue}>✓</span>
+          <span className={styles.statValue}><Icon name="check" size="xl" /></span>
         </div>
       </div>
     </div>

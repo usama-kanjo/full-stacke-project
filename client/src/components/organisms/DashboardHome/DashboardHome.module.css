@@ -42,9 +42,9 @@
 }
 
 .statValue {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  color: var(--color-gold-600);
+  display: flex;
+  align-items: center;
+  color: var(--color-success);
 }
 
 .roleBadge {
