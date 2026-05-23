@@ -2,6 +2,8 @@
 
 *A web-based platform for managing dental prosthesis orders between dentists and laboratory technicians.*
 
+Current branch: **`refactor/frontend-rewrite`** — Frontend being rewritten from scratch using Atomic Design Pattern.
+
 ---
 
 ## 🇬🇧 English
@@ -10,29 +12,53 @@
 
 **KanjoLab** is a comprehensive **dental lab order management system** that digitizes the workflow between dentists and laboratory technicians. It consists of a Next.js client and an Express server.
 
-### Features
+### Current Status
 
-- **User Management:** Registration, login, email verification (6-digit code), password reset, profile completion
-- **Role-Based System:** Dentist (DENTIST) and Lab Technician (LAB_TECHNICIAN) roles
-- **Dentist Panel:** Clinic management, order creation for prosthetic work
-- **Technician Panel:** Lab management, specialties
-- **Order Management:** Work type, tooth number, shade code, urgency, pricing, deadline tracking
-- **Email Notifications:** Verification codes and password reset via Gmail SMTP or offline console mode
+- **Backend** (Express 5 + Prisma + PostgreSQL) — **Fully working**, all auth and profile endpoints complete
+- **Frontend** (Next.js 16 + React 19) — **Being rewritten** with Atomic Design Pattern. Design system, all atoms, and core molecules are built; pages and auth flows are in progress
+
+### What's Built (Frontend)
+
+#### Design System
+- **Design Tokens** — Centralized colors, spacing, typography, z-index, transitions
+- **Premium Dental Lab Palette** — Warm gold/terracotta/cream tones, Lalezar + Fraunces + Sora typography
+
+#### Atoms (7/7 complete)
+Button, Badge, Input, Label, Icon, Spinner, Typography
+
+#### Molecules (10/10 complete)
+FormField, PasswordInput, Card, Avatar, Toast, Modal, Tabs, Dropdown, Checkbox, Toggle
+
+#### Next (In Progress)
+- Auth pages (Login, Register, Email Verification, Password Reset)
+- Dashboard layout (Header + Sidebar)
+- AuthContext + API client
+- Organism components
 
 ### Tech Stack
 
-#### Client
-- **Next.js 16 & React 19** with TypeScript — SSR/RSC support
-- **Axios** — HTTP client
-- **Sonner** — Toast notifications
+#### Client (Frontend)
+- **Next.js 16 & React 19** with TypeScript — App Router
+- **CSS Modules** — Component-scoped styling
+- **Atomic Design Pattern** — `atoms/` → `molecules/` → `organisms/` → `templates/` → `pages/`
+- **Storybook 10** — Component development & documentation
+- **Plop** — Code scaffolding for consistent components
+- **zod** — Client-side form validation
+- **@antfu/eslint-config** — Code quality
 
-#### Server
+#### Server (Backend — Complete)
 - **Node.js & Express.js 5** — ESM modules
 - **PostgreSQL & Prisma ORM** — Database & migrations
 - **JWT & cookie-parser** — Auth & session management
 - **bcryptjs** — Password hashing
 - **express-validator** — Input validation
 - **nodemailer** — Email (Gmail SMTP)
+
+#### Planned Dependencies
+- **Axios** — HTTP client (planned)
+- **Sonner** — Toast notifications (planned)
+- **Socket.IO** — Real-time notifications (planned)
+- **next-intl / react-i18next** — Arabic + English i18n (planned)
 
 ### API Endpoints
 
@@ -52,18 +78,26 @@
 
 ### How to Run
 
-```bash
-# 1. Start the server
-cd server
-cp .env.example .env    # Edit .env file
-npm install
-npx prisma migrate dev  # Run database migrations
-npm run dev             # http://localhost:3000
+**Important:** This project uses **yarn** as package manager — never use npm.
 
-# 2. Start the client
-cd client
-npm install
-npm run dev             # http://localhost:3001
+```bash
+# 1. Install dependencies (root + workspaces)
+yarn install
+
+# 2. Start the server (port 3000)
+yarn server
+
+# 3. Start the client (port 3001, separate terminal)
+yarn client
+
+# Or run both together
+yarn dev
+```
+
+#### Storybook (UI Component Development)
+```bash
+yarn workspace client storybook
+# → http://localhost:6006
 ```
 
 ### Code Generation (Plop)
@@ -80,8 +114,8 @@ The client uses **Plop** to scaffold components following the Atomic Design patt
 
 Example:
 ```bash
-yarn plop:atom        # Prompts: "Component name (PascalCase):"
-# Enter: Button
+yarn plop:atom
+# → "Component name (PascalCase):" → Button
 # → src/components/atoms/Button/index.tsx
 # → src/components/atoms/Button/Button.module.css
 # → src/components/atoms/Button/Button.stories.tsx
@@ -94,6 +128,14 @@ yarn plop:atom        # Prompts: "Component name (PascalCase):"
 - **Technician** → lab name, specialties
 - **Order** → patient info, tooth number, work type, shade, status, price, deadline
 
+### GitHub Issues
+
+All open issues are tracked in the [memory bank](memory-bank/activeContext.md) and synced with GitHub. When a PR/commit references an issue (e.g., `Closes #5`), it's automatically accepted.
+
+### Project Rules
+- **Package Manager:** yarn ONLY — never use npm
+- **Branch Scope:** Only work on the current branch's scope to avoid merge conflicts
+
 ---
 
 ## 🇹🇷 Türkçe
@@ -102,30 +144,53 @@ yarn plop:atom        # Prompts: "Component name (PascalCase):"
 
 **KanjoLab**, diş hekimleri (dentist) ve laboratuvar teknisyenleri arasındaki protez sipariş sürecini dijitalleştiren tam kapsamlı bir sipariş yönetim sistemidir. İstemci (Next.js) ve sunucu (Express) olmak üzere iki ana bölümden oluşur.
 
-### Özellikler
+### Mevcut Durum
 
-- **Kullanıcı Yönetimi:** Kayıt, giriş, email doğrulama (6 haneli kod), şifre sıfırlama, profil tamamlama
-- **Rol Tabanlı Sistem:** Dişçi (DENTIST) ve laboratuvar teknisyeni (LAB_TECHNICIAN) rolleri
-- **Dişçi Paneli:** Klinik bilgileri yönetimi, protez siparişi oluşturma
-- **Teknisyen Paneli:** Laboratuvar bilgileri yönetimi, uzmanlık alanları
-- **Sipariş Yönetimi:** Vakaya özel iş tanımı, diş numarası, renk kodu, aciliyet durumu, fiyatlandırma, deadline takibi
-- **Email Bildirimleri:** Doğrulama kodu ve şifre sıfırlama email gönderimi (Gmail SMTP / OFFLINE konsol modu)
+- **Backend** (Express 5 + Prisma + PostgreSQL) — **Tamamen çalışıyor**, tüm auth ve profil endpoint'leri hazır
+- **Frontend** (Next.js 16 + React 19) — **Yeniden yazılıyor**, Atomic Design Pattern ile. Tüm atom ve molekül bileşenleri tamam, sayfalar ve auth akışı geliştirme aşamasında
+
+### Ne Yapıldı? (Frontend)
+
+#### Tasarım Sistemi
+- **Design Tokens** — Merkezi renk, spacing, tipografi, z-index, transition tanımları
+- **Premium Dental Lab Paleti** — Sıcak altın/terakota/krem tonları, Lalezar + Fraunces + Sora tipografi
+
+#### Atomlar (7/7 tamam)
+Button, Badge, Input, Label, Icon, Spinner, Typography
+
+#### Moleküller (10/10 tamam)
+FormField, PasswordInput, Card, Avatar, Toast, Modal, Tabs, Dropdown, Checkbox, Toggle
+
+#### Sıradaki (Geliştiriliyor)
+- Auth sayfaları (Giriş, Kayıt, Email Doğrulama, Şifre Sıfırlama)
+- Dashboard layout (Header + Sidebar)
+- AuthContext + API client
+- Organism bileşenleri
 
 ### Kullanılan Teknolojiler
 
-#### Client (İstemci - Frontend)
-- **Next.js 16 & React 19** — TypeScript ile modern, SSR/RSC destekli arayüz
-- **Axios** — API haberleşmesi
-- **Sonner** — Kullanıcı bildirimleri (toast)
+#### Client (İstemci — Frontend)
+- **Next.js 16 & React 19** — TypeScript ile, App Router
+- **CSS Modules** — Bileşen bazlı stillendirme
+- **Atomic Design Pattern** — `atoms/` → `molecules/` → `organisms/` → `templates/` → `pages/`
+- **Storybook 10** — Bileşen geliştirme & dokümantasyon
+- **Plop** — Kod iskelet oluşturma aracı
+- **zod** — Form validasyonu
+- **@antfu/eslint-config** — Kod kalitesi
 
-#### Server (Sunucu - Backend)
-- **Node.js & Express.js 5** — ESM modül sistemi ile modern sunucu
+#### Server (Sunucu — Backend, Tamamlandı)
+- **Node.js & Express.js 5** — ESM modül sistemi
 - **PostgreSQL & Prisma ORM** — Veritabanı yönetimi ve migrasyonlar
 - **JWT & cookie-parser** — Oturum yönetimi ve kimlik doğrulama
 - **bcryptjs** — Şifre hash'leme
 - **express-validator** — Veri doğrulama
 - **nodemailer** — Email gönderimi (Gmail SMTP)
-- **date-fns** — Tarih işlemleri
+
+#### Planlanan Bağımlılıklar
+- **Axios** — HTTP client (planlandı)
+- **Sonner** — Toast bildirimleri (planlandı)
+- **Socket.IO** — Gerçek zamanlı bildirimler (planlandı)
+- **next-intl / react-i18next** — Arapça + İngilizce dil desteği (planlandı)
 
 ### API Uç Noktaları
 
@@ -145,23 +210,29 @@ yarn plop:atom        # Prompts: "Component name (PascalCase):"
 
 ### Nasıl Çalıştırılır?
 
-```bash
-# 1. Sunucuyu başlat
-cd server
-cp .env.example .env    # .env dosyasını düzenleyin
-npm install
-npx prisma migrate dev  # Veritabanı migrasyonu
-npm run dev             # http://localhost:3000
+**Önemli:** Bu proje **yarn** paket yöneticisini kullanır — npm kullanmayın.
 
-# 2. İstemciyi başlat
-cd client
-npm install
-npm run dev             # http://localhost:3001
+```bash
+# 1. Bağımlılıkları yükle (kök + workspace'ler)
+yarn install
+
+# 2. Sunucuyu başlat (port 3000)
+yarn server
+
+# 3. İstemciyi başlat (port 3001, ayrı terminal)
+yarn client
+
+# Veya ikisini birlikte çalıştır
+yarn dev
+```
+
+#### Storybook (UI Bileşen Geliştirme)
+```bash
+yarn workspace client storybook
+# → http://localhost:6006
 ```
 
 ### Code Generation (Plop) — Bileşen Oluşturma
-
-Client projesinde **Plop** ile Atomic Design bileşenlerini hızlıca oluşturabilirsin.
 
 | Komut | Ne oluşturur? |
 |---|---|
@@ -171,19 +242,17 @@ Client projesinde **Plop** ile Atomic Design bileşenlerini hızlıca oluşturab
 | `yarn plop:organism` | `src/components/organisms/BilesenAdi/` (aynı 3 dosya) |
 | `yarn plop:page` | `src/app/sayfa-adi/page.tsx` (sadece sayfa) |
 
-Örnek:
-```bash
-yarn plop:atom
-# Sorus: "Component name (PascalCase):"
-# Cevap: Button
-# → src/components/atoms/Button/index.tsx
-# → src/components/atoms/Button/Button.module.css
-# → src/components/atoms/Button/Button.stories.tsx
-```
-
 ### Veritabanı Şeması
 
 - **User** → email, şifre, rol, doğrulama durumu
 - **Dentist** → dişçi profili (klinik adı, adres, telefon)
 - **Technician** → teknisyen profili (laboratuvar adı, uzmanlıklar)
 - **Order** → sipariş (hasta, diş numarası, iş tipi, renk, durum, fiyat, deadline)
+
+### GitHub Issue'lar
+
+Tüm açık issue'lar [memory bank](memory-bank/activeContext.md)'te takip edilir ve GitHub ile senkronizedir. Bir PR/commit bir issue'ya referans verdiğinde (örn. `Closes #5`), otomatik olarak kabul edilir.
+
+### Proje Kuralları
+- **Paket Yöneticisi:** Sadece yarn — npm kullanmayın
+- **Branch Scope:** Sadece mevcut branch'in kapsamındaki işler yapılır, merge conflict'lerini önlemek için
