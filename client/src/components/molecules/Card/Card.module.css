@@ -29,7 +29,7 @@
 
 .card--hoverable:hover {
   box-shadow: var(--shadow-md);
-  border-color: var(--color-primary-200);
+  border-color: var(--color-gold-200);
 }
 
 .card--clickable {

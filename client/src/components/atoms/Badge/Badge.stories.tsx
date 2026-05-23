@@ -9,16 +9,12 @@ const meta: Meta<typeof Badge> = {
     variant: {
       control: { type: "select" },
       options: ["primary", "success", "warning", "error", "neutral"],
-      description: "لون الـ Badge بناءً على المعنى الدلالي",
     },
     size: {
       control: { type: "radio" },
       options: ["sm", "md", "lg"],
     },
-    dot: {
-      control: { type: "boolean" },
-      description: "إضافة نقطة ملوّنة قبل النص",
-    },
+    dot: { control: { type: "boolean" } },
   },
 };
 
@@ -26,17 +22,17 @@ export default meta;
 type Story = StoryObj<typeof Badge>;
 
 export const Default: Story = {
-  args: { children: "جديد", variant: "primary" },
+  args: { children: "New", variant: "primary" },
 };
 
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-      <Badge variant="primary">أساسي</Badge>
-      <Badge variant="success">مكتمل ✓</Badge>
-      <Badge variant="warning">قيد الانتظار</Badge>
-      <Badge variant="error">خطأ</Badge>
-      <Badge variant="neutral">مؤرشف</Badge>
+      <Badge variant="primary">Primary</Badge>
+      <Badge variant="success">Completed</Badge>
+      <Badge variant="warning">Pending</Badge>
+      <Badge variant="error">Error</Badge>
+      <Badge variant="neutral">Archived</Badge>
     </div>
   ),
 };
@@ -44,15 +40,9 @@ export const AllVariants: Story = {
 export const WithDot: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "8px" }}>
-      <Badge variant="success" dot>
-        متصل
-      </Badge>
-      <Badge variant="error" dot>
-        غير متصل
-      </Badge>
-      <Badge variant="warning" dot>
-        في انتظار الموافقة
-      </Badge>
+      <Badge variant="success" dot>Online</Badge>
+      <Badge variant="error" dot>Offline</Badge>
+      <Badge variant="warning" dot>Away</Badge>
     </div>
   ),
 };
@@ -60,9 +50,9 @@ export const WithDot: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-      <Badge size="sm">صغير</Badge>
-      <Badge size="md">متوسط</Badge>
-      <Badge size="lg">كبير</Badge>
+      <Badge size="sm">Small</Badge>
+      <Badge size="md">Medium</Badge>
+      <Badge size="lg">Large</Badge>
     </div>
   ),
 };

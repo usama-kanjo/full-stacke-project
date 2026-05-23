@@ -19,4 +19,5 @@
 .asterisk {
   color: var(--color-error);
   font-weight: var(--font-bold);
+  margin-left: var(--space-0-5, 0.125rem);
 }

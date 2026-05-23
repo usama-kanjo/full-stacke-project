@@ -25,19 +25,19 @@
 - [x] Next.js 16 App Router setup (clean)
 - [x] `.storybook` configuration
 - [x] **Plop** code generator with `.hbs` templates
-- [x] **Design Tokens** system (colors, spacing, typography)
+- [x] **Design Tokens** system (colors, spacing, typography) — **Premium Dental Lab palette**
 - [x] **@antfu/eslint-config** linting setup
 - [x] **zod** client-side validation library
-- [x] **Button** atom component (3 variants, 3 sizes, loading, disabled)
-- [x] **Badge** atom component (3 variants)
-- [x] **Input** atom component
-- [x] **Label** atom component
-- [x] **Icon** atom component (with icons list)
-- [x] **Spinner** atom component
-- [x] **Typography** atom component
-- [x] **Card** molecule component
-- [x] **FormField** molecule component
-- [x] **PasswordInput** molecule component
+- [x] **Button** atom — Gold gradient/terracotta variants, shimmer animation, bounce transitions
+- [x] **Badge** atom — Warm semantic colors, uppercase
+- [x] **Input** atom — Gold focus glow, warm bg
+- [x] **Label** atom — Uppercase, warm tones
+- [x] **Icon** atom — Clean SVG, palette-aware
+- [x] **Spinner** atom — Default gold
+- [x] **Typography** atom — Lalezar + Fraunces + Sora
+- [x] **Card** molecule — Gold hover border
+- [x] **FormField** molecule
+- [x] **PasswordInput** molecule
 - [ ] **Avatar** molecule component
 - [ ] **Toast/Alert** molecule component
 - [ ] **Modal/Dialog** molecule component

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=Sora:wght@300;400;500;600;700;800&display=swap");
+
 @font-face {
   font-family: "Lalezar";
   src: url("../assets/fonts/primary.ttf") format("truetype");
@@ -6,53 +8,85 @@
 }
 
 :root {
-  /* ── Primary Colors ─────────────────────────────────────── */
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
+  /* ── Gold (Primary) ────────────────────────────────────── */
+  --color-gold-50: #fdf6e7;
+  --color-gold-100: #f9e8c0;
+  --color-gold-200: #f0d48e;
+  --color-gold-300: #e5bc5a;
+  --color-gold-400: #d4a843;
+  --color-gold-500: #c89b3c;
+  --color-gold-600: #b8860b;
+  --color-gold-700: #9a7220;
+  --color-gold-800: #7a5a1a;
+  --color-gold-900: #5c4213;
 
-  /* ── Semantic Colors ────────────────────────────────────── */
-  --color-success-light: #d1fae5;
-  --color-success: #10b981;
-  --color-success-dark: #065f46;
+  /* ── Terracotta (Secondary) ────────────────────────────── */
+  --color-terracotta-50: #fdf2ee;
+  --color-terracotta-100: #f8ddd3;
+  --color-terracotta-200: #f0baa6;
+  --color-terracotta-300: #e69174;
+  --color-terracotta-400: #d97a58;
+  --color-terracotta-500: #c66b4d;
+  --color-terracotta-600: #a8553b;
+  --color-terracotta-700: #8a442f;
+  --color-terracotta-800: #6e3625;
+  --color-terracotta-900: #52281b;
 
-  --color-error-light: #fee2e2;
-  --color-error: #ef4444;
-  --color-error-dark: #7f1d1d;
+  /* ── Cream (Background) ────────────────────────────────── */
+  --color-cream-50: #fefcf8;
+  --color-cream-100: #fdf8f0;
+  --color-cream-200: #fcf3e5;
+  --color-cream-300: #f8ead1;
+  --color-cream-400: #f2ddb8;
+  --color-cream-500: #e8cd9c;
 
-  --color-warning-light: #fef3c7;
-  --color-warning: #f59e0b;
-  --color-warning-dark: #78350f;
+  /* ── Teal (Accent) ─────────────────────────────────────── */
+  --color-teal-50: #effaf8;
+  --color-teal-100: #d5f2ed;
+  --color-teal-200: #b0e5db;
+  --color-teal-300: #7dd2c3;
+  --color-teal-400: #4fb8a5;
+  --color-teal-500: #3a9d8c;
+  --color-teal-600: #2c7f70;
+  --color-teal-700: #256559;
+  --color-teal-800: #215149;
+  --color-teal-900: #1d433d;
+
+  /* ── Semantic Colors ──────────────────────────────────── */
+  --color-success-light: #e8f5e9;
+  --color-success: #5b8c5a;
+  --color-success-dark: #2e5e2d;
+
+  --color-error-light: #fde8e8;
+  --color-error: #c04040;
+  --color-error-dark: #8b2020;
+
+  --color-warning-light: #fff3d6;
+  --color-warning: #c89020;
+  --color-warning-dark: #7a5a10;
 
   --color-info-light: #e0f2fe;
   --color-info: #0ea5e9;
   --color-info-dark: #0c4a6e;
 
-  /* ── Neutral Colors ─────────────────────────────────────── */
+  /* ── Neutral (Warm) ──────────────────────────────────── */
   --color-neutral-0: #ffffff;
-  --color-neutral-50: #f9fafb;
-  --color-neutral-100: #f3f4f6;
-  --color-neutral-200: #e5e7eb;
-  --color-neutral-300: #d1d5db;
-  --color-neutral-400: #9ca3af;
-  --color-neutral-500: #6b7280;
-  --color-neutral-600: #4b5563;
-  --color-neutral-700: #374151;
-  --color-neutral-800: #1f2937;
-  --color-neutral-900: #111827;
+  --color-neutral-50: #fcfaf7;
+  --color-neutral-100: #f5f2ed;
+  --color-neutral-200: #ebe5dd;
+  --color-neutral-300: #d6cfc5;
+  --color-neutral-400: #b0a79a;
+  --color-neutral-500: #8c8377;
+  --color-neutral-600: #6b6358;
+  --color-neutral-700: #5c4a3a;
+  --color-neutral-800: #3c2e22;
+  --color-neutral-900: #2c1810;
 
-  /* ── Typography ─────────────────────────────────────────── */
-
-  --font-sans: "Lalezar", "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
-  --font-arabic: "Cairo", "Noto Sans Arabic", sans-serif;
+  /* ── Typography ───────────────────────────────────────── */
+  --font-display: "Lalezar", "Noto Sans Arabic", sans-serif;
+  --font-serif: "Fraunces", "Georgia", serif;
+  --font-sans: "Sora", "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -62,6 +96,8 @@
   --text-2xl: 1.5rem;
   --text-3xl: 1.875rem;
   --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
 
   --font-light: 300;
   --font-regular: 400;
@@ -69,20 +105,27 @@
   --font-semibold: 600;
   --font-bold: 700;
   --font-extrabold: 800;
+  --font-black: 900;
 
-  --line-height-tight: 1.25;
+  --line-height-tight: 1.15;
+  --line-height-snug: 1.3;
   --line-height-normal: 1.5;
-  --line-height-relaxed: 1.75;
+  --line-height-relaxed: 1.65;
 
+  --letter-spacing-tighter: -0.05em;
   --letter-spacing-tight: -0.025em;
   --letter-spacing-normal: 0em;
-  --letter-spacing-wide: 0.025em;
-  --letter-spacing-wider: 0.05em;
+  --letter-spacing-wide: 0.05em;
+  --letter-spacing-wider: 0.1em;
 
-  /* ── Spacing ────────────────────────────────────────────── */
+  /* ── Spacing ──────────────────────────────────────────── */
+  --space-px: 1px;
+  --space-0-5: 0.125rem;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
+  --space-2-5: 0.625rem;
   --space-3: 0.75rem;
+  --space-3-5: 0.875rem;
   --space-4: 1rem;
   --space-5: 1.25rem;
   --space-6: 1.5rem;
@@ -90,32 +133,44 @@
   --space-10: 2.5rem;
   --space-12: 3rem;
   --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
 
-  /* ── Border Radius ──────────────────────────────────────── */
+  /* ── Border Radius ────────────────────────────────────── */
   --radius-sm: 0.125rem;
   --radius-base: 0.25rem;
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
   --radius-full: 9999px;
 
-  /* ── Shadows ────────────────────────────────────────────── */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-base:
-    0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --shadow-md:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --shadow-lg:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  /* ── Shadows (warm-toned) ─────────────────────────────── */
+  --shadow-sm: 0 1px 2px 0 rgba(92, 74, 58, 0.06);
+  --shadow-base: 0 1px 3px 0 rgba(92, 74, 58, 0.08), 0 1px 2px -1px rgba(92, 74, 58, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(92, 74, 58, 0.08), 0 2px 4px -2px rgba(92, 74, 58, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(92, 74, 58, 0.08), 0 4px 6px -4px rgba(92, 74, 58, 0.06);
+  --shadow-xl: 0 20px 25px -5px rgba(92, 74, 58, 0.1), 0 8px 10px -6px rgba(92, 74, 58, 0.06);
+  --shadow-gold: 0 4px 14px 0 rgba(200, 155, 60, 0.25);
 
-  /* ── Transitions ────────────────────────────────────────── */
-  --transition-fast: 150ms ease-in-out;
-  --transition-normal: 250ms ease-in-out;
-  --transition-slow: 400ms ease-in-out;
+  /* ── Transitions ──────────────────────────────────────── */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Z-Index ──────────────────────────────────────────── */
+  --z-behind: -1;
+  --z-base: 0;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-modal: 200;
+  --z-toast: 300;
+  --z-tooltip: 400;
 }
 
-/* ── Global Reset ───────────────────────────────────────────── */
+/* ── Global Reset ─────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -127,7 +182,78 @@
 body {
   font-family: var(--font-sans);
   font-size: var(--text-base);
+  font-weight: var(--font-regular);
   color: var(--color-neutral-800);
-  background: var(--color-neutral-50);
-  line-height: 1.5;
+  background-color: var(--color-cream-50);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Geometric Pattern (subtle) ───────────────────────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-behind);
+  opacity: 0.03;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      var(--color-gold-300) 40px,
+      var(--color-gold-300) 41px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      var(--color-gold-300) 40px,
+      var(--color-gold-300) 41px
+    );
+}
+
+/* ── Noise Texture ────────────────────────────────────────── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-behind);
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ── Selection ────────────────────────────────────────────── */
+::selection {
+  background-color: var(--color-gold-200);
+  color: var(--color-neutral-900);
+}
+
+/* ── Focus Ring ───────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 2px;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-300);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-400);
 }

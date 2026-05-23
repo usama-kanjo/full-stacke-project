@@ -39,9 +39,7 @@ export default meta;
 type Story = StoryObj<typeof Icon>;
 
 export const Default: Story = {
-  args: {
-    name: "eye",
-  },
+  args: { name: "eye" },
 };
 
 export const AllIcons: Story = {
@@ -66,16 +64,7 @@ export const AllIcons: Story = {
         "arrowLeft",
         "arrowRight",
       ] as const).map(name => (
-        <div
-          key={name}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontSize: "0.75rem",
-          }}
-        >
+        <div key={name} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem" }}>
           <Icon name={name} size="xl" />
           <span>{name}</span>
         </div>
@@ -98,10 +87,10 @@ export const Sizes: Story = {
 export const Colored: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
-      <Icon name="check" size="lg" />
-      <span style={{ color: "green" }}><Icon name="check" size="lg" /></span>
-      <span style={{ color: "red" }}><Icon name="close" size="lg" /></span>
-      <span style={{ color: "var(--color-primary-500)" }}><Icon name="info" size="lg" /></span>
+      <span style={{ color: "var(--color-gold-500)" }}><Icon name="check" size="lg" /></span>
+      <span style={{ color: "var(--color-terracotta-500)" }}><Icon name="close" size="lg" /></span>
+      <span style={{ color: "var(--color-teal-500)" }}><Icon name="info" size="lg" /></span>
+      <span style={{ color: "var(--color-neutral-400)" }}><Icon name="search" size="lg" /></span>
     </div>
   ),
 };

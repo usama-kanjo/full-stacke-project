@@ -1,95 +1,121 @@
-/* ============================================================
-   📁 src/components/atoms/Button/Button.module.css
-   ============================================================
-   Using CSS Variables defined in tokens.css
-   This way the Button is tied to the Design System and doesn't contain
-   any hardcoded values directly.
-============================================================ */
-
-/* ── Base Styles (shared across all variants) ─────────────── */
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  /* from tokens */
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
   font-weight: var(--font-semibold);
   line-height: 1;
-  border: 2px solid transparent;
-  border-radius: var(--radius-lg);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-xl);
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
+  overflow: hidden;
+  user-select: none;
+  isolation: isolate;
   transition:
     background-color var(--transition-fast),
     border-color var(--transition-fast),
     color var(--transition-fast),
     box-shadow var(--transition-fast),
-    transform var(--transition-fast);
-
-  /* Prevent text selection */
-  user-select: none;
+    transform var(--transition-bounce);
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--color-primary-500);
+  outline: 2px solid var(--color-gold-500);
   outline-offset: 2px;
 }
 
 .btn:active:not(:disabled) {
-  transform: translateY(1px);
+  transform: translateY(1px) scale(0.98);
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* ── Size Variants ──────────────────────────────────────────── */
 .btn--sm {
   padding: var(--space-2) var(--space-3);
   font-size: var(--text-sm);
+  border-radius: var(--radius-lg);
 }
 
 .btn--md {
-  padding: var(--space-3) var(--space-5);
+  padding: var(--space-2-5, 0.625rem) var(--space-5);
   font-size: var(--text-base);
 }
 
 .btn--lg {
-  padding: var(--space-4) var(--space-8);
+  padding: var(--space-3-5, 0.875rem) var(--space-8);
   font-size: var(--text-lg);
 }
 
-/* ── Visual Variants ────────────────────────────────────────── */
-
-/* Primary - the most prominent button */
+/* ── Gold (Primary) ─────────────────────────────────────────── */
 .btn--primary {
-  background-color: var(--color-primary-500);
+  background: linear-gradient(135deg, var(--color-gold-500) 0%, var(--color-gold-600) 100%);
   color: var(--color-neutral-0);
-  border-color: var(--color-primary-500);
+  border-color: var(--color-gold-600);
+  box-shadow: var(--shadow-gold);
 }
 
 .btn--primary:hover:not(:disabled) {
-  background-color: var(--color-primary-600);
-  border-color: var(--color-primary-600);
-  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, var(--color-gold-400) 0%, var(--color-gold-500) 100%);
+  border-color: var(--color-gold-500);
+  box-shadow: 0 6px 20px 0 rgba(200, 155, 60, 0.35);
+  transform: translateY(-1px);
 }
 
-/* Secondary - with border */
+.btn--primary:active:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-gold-600) 0%, var(--color-gold-700) 100%);
+  box-shadow: var(--shadow-gold);
+}
+
+/* Shimmer overlay */
+.btn--primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Terracotta (Secondary) ─────────────────────────────────── */
 .btn--secondary {
-  background-color: var(--color-neutral-0);
-  color: var(--color-primary-600);
-  border-color: var(--color-primary-500);
+  background-color: var(--color-terracotta-500);
+  color: var(--color-neutral-0);
+  border-color: var(--color-terracotta-600);
+  box-shadow: 0 2px 8px 0 rgba(198, 107, 77, 0.2);
 }
 
 .btn--secondary:hover:not(:disabled) {
-  background-color: var(--color-primary-50);
-  box-shadow: var(--shadow-sm);
+  background-color: var(--color-terracotta-400);
+  border-color: var(--color-terracotta-500);
+  box-shadow: 0 4px 12px 0 rgba(198, 107, 77, 0.3);
+  transform: translateY(-1px);
 }
 
-/* Ghost - transparent without border */
+.btn--secondary:active:not(:disabled) {
+  background-color: var(--color-terracotta-600);
+}
+
+/* ── Ghost ──────────────────────────────────────────────────── */
 .btn--ghost {
   background-color: transparent;
   color: var(--color-neutral-700);
@@ -97,10 +123,11 @@
 }
 
 .btn--ghost:hover:not(:disabled) {
-  background-color: var(--color-neutral-100);
+  background-color: var(--color-cream-200);
+  color: var(--color-neutral-800);
 }
 
-/* Danger - for destructive actions (delete, warning) */
+/* ── Danger ─────────────────────────────────────────────────── */
 .btn--danger {
   background-color: var(--color-error);
   color: var(--color-neutral-0);
@@ -110,7 +137,8 @@
 .btn--danger:hover:not(:disabled) {
   background-color: var(--color-error-dark);
   border-color: var(--color-error-dark);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 12px 0 rgba(192, 64, 64, 0.3);
+  transform: translateY(-1px);
 }
 
 /* ── Full Width ─────────────────────────────────────────────── */
@@ -123,27 +151,28 @@
   cursor: wait;
 }
 
-/* Spinner Animation */
 .spinner {
   display: inline-block;
   width: 1em;
   height: 1em;
-  border: 2px solid currentColor;
-  border-top: 2px solid transparent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: currentColor;
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
-/* ── Icon Wrapper ───────────────────────────────────────────── */
+/* ── Icon ──────────────────────────────────────────────────── */
 .icon {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  font-size: 1.1em;
+  font-size: 1.15em;
+}
+
+.btn--ghost .icon {
+  color: var(--color-gold-500);
 }

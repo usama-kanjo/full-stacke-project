@@ -9,42 +9,22 @@ Rewriting the frontend from scratch using **Atomic Design Pattern**. Old client 
 The server is fully functional — we are only focusing on the frontend.
 
 ## Recent Changes
-- Added `@antfu/eslint-config` for consistent linting
-- Added **zod** for client-side validation
-- Added **Plop** code generator with separate `.hbs` template files
-  - Plopfile generates 4 files per component: `Component.tsx`, `Component.module.css`, `Component.stories.tsx`, `index.ts`
-  - Generators: `atoms`, `molecules`, `organisms` (with `pages` and `templates` commented out)
-- Created **Design Tokens** system:
-  - `tokens/colors.ts`, `tokens/spacing.ts`, `tokens/typography.ts`
-  - `tokens/tokens.css` — CSS custom properties
-  - Exported through `tokens/index.ts`
-- Configured `.storybook/` for component development
-- Created **Button** atom component (4 files) with:
-  - 3 variants: `primary`, `secondary`, `outline`
-  - 3 sizes: `sm`, `md`, `lg`
-  - Loading spinner state
-  - Disabled state
-  - Full width option
-  - Storybook stories for each variant/size combination
-- Created **Badge** atom component with:
-  - 3 variants: `default`, `success`, `warning`
-  - Storybook stories
-- Created **Icon** atom component with SVG icon list
-- Created **Input** atom component
-- Created **Label** atom component
-- Created **Spinner** atom component
-- Created **Typography** atom component
-- Created **Card** molecule component
-- Created **FormField** molecule component (Label + Input + Error)
-- Created **PasswordInput** molecule component (Input + visibility toggle)
-- Created **MainLayout** template (empty — ready for implementation)
-- Created **Home** page component (empty — ready for implementation)
-- Fixed Storybook config and design tokens integration
-- Fixed `.gitignore` — added `.next/` to client ignore, fixed typo in root `.gitignore`
-- Fixed Plop templates to generate 4 files per component
-- Fixed `index.ts` re-export to use `default` export approach for ESLint compatibility
-- Simplified `layout.tsx` and `page.tsx` in App Router
-- Cleaned up old client components (register, LoginPage, dashboard, rootPage, Footer, etc.)
+- **COMPLETE DESIGN SYSTEM OVERHAUL** — Premium Dental Lab aesthetic
+  - Colors: Cold blue → Warm gold/terracotta/cream palette
+  - Typography: Inter → Lalezar (display/Arabic) + Fraunces (serif/English) + Sora (body)
+  - CSS: Added geometric diamond pattern overlay + noise texture
+  - Warm-toned shadows, gold focus rings, refined transitions
+- **All 7 atom components redesigned** with new aesthetic:
+  - **Button**: Gold gradient primary, terracotta secondary, shimmer animation, bounce transition, refined hover/active states
+  - **Badge**: Warm semantic colors, uppercase label style
+  - **Input**: Gold focus glow, warmer backgrounds, larger border radius
+  - **Label**: Uppercase letter-spacing, warm typography
+  - **Spinner**: Default gold color
+  - **Typography**: Lalezar for h1/h2, Fraunces for h3-h5, Sora uppercase for h6/body
+  - **Icon**: Works with warm palette via currentColor
+- **Card molecule**: Updated gold hover border
+- **Design Tokens** (spacing.ts): Added half-step tokens (2.5, 3.5), warm shadows, bounce transition, gold shadow
+- Previous changes (Plop, Storybook, etc.) still in place
 
 ## Hard Rules
 - **Package Manager: yarn ONLY** — Never use npm. All installs, scripts, and workspace commands use yarn.

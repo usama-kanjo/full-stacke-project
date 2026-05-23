@@ -17,9 +17,7 @@ export default meta;
 type Story = StoryObj<typeof Spinner>;
 
 export const Default: Story = {
-  args: {
-    size: "md",
-  },
+  args: { size: "md" },
 };
 
 export const Sizes: Story = {
@@ -35,9 +33,9 @@ export const Sizes: Story = {
 export const Colored: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
-      <span style={{ color: "var(--color-primary-500)" }}><Spinner /></span>
-      <span style={{ color: "var(--color-error)" }}><Spinner /></span>
-      <span style={{ color: "var(--color-success)" }}><Spinner /></span>
+      <span style={{ color: "var(--color-gold-500)" }}><Spinner /></span>
+      <span style={{ color: "var(--color-terracotta-500)" }}><Spinner /></span>
+      <span style={{ color: "var(--color-teal-500)" }}><Spinner /></span>
       <span style={{ color: "var(--color-neutral-400)" }}><Spinner /></span>
     </div>
   ),
