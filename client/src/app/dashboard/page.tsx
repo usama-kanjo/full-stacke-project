@@ -1,0 +1,67 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { Modal } from "@/components/molecules/Modal";
+import { DashboardHome } from "@/components/organisms/DashboardHome";
+import { ProfileCompletionForm } from "@/components/organisms/ProfileCompletionForm";
+import { useAuth } from "@/hooks/useAuth";
+import { authService } from "@/services/authService";
+
+export default function DashboardPage() {
+  const { user, setUser } = useAuth();
+  const router = useRouter();
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [checkingProfile, setCheckingProfile] = useState(true);
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+      return;
+    }
+    if (user.isProfileComplete === false) {
+      setShowProfileModal(true);
+    }
+    setCheckingProfile(false);
+  }, [user, router]);
+
+  const handleProfileSubmit = async (data: Parameters<typeof authService.completeProfile>[0]) => {
+    setIsSubmitting(true);
+    try {
+      const res = await authService.completeProfile(data);
+      setUser({
+        ...user!,
+        role: res.data.data.role,
+        isProfileComplete: true,
+      });
+      setShowProfileModal(false);
+      toast.success("Profil başarıyla tamamlandı!");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Profil tamamlanamadı");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (checkingProfile)
+  { return null; }
+
+  return (
+    <>
+      <DashboardHome />
+      <Modal
+        open={showProfileModal}
+        onClose={() => {}}
+        title="Profili Tamamla"
+        size="md"
+      >
+        <ProfileCompletionForm
+          onSubmit={handleProfileSubmit}
+          isLoading={isSubmitting}
+        />
+      </Modal>
+    </>
+  );
+}

@@ -57,26 +57,30 @@ Each milestone item maps to a GitHub issue for auto-accept:
 - [x] **Card** molecule — Gold hover border
 - [x] **FormField** molecule
 - [x] **PasswordInput** molecule
-- [ ] **Avatar** molecule component
-- [ ] **Toast/Alert** molecule component
-- [ ] **Modal/Dialog** molecule component
-- [ ] **Tabs** molecule component
-- [ ] **Dropdown** molecule component
-- [ ] **Checkbox/Radio** molecule component
-- [ ] **Toggle** molecule component
-- [ ] Organism components (LoginForm, RegisterForm, Header, Sidebar, etc.)
-- [x] Templates (MainLayout — empty scaffold)
-- [ ] Templates (AuthTemplate, DashboardTemplate)
-- [ ] Axios + Sonner (to be installed)
-- [ ] AuthContext + useAuth hook
-- [ ] API client + auth service
-- [ ] Login page
-- [ ] Register page
-- [ ] Email verification page
-- [ ] Forgot/Reset password pages
-- [ ] Profile completion page
-- [ ] Dashboard layout + pages
-- [ ] Global state management
+- [x] **Avatar** molecule component
+- [x] **Toast/Alert** molecule component
+- [x] **Modal/Dialog** molecule component
+- [x] **Tabs** molecule component
+- [x] **Dropdown** molecule component
+- [x] **Checkbox/Radio** molecule component
+- [x] **Toggle** molecule component
+- [x] Axios + Sonner (installed)
+- [x] API client + auth service (lib/api.ts + services/authService.ts)
+- [x] AuthContext + useAuth hook + useAuthModal hook
+- [x] **AuthModal** organism — Step management, slide animasyon
+- [x] **LoginForm**, **RegisterForm**, **EmailVerificationForm** organisms
+- [x] **ForgotPasswordForm**, **ResetPasswordForm** organisms
+- [x] **Header** organism — Logo + Giriş Yap butonu / kullanıcı menüsü
+- [x] **ProfileCompletionForm** organism — Rol seçimi, conditional alanlar
+- [x] **Sidebar** organism — Role-based nav menü
+- [x] **DashboardHome** organism — Dashboard overview
+- [x] **AuthTemplate** — Landing page layout
+- [x] **DashboardTemplate** — Sidebar + Header + content layout
+- [x] Root page (/) — Auth modal flow (slide geçişleri)
+- [x] Dashboard page (/dashboard) — Profile completion check on mount
+- [ ] Global state management (future)
+- [ ] WebSocket notifications (frontend + backend)
+- [ ] i18n — Arabic + English UI support
 - [ ] WebSocket notifications (frontend + backend)
 - [ ] i18n — Arabic + English UI support
 
@@ -95,16 +99,20 @@ Each milestone item maps to a GitHub issue for auto-accept:
 - [x] Plop generator
 - [x] All atom components + Storybook stories
 - [x] Core molecule components (FormField, PasswordInput, Card)
-- [ ] Additional molecule components (Avatar, Toast/Alert, Modal/Dialog, Tabs, Dropdown, Checkbox/Radio, Toggle)
+- [x] Additional molecule components (Avatar, Toast/Alert, Modal/Dialog, Tabs, Dropdown, Checkbox/Radio, Toggle)
 
-### Milestone 2: Auth Flow (Pages)
-- [ ] All auth pages (login, register, verify, password reset, profile completion)
-- [ ] AuthContext with global state
-- [ ] Axios interceptor + error handling
+### Milestone 2: Auth Flow (Modal-based)
+- [x] AuthModal with step management (form → form slide transitions)
+- [x] LoginForm, RegisterForm, EmailVerificationForm
+- [x] ForgotPasswordForm, ResetPasswordForm
+- [x] AuthContext with global state
+- [x] Axios interceptor + error handling
+- [x] Profile completion check on dashboard mount
+- [x] API client + auth service layer
 
 ### Milestone 3: Dashboard
-- [ ] Dashboard layout (Header + Sidebar)
-- [ ] Dashboard home page
+- [x] Dashboard layout (Header + Sidebar)
+- [x] Dashboard home page
 - [ ] Dashboard profile
 - [ ] Dashboard settings
 

@@ -63,6 +63,23 @@ The server is fully functional — we are only focusing on the frontend.
 - **Barrel export**: Updated `components/index.ts` with all new molecules
 - **Plop template**: Fixed `index.ts.hbs` to include named exports
 - **Design Tokens** (spacing.ts): Added half-step tokens (2.5, 3.5), warm shadows, bounce transition, gold shadow
+- **COMPLETE AUTH INFRASTRUCTURE BUILT**:
+  - Axios + Sonner kurulumu
+  - API client (`lib/api.ts`) — base URL + interceptors
+  - Auth service (`services/authService.ts`) — tüm endpoint sarmalayıcıları
+  - AuthContext (`context/AuthContext.tsx`) — global auth state
+  - `useAuth` + `useAuthModal` hooks
+- **ALL ORGANISM COMPONENTS CREATED** (10 adet):
+  - **AuthModal** — Step management + CSS slide animasyonları (login/register/verify/forgot-password/reset-password akışı)
+  - **LoginForm, RegisterForm, EmailVerificationForm** — Auth modal formları
+  - **ForgotPasswordForm, ResetPasswordForm** — Password reset akışı (modal içinde)
+  - **Header** — Logo + "Giriş Yap" button / kullanıcı menüsü
+  - **ProfileCompletionForm** — Role selection (Dentist/Technician) + conditional fields
+  - **Sidebar** — Role-based navigation (Dentist: orders/new order, Technician: orders)
+  - **DashboardHome** — Stats overview
+- **TEMPLATES**: AuthTemplate (landing page), DashboardTemplate (sidebar+header+content)
+- **PAGES**: Root page (`/`) → AuthTemplate, Dashboard (`/dashboard`) → auto profile check
+- **ROOT LAYOUT**: AuthProvider + Toaster global seviyede
 - Previous changes (Plop, Storybook, etc.) still in place
 
 ## Hard Rules
@@ -101,17 +118,21 @@ The server is fully functional — we are only focusing on the frontend.
 - [x] Design tokens system created (colors, spacing, typography)
 - [x] All atom components (Button, Badge, Input, Label, Icon, Spinner, Typography)
 - [x] All molecule components (FormField, PasswordInput, Card, Avatar, Toast, Modal, Tabs, Dropdown, Checkbox, Toggle)
-- [ ] Axios + Sonner installation
-- [ ] Organism components (LoginForm, RegisterForm, Header, Sidebar, EmailVerificationForm, ForgotPasswordForm, ResetPasswordForm, ProfileCompletionForm)
-- [ ] Templates (AuthTemplate, DashboardTemplate)
-- [ ] AuthContext + useAuth hook
-- [ ] API client layer + auth service
-- [ ] Login page
-- [ ] Register page
-- [ ] Email verification page
-- [ ] Forgot/Reset password pages
-- [ ] Profile completion page
-- [ ] Dashboard layout + pages
+- [x] Axios + Sonner installation
+- [x] API client layer + auth service (lib/api.ts + services/authService.ts)
+- [x] AuthContext + useAuth hook + useAuthModal hook
+- [x] All organism components:
+  - AuthModal (step management + slide animasyon)
+  - LoginForm, RegisterForm, EmailVerificationForm
+  - ForgotPasswordForm, ResetPasswordForm
+  - Header (logo + Giriş Yap butonu)
+  - ProfileCompletionForm (rol seçimi + conditional fields)
+  - Sidebar (role-based nav, dashboard)
+  - DashboardHome (stats overview)
+- [x] Templates (AuthTemplate, DashboardTemplate)
+- [x] Auth modal flow (modal içinde slide geçişleri)
+- [x] Root page (/) → AuthTemplate + AuthModal
+- [x] Dashboard page (/dashboard) → ProfileCompletion modal if isProfileComplete=false
 - [ ] Global state management
 - [ ] WebSocket notifications (frontend + backend)
 - [ ] i18n — Arabic + English UI support
