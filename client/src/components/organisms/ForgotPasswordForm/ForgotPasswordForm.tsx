@@ -3,16 +3,21 @@
 import React, { useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
+import { Modal } from "@/components/molecules/Modal";
 import { FormField } from "@/components/molecules/FormField";
 import styles from "./ForgotPasswordForm.module.css";
 
 type ForgotPasswordFormProps = {
+  open: boolean;
+  onClose: () => void;
   onSubmit: (data: { email: string }) => Promise<void>;
   onNavigate: (step: "login") => void;
   isLoading?: boolean;
 };
 
 export function ForgotPasswordForm({
+  open,
+  onClose,
   onSubmit,
   onNavigate,
   isLoading = false,
@@ -31,32 +36,34 @@ export function ForgotPasswordForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form} noValidate>
-      <p className={styles.description}>
-        Şifrenizi sıfırlamak için e-posta adresinizi girin. Size 6 haneli bir
-        kod göndereceğiz.
-      </p>
-      <FormField label="E-posta" error={error}>
-        <Input
-          type="email"
-          placeholder="ornek@email.com"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </FormField>
-      <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
-        {isLoading ? "Gönderiliyor..." : "Kod Gönder"}
-      </Button>
-      <div className={styles.actions}>
-        <button
-          type="button"
-          className={styles.link}
-          onClick={() => onNavigate("login")}
-        >
-          Giriş sayfasına dön
-        </button>
-      </div>
-    </form>
+    <Modal open={open} onClose={onClose} title="Şifremi Unuttum" size="sm">
+      <form onSubmit={handleSubmit} className={styles.form} noValidate>
+        <p className={styles.description}>
+          Şifrenizi sıfırlamak için e-posta adresinizi girin. Size 6 haneli bir
+          kod göndereceğiz.
+        </p>
+        <FormField label="E-posta" error={error}>
+          <Input
+            type="email"
+            placeholder="ornek@email.com"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </FormField>
+        <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
+          {isLoading ? "Gönderiliyor..." : "Kod Gönder"}
+        </Button>
+        <div className={styles.actions}>
+          <button
+            type="button"
+            className={styles.link}
+            onClick={() => onNavigate("login")}
+          >
+            Giriş sayfasına dön
+          </button>
+        </div>
+      </form>
+    </Modal>
   );
 }
 

@@ -2,14 +2,12 @@
 
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import { Modal } from "@/components/molecules/Modal";
 import { EmailVerificationForm } from "@/components/organisms/EmailVerificationForm";
 import { ForgotPasswordForm } from "@/components/organisms/ForgotPasswordForm";
 import { LoginForm } from "@/components/organisms/LoginForm";
 import { RegisterForm } from "@/components/organisms/RegisterForm";
 import { ResetPasswordForm } from "@/components/organisms/ResetPasswordForm";
 import { useAuth } from "@/hooks/useAuth";
-import styles from "./AuthModal.module.css";
 
 type Step
   = | "login"
@@ -29,12 +27,10 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
   const [step, setStep] = useState<Step>("login");
   const [isLoading, setIsLoading] = useState(false);
   const [sharedEmail, setSharedEmail] = useState("");
-  const [animKey, setAnimKey] = useState(0);
 
   const navigate = useCallback(
     (nextStep: Step) => {
       setStep(nextStep);
-      setAnimKey(k => k + 1);
     },
     [],
   );
@@ -150,61 +146,46 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
     }
   }, [resendCode]);
 
-  const titleMap: Record<Step, string> = {
-    login: "Giriş Yap",
-    register: "Kayıt Ol",
-    verify: "E-posta Doğrulama",
-    "forgot-password": "Şifremi Unuttum",
-    "reset-password": "Şifre Sıfırla",
-  };
-
   return (
-    <Modal open={open} onClose={handleClose} title={titleMap[step]} size="sm">
-      <div className={styles.slide}>
-        {step === "login" && (
-          <LoginForm
-            key={animKey}
-            onSubmit={handleLogin}
-            onNavigate={navigate}
-            isLoading={isLoading}
-          />
-        )}
-        {step === "register" && (
-          <RegisterForm
-            key={animKey}
-            onSubmit={handleRegister}
-            onNavigate={navigate}
-            isLoading={isLoading}
-          />
-        )}
-        {step === "verify" && (
-          <EmailVerificationForm
-            key={animKey}
-            onSubmit={handleVerify}
-            onNavigate={navigate}
-            isLoading={isLoading}
-            onResend={handleResendCode}
-          />
-        )}
-        {step === "forgot-password" && (
-          <ForgotPasswordForm
-            key={animKey}
-            onSubmit={handleForgotPassword}
-            onNavigate={navigate}
-            isLoading={isLoading}
-          />
-        )}
-        {step === "reset-password" && (
-          <ResetPasswordForm
-            key={animKey}
-            onSubmit={handleResetPassword}
-            onNavigate={navigate}
-            isLoading={isLoading}
-            email={sharedEmail}
-          />
-        )}
-      </div>
-    </Modal>
+    <>
+      <LoginForm
+        open={open && step === "login"}
+        onClose={handleClose}
+        onSubmit={handleLogin}
+        onNavigate={navigate}
+        isLoading={isLoading}
+      />
+      <RegisterForm
+        open={open && step === "register"}
+        onClose={handleClose}
+        onSubmit={handleRegister}
+        onNavigate={navigate}
+        isLoading={isLoading}
+      />
+      <EmailVerificationForm
+        open={open && step === "verify"}
+        onClose={handleClose}
+        onSubmit={handleVerify}
+        onNavigate={navigate}
+        isLoading={isLoading}
+        onResend={handleResendCode}
+      />
+      <ForgotPasswordForm
+        open={open && step === "forgot-password"}
+        onClose={handleClose}
+        onSubmit={handleForgotPassword}
+        onNavigate={navigate}
+        isLoading={isLoading}
+      />
+      <ResetPasswordForm
+        open={open && step === "reset-password"}
+        onClose={handleClose}
+        onSubmit={handleResetPassword}
+        onNavigate={navigate}
+        isLoading={isLoading}
+        email={sharedEmail}
+      />
+    </>
   );
 }
 

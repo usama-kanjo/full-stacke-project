@@ -3,10 +3,13 @@
 import React, { useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
+import { Modal } from "@/components/molecules/Modal";
 import { FormField } from "@/components/molecules/FormField";
 import styles from "./EmailVerificationForm.module.css";
 
 type EmailVerificationFormProps = {
+  open: boolean;
+  onClose: () => void;
   onSubmit: (data: { verificationCode: string }) => Promise<void>;
   onNavigate: (step: "login") => void;
   isLoading?: boolean;
@@ -16,6 +19,8 @@ type EmailVerificationFormProps = {
 const NON_DIGIT = /\D/g;
 
 export function EmailVerificationForm({
+  open,
+  onClose,
   onSubmit,
   onNavigate,
   isLoading = false,
@@ -35,44 +40,46 @@ export function EmailVerificationForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form} noValidate>
-      <p className={styles.description}>
-        E-posta adresinize gönderilen 6 haneli doğrulama kodunu girin.
-      </p>
-      <FormField label="Doğrulama Kodu" error={error}>
-        <Input
-          type="text"
-          placeholder="123456"
-          value={code}
-          onChange={(e) => {
-            const val = e.target.value.replace(NON_DIGIT, "").slice(0, 6);
-            setCode(val);
-          }}
-          maxLength={6}
-        />
-      </FormField>
-      <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
-        {isLoading ? "Doğrulanıyor..." : "Doğrula"}
-      </Button>
-      <div className={styles.actions}>
-        {onResend && (
+    <Modal open={open} onClose={onClose} title="E-posta Doğrulama" size="sm">
+      <form onSubmit={handleSubmit} className={styles.form} noValidate>
+        <p className={styles.description}>
+          E-posta adresinize gönderilen 6 haneli doğrulama kodunu girin.
+        </p>
+        <FormField label="Doğrulama Kodu" error={error}>
+          <Input
+            type="text"
+            placeholder="123456"
+            value={code}
+            onChange={(e) => {
+              const val = e.target.value.replace(NON_DIGIT, "").slice(0, 6);
+              setCode(val);
+            }}
+            maxLength={6}
+          />
+        </FormField>
+        <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
+          {isLoading ? "Doğrulanıyor..." : "Doğrula"}
+        </Button>
+        <div className={styles.actions}>
+          {onResend && (
+            <button
+              type="button"
+              className={styles.link}
+              onClick={onResend}
+            >
+              Kodu tekrar gönder
+            </button>
+          )}
           <button
             type="button"
             className={styles.link}
-            onClick={onResend}
+            onClick={() => onNavigate("login")}
           >
-            Kodu tekrar gönder
+            Giriş sayfasına dön
           </button>
-        )}
-        <button
-          type="button"
-          className={styles.link}
-          onClick={() => onNavigate("login")}
-        >
-          Giriş sayfasına dön
-        </button>
-      </div>
-    </form>
+        </div>
+      </form>
+    </Modal>
   );
 }
 

@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Modal } from "@/components/molecules/Modal";
 import { DashboardHome } from "@/components/organisms/DashboardHome";
 import { ProfileCompletionForm } from "@/components/organisms/ProfileCompletionForm";
 import { useAuth } from "@/hooks/useAuth";
@@ -51,17 +50,12 @@ export default function DashboardPage() {
   return (
     <>
       <DashboardHome />
-      <Modal
+      <ProfileCompletionForm
         open={showProfileModal}
         onClose={() => {}}
-        title="Profili Tamamla"
-        size="md"
-      >
-        <ProfileCompletionForm
-          onSubmit={handleProfileSubmit}
-          isLoading={isSubmitting}
-        />
-      </Modal>
+        onSubmit={handleProfileSubmit}
+        isLoading={isSubmitting}
+      />
     </>
   );
 }

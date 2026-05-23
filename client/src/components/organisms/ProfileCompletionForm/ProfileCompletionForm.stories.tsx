@@ -12,12 +12,16 @@ type Story = StoryObj<typeof ProfileCompletionForm>;
 
 export const Default: Story = {
   args: {
+    open: true,
+    onClose: () => {},
     onSubmit: async () => {},
   },
 };
 
 export const DentistSelected: Story = {
   args: {
+    open: true,
+    onClose: () => {},
     onSubmit: async () => {},
   },
   render: args => (
@@ -27,6 +31,8 @@ export const DentistSelected: Story = {
 
 export const Loading: Story = {
   args: {
+    open: true,
+    onClose: () => {},
     onSubmit: async () => {},
     isLoading: true,
   },

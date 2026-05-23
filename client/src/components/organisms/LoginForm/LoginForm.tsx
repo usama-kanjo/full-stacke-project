@@ -3,16 +3,21 @@
 import React, { useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
+import { Modal } from "@/components/molecules/Modal";
 import { FormField } from "@/components/molecules/FormField";
 import styles from "./LoginForm.module.css";
 
 type LoginFormProps = {
+  open: boolean;
+  onClose: () => void;
   onSubmit: (data: { email: string; password: string }) => Promise<void>;
   onNavigate: (step: "register" | "forgot-password") => void;
   isLoading?: boolean;
 };
 
 export function LoginForm({
+  open,
+  onClose,
   onSubmit,
   onNavigate,
   isLoading = false,
@@ -36,43 +41,45 @@ export function LoginForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form} noValidate>
-      <FormField label="E-posta" error={errors.email}>
-        <Input
-          type="email"
-          placeholder="ornek@email.com"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </FormField>
-      <FormField label="Şifre" error={errors.password}>
-        <Input
-          type="password"
-          placeholder="••••••••"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-      </FormField>
-      <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
-        {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
-      </Button>
-      <div className={styles.links}>
-        <button
-          type="button"
-          className={styles.link}
-          onClick={() => onNavigate("register")}
-        >
-          Hesabın yok mu? Kayıt ol
-        </button>
-        <button
-          type="button"
-          className={styles.link}
-          onClick={() => onNavigate("forgot-password")}
-        >
-          Şifremi unuttum
-        </button>
-      </div>
-    </form>
+    <Modal open={open} onClose={onClose} title="Giriş Yap" size="sm">
+      <form onSubmit={handleSubmit} className={styles.form} noValidate>
+        <FormField label="E-posta" error={errors.email}>
+          <Input
+            type="email"
+            placeholder="ornek@email.com"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </FormField>
+        <FormField label="Şifre" error={errors.password}>
+          <Input
+            type="password"
+            placeholder="••••••••"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </FormField>
+        <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
+          {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
+        </Button>
+        <div className={styles.links}>
+          <button
+            type="button"
+            className={styles.link}
+            onClick={() => onNavigate("register")}
+          >
+            Hesabın yok mu? Kayıt ol
+          </button>
+          <button
+            type="button"
+            className={styles.link}
+            onClick={() => onNavigate("forgot-password")}
+          >
+            Şifremi unuttum
+          </button>
+        </div>
+      </form>
+    </Modal>
   );
 }
 

@@ -12,6 +12,8 @@ type Story = StoryObj<typeof ForgotPasswordForm>;
 
 export const Default: Story = {
   args: {
+    open: true,
+    onClose: () => {},
     onSubmit: async () => {},
     onNavigate: () => {},
   },
@@ -19,6 +21,8 @@ export const Default: Story = {
 
 export const Loading: Story = {
   args: {
+    open: true,
+    onClose: () => {},
     onSubmit: async () => {},
     onNavigate: () => {},
     isLoading: true,

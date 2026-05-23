@@ -12,6 +12,8 @@ type Story = StoryObj<typeof EmailVerificationForm>;
 
 export const Default: Story = {
   args: {
+    open: true,
+    onClose: () => {},
     onSubmit: async () => {},
     onNavigate: () => {},
     onResend: async () => {},
@@ -20,6 +22,8 @@ export const Default: Story = {
 
 export const Filled: Story = {
   args: {
+    open: true,
+    onClose: () => {},
     onSubmit: async () => {},
     onNavigate: () => {},
     onResend: async () => {},
@@ -31,6 +35,8 @@ export const Filled: Story = {
 
 export const Loading: Story = {
   args: {
+    open: true,
+    onClose: () => {},
     onSubmit: async () => {},
     onNavigate: () => {},
     onResend: async () => {},
