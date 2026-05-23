@@ -25,24 +25,27 @@ export default meta;
 type Story = StoryObj<typeof Card>;
 
 export const Outlined: Story = {
-  args: {
-    variant: "outlined",
-    children: <Typography>Outlined card with border</Typography>,
-  },
+  render: () => (
+    <Card variant="outlined">
+      <Typography>Outlined card with border</Typography>
+    </Card>
+  ),
 };
 
 export const Elevated: Story = {
-  args: {
-    variant: "elevated",
-    children: <Typography>Elevated card with shadow</Typography>,
-  },
+  render: () => (
+    <Card variant="elevated">
+      <Typography>Elevated card with shadow</Typography>
+    </Card>
+  ),
 };
 
 export const Flat: Story = {
-  args: {
-    variant: "flat",
-    children: <Typography>Flat card with background</Typography>,
-  },
+  render: () => (
+    <Card variant="flat">
+      <Typography>Flat card with background</Typography>
+    </Card>
+  ),
 };
 
 export const WithContent: Story = {

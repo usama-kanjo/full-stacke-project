@@ -53,17 +53,11 @@ export const Disabled: Story = {
 };
 
 export const WithLeftIcon: Story = {
-  args: {
-    placeholder: "Search...",
-    leftIcon: <span>🔍</span>,
-  },
+  render: () => <Input placeholder="Search..." leftIcon={<span>🔍</span>} />,
 };
 
 export const WithRightIcon: Story = {
-  args: {
-    placeholder: "Enter text...",
-    rightIcon: <span>✓</span>,
-  },
+  render: () => <Input placeholder="Enter text..." rightIcon={<span>✓</span>} />,
 };
 
 export const Small: Story = {

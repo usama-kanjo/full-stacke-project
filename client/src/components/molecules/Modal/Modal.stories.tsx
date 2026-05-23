@@ -21,12 +21,11 @@ export default meta;
 type Story = StoryObj<typeof Modal>;
 
 export const Default: Story = {
-  args: {
-    open: true,
-    title: "Modal Title",
-    children: <p>This is the modal content.</p>,
-    size: "md",
-  },
+  render: () => (
+    <Modal open onClose={() => {}} title="Modal Title" size="md">
+      <p>This is the modal content.</p>
+    </Modal>
+  ),
 };
 
 export const Sizes: Story = {
@@ -60,11 +59,8 @@ export const Sizes: Story = {
 };
 
 export const WithLongContent: Story = {
-  args: {
-    open: true,
-    title: "Terms & Conditions",
-    size: "lg",
-    children: (
+  render: () => (
+    <Modal open onClose={() => {}} title="Terms &amp; Conditions" size="lg">
       <div>
         {Array.from({ length: 10 }, (_, i) => (
           <p key={i}>
@@ -76,6 +72,6 @@ export const WithLongContent: Story = {
           </p>
         ))}
       </div>
-    ),
-  },
+    </Modal>
+  ),
 };

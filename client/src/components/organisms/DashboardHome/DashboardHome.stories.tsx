@@ -18,6 +18,13 @@ const meta: Meta<typeof DashboardHome> = {
   title: "Organisms/DashboardHome",
   component: DashboardHome,
   tags: ["autodocs"],
+  decorators: [
+    Story => (
+      <AuthContext.Provider value={mockAuthValue}>
+        <Story />
+      </AuthContext.Provider>
+    ),
+  ],
 };
 
 export default meta;

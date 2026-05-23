@@ -35,6 +35,13 @@ export const LoggedOut: Story = {
   args: {
     onLoginClick: () => {},
   },
+  decorators: [
+    Story => (
+      <AuthContext.Provider value={mockContextValue}>
+        <Story />
+      </AuthContext.Provider>
+    ),
+  ],
 };
 
 export const LoggedIn: Story = {
