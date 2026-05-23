@@ -2,26 +2,28 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Icon } from "@/components/atoms/Icon";
+import type { IconName } from "@/components/atoms/Icon";
 import { useAuth } from "@/hooks/useAuth";
 import styles from "./Sidebar.module.css";
 
 type NavItem = {
   label: string;
-  icon: string;
+  icon: IconName;
   href: string;
 };
 
 const dentistNav: NavItem[] = [
-  { label: "Dashboard", icon: "📊", href: "/dashboard" },
-  { label: "Siparişler", icon: "📋", href: "/dashboard/orders" },
-  { label: "Yeni Sipariş", icon: "➕", href: "/dashboard/orders/new" },
-  { label: "Profil", icon: "👤", href: "/dashboard/profile" },
+  { label: "Dashboard", icon: "grid", href: "/dashboard" },
+  { label: "Siparişler", icon: "list", href: "/dashboard/orders" },
+  { label: "Yeni Sipariş", icon: "plus", href: "/dashboard/orders/new" },
+  { label: "Profil", icon: "user", href: "/dashboard/profile" },
 ];
 
 const technicianNav: NavItem[] = [
-  { label: "Dashboard", icon: "📊", href: "/dashboard" },
-  { label: "Siparişler", icon: "📋", href: "/dashboard/orders" },
-  { label: "Profil", icon: "👤", href: "/dashboard/profile" },
+  { label: "Dashboard", icon: "grid", href: "/dashboard" },
+  { label: "Siparişler", icon: "list", href: "/dashboard/orders" },
+  { label: "Profil", icon: "user", href: "/dashboard/profile" },
 ];
 
 export function Sidebar() {
@@ -38,7 +40,7 @@ export function Sidebar() {
             href={item.href}
             className={`${styles.navItem} ${pathname === item.href ? styles["navItem--active"] : ""}`}
           >
-            <span className={styles.navIcon}>{item.icon}</span>
+            <Icon name={item.icon} size="md" className={styles.navIcon} />
             {item.label}
           </Link>
         ))}

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/atoms/Button";
+import { Icon } from "@/components/atoms/Icon";
 import { Input } from "@/components/atoms/Input";
 import { Modal } from "@/components/molecules/Modal";
 import { FormField } from "@/components/molecules/FormField";
@@ -92,7 +93,7 @@ export function ProfileCompletionForm({
     >
       {isSuccess ? (
         <div className={styles.success}>
-          <div className={styles.successIcon}>✅</div>
+          <div className={styles.successIcon}><Icon name="check" size="xl" /></div>
           <h2 className={styles.successTitle}>Profil Tamamlandı!</h2>
           <p className={styles.successDescription}>
             Hoş geldiniz! Dashboard'a yönlendiriliyorsunuz...
@@ -108,7 +109,7 @@ export function ProfileCompletionForm({
                   className={`${styles.roleCard} ${role === "DENTIST" ? styles["roleCard--selected"] : ""}`}
                   onClick={() => setRole("DENTIST")}
                 >
-                  <span className={styles.roleIcon}>🦷</span>
+                  <span className={styles.roleIcon}><Icon name="tooth" size="lg" /></span>
                   Diş Hekimi
                 </button>
                 <button
@@ -116,7 +117,7 @@ export function ProfileCompletionForm({
                   className={`${styles.roleCard} ${role === "LAB_TECHNICIAN" ? styles["roleCard--selected"] : ""}`}
                   onClick={() => setRole("LAB_TECHNICIAN")}
                 >
-                  <span className={styles.roleIcon}>⚙️</span>
+                  <span className={styles.roleIcon}><Icon name="settings" size="lg" /></span>
                   Laboratuvar Teknisyeni
                 </button>
               </div>

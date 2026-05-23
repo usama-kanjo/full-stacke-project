@@ -41,8 +41,10 @@
 }
 
 .roleIcon {
-  display: block;
-  font-size: var(--text-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
   margin-bottom: var(--space-2);
 }
 
@@ -59,7 +61,11 @@
 }
 
 .successIcon {
-  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  color: var(--color-success);
   margin-bottom: var(--space-4);
 }
 
