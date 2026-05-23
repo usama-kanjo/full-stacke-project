@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
-import { Modal } from "@/components/molecules/Modal";
 import { FormField } from "@/components/molecules/FormField";
+import { Modal } from "@/components/molecules/Modal";
+import { formatZodErrors, resetPasswordSchema } from "@/lib/schemas";
 import styles from "./ResetPasswordForm.module.css";
 
 type ResetPasswordFormProps = {
@@ -32,28 +33,16 @@ export function ResetPasswordForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors: Record<string, string> = {};
-
-    if (!code.trim() || code.length !== 6) {
-      newErrors.code = "Please enter the 6-digit code";
+    const result = resetPasswordSchema.safeParse({
+      code,
+      newPassword,
+      confirmPassword,
+    });
+    if (!result.success) {
+      setErrors(formatZodErrors(result.error));
+      return;
     }
-    if (!newPassword) {
-      newErrors.newPassword = "New password is required";
-    } else if (newPassword.length < 8) {
-      newErrors.newPassword = "Password must be at least 8 characters";
-    } else if (!/[A-Z]/.test(newPassword)) {
-      newErrors.newPassword = "Password must contain at least one uppercase letter";
-    } else if (!/[0-9]/.test(newPassword)) {
-      newErrors.newPassword = "Password must contain at least one number";
-    }
-    if (newPassword !== confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
-
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0)
-    { return; }
-    await onSubmit({ code: code.trim(), newPassword });
+    await onSubmit({ code: result.data.code, newPassword: result.data.newPassword });
   };
 
   return (

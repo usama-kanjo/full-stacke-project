@@ -61,12 +61,16 @@ export function DashboardSettings() {
 
           {error && (
             <div className={styles.alertError}>
-              <Icon name="alertCircle" size="sm" /> {error}
+              <Icon name="alertCircle" size="sm" />
+              {" "}
+              {error}
             </div>
           )}
           {success && (
             <div className={styles.alertSuccess}>
-              <Icon name="check" size="sm" /> {success}
+              <Icon name="check" size="sm" />
+              {" "}
+              {success}
             </div>
           )}
 

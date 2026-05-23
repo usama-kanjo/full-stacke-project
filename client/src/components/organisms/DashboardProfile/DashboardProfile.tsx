@@ -7,7 +7,7 @@ import { Input } from "@/components/atoms/Input";
 import { Spinner } from "@/components/atoms/Spinner";
 import { FormField } from "@/components/molecules/FormField";
 import { useAuth } from "@/hooks/useAuth";
-import { authService, type DentistProfile, type TechnicianProfile, type DentistUpdateData, type TechnicianUpdateData } from "@/services/authService";
+import { authService, type DentistProfile, type DentistUpdateData, type TechnicianProfile, type TechnicianUpdateData } from "@/services/authService";
 import styles from "./DashboardProfile.module.css";
 
 type ProfileData = DentistProfile | TechnicianProfile;
@@ -33,7 +33,8 @@ export function DashboardProfile() {
   const isDentist = role === "DENTIST";
 
   const fetchProfile = useCallback(async () => {
-    if (!role) return;
+    if (!role)
+    { return; }
     setLoading(true);
     try {
       const res = await authService.getProfile(role);
@@ -64,7 +65,8 @@ export function DashboardProfile() {
   }, [fetchProfile]);
 
   const handleSave = useCallback(async () => {
-    if (!role) return;
+    if (!role)
+    { return; }
     setSaving(true);
     try {
       const data = isDentist
@@ -81,7 +83,8 @@ export function DashboardProfile() {
   }, [role, isDentist, fullName, phone, clinicName, clinicAddress, clinicCity, labName, labAddress, labCity]);
 
   const handleCancel = useCallback(() => {
-    if (!profile) return;
+    if (!profile)
+    { return; }
     setFullName(profile.fullName);
     setPhone(profile.phone);
     if (isDentist) {
@@ -122,8 +125,8 @@ export function DashboardProfile() {
         <h1 className={styles.title}>Profile</h1>
         {!editing
           ? (
-                <Button variant="secondary" size="sm" leftIcon={<Icon name="settings" size="sm" />} onClick={() => setEditing(true)}>
-                  Edit
+              <Button variant="secondary" size="sm" leftIcon={<Icon name="settings" size="sm" />} onClick={() => setEditing(true)}>
+                Edit
               </Button>
             )
           : (
@@ -136,7 +139,13 @@ export function DashboardProfile() {
             )}
       </div>
 
-      {error && <div className={styles.alert}><Icon name="alertCircle" size="sm" /> {error}</div>}
+      {error && (
+        <div className={styles.alert}>
+          <Icon name="alertCircle" size="sm" />
+          {" "}
+          {error}
+        </div>
+      )}
 
       <div className={styles.card}>
         <div className={styles.section}>
@@ -189,67 +198,69 @@ export function DashboardProfile() {
             {isDentist ? "Clinic Information" : "Lab Information"}
           </h2>
           <div className={styles.formGrid}>
-            {isDentist ? (
-              <>
-                <FormField label="Clinic Name">
-                  <Input
-                    type="text"
-                    value={clinicName}
-                    onChange={e => setClinicName(e.target.value)}
-                    disabled={!editing}
-                    fullWidth
-                  />
-                </FormField>
-                <FormField label="Clinic Address">
-                  <Input
-                    type="text"
-                    value={clinicAddress}
-                    onChange={e => setClinicAddress(e.target.value)}
-                    disabled={!editing}
-                    fullWidth
-                  />
-                </FormField>
-                <FormField label="Clinic City">
-                  <Input
-                    type="text"
-                    value={clinicCity}
-                    onChange={e => setClinicCity(e.target.value)}
-                    disabled={!editing}
-                    fullWidth
-                  />
-                </FormField>
-              </>
-            ) : (
-              <>
-                <FormField label="Lab Name">
-                  <Input
-                    type="text"
-                    value={labName}
-                    onChange={e => setLabName(e.target.value)}
-                    disabled={!editing}
-                    fullWidth
-                  />
-                </FormField>
-                <FormField label="Lab Address">
-                  <Input
-                    type="text"
-                    value={labAddress}
-                    onChange={e => setLabAddress(e.target.value)}
-                    disabled={!editing}
-                    fullWidth
-                  />
-                </FormField>
-                <FormField label="Lab City">
-                  <Input
-                    type="text"
-                    value={labCity}
-                    onChange={e => setLabCity(e.target.value)}
-                    disabled={!editing}
-                    fullWidth
-                  />
-                </FormField>
-              </>
-            )}
+            {isDentist
+              ? (
+                  <>
+                    <FormField label="Clinic Name">
+                      <Input
+                        type="text"
+                        value={clinicName}
+                        onChange={e => setClinicName(e.target.value)}
+                        disabled={!editing}
+                        fullWidth
+                      />
+                    </FormField>
+                    <FormField label="Clinic Address">
+                      <Input
+                        type="text"
+                        value={clinicAddress}
+                        onChange={e => setClinicAddress(e.target.value)}
+                        disabled={!editing}
+                        fullWidth
+                      />
+                    </FormField>
+                    <FormField label="Clinic City">
+                      <Input
+                        type="text"
+                        value={clinicCity}
+                        onChange={e => setClinicCity(e.target.value)}
+                        disabled={!editing}
+                        fullWidth
+                      />
+                    </FormField>
+                  </>
+                )
+              : (
+                  <>
+                    <FormField label="Lab Name">
+                      <Input
+                        type="text"
+                        value={labName}
+                        onChange={e => setLabName(e.target.value)}
+                        disabled={!editing}
+                        fullWidth
+                      />
+                    </FormField>
+                    <FormField label="Lab Address">
+                      <Input
+                        type="text"
+                        value={labAddress}
+                        onChange={e => setLabAddress(e.target.value)}
+                        disabled={!editing}
+                        fullWidth
+                      />
+                    </FormField>
+                    <FormField label="Lab City">
+                      <Input
+                        type="text"
+                        value={labCity}
+                        onChange={e => setLabCity(e.target.value)}
+                        disabled={!editing}
+                        fullWidth
+                      />
+                    </FormField>
+                  </>
+                )}
           </div>
         </div>
       </div>

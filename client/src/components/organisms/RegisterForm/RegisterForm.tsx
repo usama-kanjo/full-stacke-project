@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
-import { Modal } from "@/components/molecules/Modal";
 import { FormField } from "@/components/molecules/FormField";
+import { Modal } from "@/components/molecules/Modal";
+import { formatZodErrors, registerSchema } from "@/lib/schemas";
 import styles from "./RegisterForm.module.css";
 
 type RegisterFormProps = {
@@ -29,27 +30,12 @@ export function RegisterForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors: Record<string, string> = {};
-
-    if (!email.trim())
-    { newErrors.email = "Email address is required"; }
-    if (!password) {
-      newErrors.password = "Password is required";
-    } else if (password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters";
-    } else if (!/[A-Z]/.test(password)) {
-      newErrors.password = "Password must contain at least one uppercase letter";
-    } else if (!/[0-9]/.test(password)) {
-      newErrors.password = "Password must contain at least one number";
+    const result = registerSchema.safeParse({ email, password, confirmPassword });
+    if (!result.success) {
+      setErrors(formatZodErrors(result.error));
+      return;
     }
-    if (password !== confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
-
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0)
-    { return; }
-    await onSubmit({ email: email.trim(), password });
+    await onSubmit({ email: result.data.email, password: result.data.password });
   };
 
   return (

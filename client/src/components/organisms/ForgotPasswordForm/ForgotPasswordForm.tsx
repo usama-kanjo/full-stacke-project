@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
-import { Modal } from "@/components/molecules/Modal";
 import { FormField } from "@/components/molecules/FormField";
+import { Modal } from "@/components/molecules/Modal";
+import { forgotPasswordSchema, formatZodErrors } from "@/lib/schemas";
 import styles from "./ForgotPasswordForm.module.css";
 
 type ForgotPasswordFormProps = {
@@ -27,12 +28,12 @@ export function ForgotPasswordForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) {
-      setError("Email address is required");
+    const result = forgotPasswordSchema.safeParse({ email });
+    if (!result.success) {
+      setError(formatZodErrors(result.error).email ?? "");
       return;
     }
-    setError("");
-    await onSubmit({ email: email.trim() });
+    await onSubmit(result.data);
   };
 
   return (

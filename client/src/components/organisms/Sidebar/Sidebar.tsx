@@ -1,9 +1,9 @@
 "use client";
 
+import type { IconName } from "@/components/atoms/Icon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "@/components/atoms/Icon";
-import type { IconName } from "@/components/atoms/Icon";
 import { useAuth } from "@/hooks/useAuth";
 import styles from "./Sidebar.module.css";
 

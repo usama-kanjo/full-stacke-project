@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
-import { Modal } from "@/components/molecules/Modal";
 import { FormField } from "@/components/molecules/FormField";
+import { Modal } from "@/components/molecules/Modal";
+import { formatZodErrors, verifyEmailSchema } from "@/lib/schemas";
 import styles from "./EmailVerificationForm.module.css";
 
 type EmailVerificationFormProps = {
@@ -31,12 +32,12 @@ export function EmailVerificationForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!code.trim() || code.length !== 6) {
-      setError("Please enter the 6-digit verification code");
+    const result = verifyEmailSchema.safeParse({ verificationCode: code });
+    if (!result.success) {
+      setError(formatZodErrors(result.error).verificationCode ?? "");
       return;
     }
-    setError("");
-    await onSubmit({ verificationCode: code.trim() });
+    await onSubmit(result.data);
   };
 
   return (

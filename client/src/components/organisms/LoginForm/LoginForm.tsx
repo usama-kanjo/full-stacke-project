@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
-import { Modal } from "@/components/molecules/Modal";
 import { FormField } from "@/components/molecules/FormField";
+import { Modal } from "@/components/molecules/Modal";
+import { formatZodErrors, loginSchema } from "@/lib/schemas";
 import styles from "./LoginForm.module.css";
 
 type LoginFormProps = {
@@ -28,16 +29,12 @@ export function LoginForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors: Record<string, string> = {};
-    if (!email.trim())
-    { newErrors.email = "Email address is required"; }
-    if (!password)
-    { newErrors.password = "Password is required"; }
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length > 0)
-    { return; }
-    await onSubmit({ email: email.trim(), password });
+    const result = loginSchema.safeParse({ email, password });
+    if (!result.success) {
+      setErrors(formatZodErrors(result.error));
+      return;
+    }
+    await onSubmit(result.data);
   };
 
   return (
