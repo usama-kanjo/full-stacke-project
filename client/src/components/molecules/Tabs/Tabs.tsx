@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styles from "./Tabs.module.css";
 
 export interface Tab {
@@ -15,7 +15,7 @@ export interface TabsProps {
   className?: string;
 }
 
-export const Tabs: React.FC<TabsProps> = ({
+export const Tabs = memo<TabsProps>(({
   tabs,
   defaultTab,
   onChange,
@@ -52,7 +52,7 @@ export const Tabs: React.FC<TabsProps> = ({
       </div>
     </div>
   );
-};
+});
 
 Tabs.displayName = "Tabs";
 

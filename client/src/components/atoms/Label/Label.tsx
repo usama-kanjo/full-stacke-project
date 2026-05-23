@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./Label.module.css";
 
 export interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
@@ -6,7 +6,7 @@ export interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> 
   disabled?: boolean;
 }
 
-export const Label: React.FC<LabelProps> = ({
+export const Label = memo<LabelProps>(({
   required = false,
   disabled = false,
   children,
@@ -27,7 +27,7 @@ export const Label: React.FC<LabelProps> = ({
       {required && <span className={styles.asterisk} aria-hidden="true">*</span>}
     </label>
   );
-};
+});
 
 Label.displayName = "Label";
 

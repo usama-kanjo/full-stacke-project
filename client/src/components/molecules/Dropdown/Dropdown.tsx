@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import styles from "./Dropdown.module.css";
 
 export interface DropdownOption {
@@ -19,7 +19,7 @@ export interface DropdownProps {
   className?: string;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({
+export const Dropdown = memo<DropdownProps>(({
   options,
   value,
   onChange,
@@ -32,13 +32,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const setOpenRef = useRef(setOpen);
+  setOpenRef.current = setOpen;
 
   const selectedOption = options.find(o => o.value === value);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
+        setOpenRef.current(false);
       }
     };
     document.addEventListener("mousedown", handleClick);
@@ -99,7 +101,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       {error && <span className={styles.error}>{error}</span>}
     </div>
   );
-};
+});
 
 Dropdown.displayName = "Dropdown";
 

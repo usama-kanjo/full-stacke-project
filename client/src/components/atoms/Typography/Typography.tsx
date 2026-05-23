@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./Typography.module.css";
 
 export type TypographyVariant = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "body" | "body-sm" | "caption" | "label";
@@ -26,7 +26,7 @@ export interface TypographyProps {
   className?: string;
 }
 
-export const Typography: React.FC<TypographyProps> = ({
+export const Typography = memo<TypographyProps>(({
   variant = "body",
   as,
   weight,
@@ -45,7 +45,7 @@ export const Typography: React.FC<TypographyProps> = ({
     .join(" ");
 
   return <Tag className={classes}>{children}</Tag>;
-};
+});
 
 Typography.displayName = "Typography";
 

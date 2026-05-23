@@ -150,39 +150,34 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
     }
   }, [resendCode]);
 
-  const title
-    = step === "login"
-      ? "Giriş Yap"
-      : step === "register"
-        ? "Kayıt Ol"
-        : step === "verify"
-          ? "E-posta Doğrulama"
-          : step === "forgot-password"
-            ? "Şifremi Unuttum"
-            : "Şifre Sıfırla";
+  const titleMap: Record<Step, string> = {
+    login: "Giriş Yap",
+    register: "Kayıt Ol",
+    verify: "E-posta Doğrulama",
+    "forgot-password": "Şifremi Unuttum",
+    "reset-password": "Şifre Sıfırla",
+  };
 
-  const form = (() => {
-    switch (step) {
-      case "login":
-        return (
+  return (
+    <Modal open={open} onClose={handleClose} title={titleMap[step]} size="sm">
+      <div className={styles.slide}>
+        {step === "login" && (
           <LoginForm
             key={animKey}
             onSubmit={handleLogin}
             onNavigate={navigate}
             isLoading={isLoading}
           />
-        );
-      case "register":
-        return (
+        )}
+        {step === "register" && (
           <RegisterForm
             key={animKey}
             onSubmit={handleRegister}
             onNavigate={navigate}
             isLoading={isLoading}
           />
-        );
-      case "verify":
-        return (
+        )}
+        {step === "verify" && (
           <EmailVerificationForm
             key={animKey}
             onSubmit={handleVerify}
@@ -190,18 +185,16 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
             isLoading={isLoading}
             onResend={handleResendCode}
           />
-        );
-      case "forgot-password":
-        return (
+        )}
+        {step === "forgot-password" && (
           <ForgotPasswordForm
             key={animKey}
             onSubmit={handleForgotPassword}
             onNavigate={navigate}
             isLoading={isLoading}
           />
-        );
-      case "reset-password":
-        return (
+        )}
+        {step === "reset-password" && (
           <ResetPasswordForm
             key={animKey}
             onSubmit={handleResetPassword}
@@ -209,13 +202,8 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
             isLoading={isLoading}
             email={sharedEmail}
           />
-        );
-    }
-  })();
-
-  return (
-    <Modal open={open} onClose={handleClose} title={title} size="sm">
-      <div className={styles.slide}>{form}</div>
+        )}
+      </div>
     </Modal>
   );
 }

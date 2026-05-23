@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, memo } from "react";
 import styles from "./Input.module.css";
 
 export type InputSize = "sm" | "md" | "lg";
@@ -12,7 +12,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   fullWidth?: boolean;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input = memo(forwardRef<HTMLInputElement, InputProps>(
   (
     {
       size = "md",
@@ -75,7 +75,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       </div>
     );
   },
-);
+));
 
 Input.displayName = "Input";
 

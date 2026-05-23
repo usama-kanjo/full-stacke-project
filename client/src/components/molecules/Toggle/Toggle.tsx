@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./Toggle.module.css";
 
 export interface ToggleProps {
@@ -10,7 +10,7 @@ export interface ToggleProps {
   className?: string;
 }
 
-export const Toggle: React.FC<ToggleProps> = ({
+export const Toggle = memo<ToggleProps>(({
   checked = false,
   onChange,
   label,
@@ -41,7 +41,7 @@ export const Toggle: React.FC<ToggleProps> = ({
       {label && <span className={styles.label}>{label}</span>}
     </label>
   );
-};
+});
 
 Toggle.displayName = "Toggle";
 

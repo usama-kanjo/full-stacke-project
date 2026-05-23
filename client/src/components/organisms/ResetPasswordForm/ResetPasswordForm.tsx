@@ -13,6 +13,8 @@ type ResetPasswordFormProps = {
   email?: string;
 };
 
+const NON_DIGIT = /\D/g;
+
 export function ResetPasswordForm({
   onSubmit,
   onNavigate,
@@ -60,7 +62,7 @@ export function ResetPasswordForm({
           placeholder="123456"
           value={code}
           onChange={(e) => {
-            const val = e.target.value.replace(/\D/g, "").slice(0, 6);
+            const val = e.target.value.replace(NON_DIGIT, "").slice(0, 6);
             setCode(val);
           }}
           maxLength={6}

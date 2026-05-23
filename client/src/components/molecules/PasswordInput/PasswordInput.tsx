@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Icon } from "@/components/atoms/Icon";
 import { Input, type InputProps } from "@/components/atoms/Input";
 
 export interface PasswordInputProps extends Omit<InputProps, "type" | "rightIcon" | "onRightIconClick"> {}
 
-export const PasswordInput: React.FC<PasswordInputProps> = (props) => {
+export const PasswordInput = memo<PasswordInputProps>((props) => {
   const [show, setShow] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = (props) => {
       {...props}
     />
   );
-};
+});
 
 PasswordInput.displayName = "PasswordInput";
 

@@ -11,7 +11,7 @@
 //   Pages → actual page
 // ============================================================
 
-import React from "react";
+import React, { memo } from "react";
 import styles from "./Button.module.css";
 
 // ─── Types ──────────────────────────────────────────────────
@@ -42,7 +42,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 // ─── Component ──────────────────────────────────────────────
-export const Button: React.FC<ButtonProps> = ({
+export const Button = memo<ButtonProps>(({
   variant = "primary",
   size = "md",
   loading = false,
@@ -90,7 +90,7 @@ export const Button: React.FC<ButtonProps> = ({
       )}
     </button>
   );
-};
+});
 
 Button.displayName = "Button";
 

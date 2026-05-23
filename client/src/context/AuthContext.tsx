@@ -19,7 +19,6 @@ type User = {
 
 type AuthContextValue = {
   user: User | null;
-  isLoading: boolean;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<AuthResponse>;
   register: (email: string, password: string) => Promise<AuthResponse>;
@@ -33,7 +32,6 @@ export const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading] = useState(false);
   const router = useRouter();
 
   const login = useCallback(async (email: string, password: string) => {
@@ -86,7 +84,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider
       value={{
         user,
-        isLoading,
         isAuthenticated: !!user,
         login,
         register,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./Toast.module.css";
 
 export type ToastVariant = "success" | "error" | "warning" | "info";
@@ -12,7 +12,7 @@ export interface ToastProps {
   className?: string;
 }
 
-export const Toast: React.FC<ToastProps> = ({
+export const Toast = memo<ToastProps>(({
   variant = "info",
   message,
   description,
@@ -65,7 +65,7 @@ export const Toast: React.FC<ToastProps> = ({
       </button>
     </div>
   );
-};
+});
 
 Toast.displayName = "Toast";
 

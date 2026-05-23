@@ -1,5 +1,5 @@
 import type { IconName } from "./icons";
-import React from "react";
+import React, { memo } from "react";
 import styles from "./Icon.module.css";
 import { icons } from "./icons";
 
@@ -11,7 +11,7 @@ export interface IconProps {
   className?: string;
 }
 
-export const Icon: React.FC<IconProps> = ({
+export const Icon = memo<IconProps>(({
   name,
   size = "md",
   className = "",
@@ -26,7 +26,7 @@ export const Icon: React.FC<IconProps> = ({
       <IconComponent />
     </span>
   );
-};
+});
 
 Icon.displayName = "Icon";
 

@@ -13,6 +13,8 @@ type EmailVerificationFormProps = {
   onResend?: () => Promise<void>;
 };
 
+const NON_DIGIT = /\D/g;
+
 export function EmailVerificationForm({
   onSubmit,
   onNavigate,
@@ -43,7 +45,7 @@ export function EmailVerificationForm({
           placeholder="123456"
           value={code}
           onChange={(e) => {
-            const val = e.target.value.replace(/\D/g, "").slice(0, 6);
+            const val = e.target.value.replace(NON_DIGIT, "").slice(0, 6);
             setCode(val);
           }}
           maxLength={6}

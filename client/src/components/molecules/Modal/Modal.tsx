@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import styles from "./Modal.module.css";
 
 export type ModalSize = "sm" | "md" | "lg";
@@ -13,7 +13,7 @@ export interface ModalProps {
   className?: string;
 }
 
-export const Modal: React.FC<ModalProps> = ({
+export const Modal = memo<ModalProps>(({
   open,
   onClose,
   title,
@@ -22,6 +22,9 @@ export const Modal: React.FC<ModalProps> = ({
   closeOnOverlay = true,
   className = "",
 }) => {
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -36,14 +39,14 @@ export const Modal: React.FC<ModalProps> = ({
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onClose();
+        onCloseRef.current();
       }
     };
     if (open) {
       window.addEventListener("keydown", handleKey);
     }
     return () => window.removeEventListener("keydown", handleKey);
-  }, [open, onClose]);
+  }, [open]);
 
   if (!open) {
     return null;
@@ -83,7 +86,7 @@ export const Modal: React.FC<ModalProps> = ({
       </div>
     </div>
   );
-};
+});
 
 Modal.displayName = "Modal";
 

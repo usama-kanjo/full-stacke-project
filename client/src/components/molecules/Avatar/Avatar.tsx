@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styles from "./Avatar.module.css";
 
 export type AvatarSize = "sm" | "md" | "lg" | "xl";
@@ -11,7 +11,7 @@ export interface AvatarProps {
   className?: string;
 }
 
-export const Avatar: React.FC<AvatarProps> = ({
+export const Avatar = memo<AvatarProps>(({
   src,
   alt,
   size = "md",
@@ -52,7 +52,7 @@ export const Avatar: React.FC<AvatarProps> = ({
           )}
     </div>
   );
-};
+});
 
 Avatar.displayName = "Avatar";
 

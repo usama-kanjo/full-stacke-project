@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./Badge.module.css";
 
 export type BadgeVariant = "primary" | "success" | "warning" | "error" | "neutral";
@@ -12,7 +12,7 @@ export interface BadgeProps {
   children: React.ReactNode;
 }
 
-export const Badge: React.FC<BadgeProps> = ({
+export const Badge = memo<BadgeProps>(({
   variant = "primary",
   size = "md",
   dot = false,
@@ -30,6 +30,6 @@ export const Badge: React.FC<BadgeProps> = ({
       {children}
     </span>
   );
-};
+});
 
 export default Badge;

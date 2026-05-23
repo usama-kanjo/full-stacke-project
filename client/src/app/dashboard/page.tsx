@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Modal } from "@/components/molecules/Modal";
 import { DashboardHome } from "@/components/organisms/DashboardHome";
@@ -27,7 +27,7 @@ export default function DashboardPage() {
     setCheckingProfile(false);
   }, [user, router]);
 
-  const handleProfileSubmit = async (data: Parameters<typeof authService.completeProfile>[0]) => {
+  const handleProfileSubmit = useCallback(async (data: Parameters<typeof authService.completeProfile>[0]) => {
     setIsSubmitting(true);
     try {
       const res = await authService.completeProfile(data);
@@ -43,7 +43,7 @@ export default function DashboardPage() {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [user, setUser]);
 
   if (checkingProfile)
   { return null; }

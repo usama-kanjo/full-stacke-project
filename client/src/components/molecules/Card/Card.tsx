@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./Card.module.css";
 
 export type CardVariant = "outlined" | "elevated" | "flat";
@@ -14,7 +14,7 @@ export interface CardProps {
   onClick?: () => void;
 }
 
-export const Card: React.FC<CardProps> = ({
+export const Card = memo<CardProps>(({
   variant = "outlined",
   padding = "md",
   hoverable = false,
@@ -40,7 +40,7 @@ export const Card: React.FC<CardProps> = ({
       {children}
     </Tag>
   );
-};
+});
 
 Card.displayName = "Card";
 

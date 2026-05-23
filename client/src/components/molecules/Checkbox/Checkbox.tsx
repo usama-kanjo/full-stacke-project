@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./Checkbox.module.css";
 
 export type CheckboxType = "checkbox" | "radio";
@@ -15,7 +15,7 @@ export interface CheckboxProps {
   className?: string;
 }
 
-export const Checkbox: React.FC<CheckboxProps> = ({
+export const Checkbox = memo<CheckboxProps>(({
   type = "checkbox",
   label,
   checked = false,
@@ -56,7 +56,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       {error && <span className={styles.error}>{error}</span>}
     </div>
   );
-};
+});
 
 Checkbox.displayName = "Checkbox";
 
