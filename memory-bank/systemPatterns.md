@@ -91,6 +91,17 @@ Page → Template → Organism → Service (Axios) → API Route → Controller 
 - Each component has a single responsibility
 - State is lifted up as much as possible
 
+## Code Quality Patterns
+
+- **No `any` type** — TypeScript strict mode, every type must be explicit or properly inferred
+- **Early returns** — Avoid nested conditionals, return early for edge cases
+- **Destructuring** — Props, state, and API responses are always destructured
+- **Named exports only** — No default exports (better tree-shaking, explicit imports)
+- **Small functions** — Functions do one thing. If a function exceeds ~20 lines, split it.
+- **Self-documenting code** — Variable/function names explain intent. Comments only for non-obvious logic
+- **Consistent error handling** — API errors → toast notifications; validation errors → form field errors
+- **Separation of concerns** — UI logic (components) ≠ business logic (hooks/services) ≠ data fetching (API layer)
+
 ### Design Tokens
 
 - Centralized design tokens in `client/src/tokens/`

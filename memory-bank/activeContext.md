@@ -72,27 +72,30 @@ All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and 
 - **Plop template**: Fixed `index.ts.hbs` to include named exports
 - **Design Tokens** (spacing.ts): Added half-step tokens (2.5, 3.5), warm shadows, bounce transition, gold shadow
 - **COMPLETE AUTH INFRASTRUCTURE BUILT**:
-  - Axios + Sonner kurulumu
+  - Axios + Sonner installation
   - API client (`lib/api.ts`) — base URL + interceptors
-  - Auth service (`services/authService.ts`) — tüm endpoint sarmalayıcıları
+  - Auth service (`services/authService.ts`) — all endpoint wrappers
   - AuthContext (`context/AuthContext.tsx`) — global auth state
   - `useAuth` + `useAuthModal` hooks
-- **ALL ORGANISM COMPONENTS CREATED** (10 adet):
+- **ALL ORGANISM COMPONENTS CREATED** (10 total):
   - **AuthModal** — Orchestrator that renders each auth form as a self-contained modal popup (login/register/verify/forgot-password/reset-password)
-  - **LoginForm, RegisterForm, EmailVerificationForm** — Auth modal formları
-  - **ForgotPasswordForm, ResetPasswordForm** — Password reset akışı (modal içinde)
-  - **Header** — Logo + "Giriş Yap" button / kullanıcı menüsü
+  - **LoginForm, RegisterForm, EmailVerificationForm** — Auth modal forms
+  - **ForgotPasswordForm, ResetPasswordForm** — Password reset flow (inside modal)
+  - **Header** — Logo + "Sign In" button / user menu
   - **ProfileCompletionForm** — Role selection (Dentist/Technician) + conditional fields
   - **Sidebar** — Role-based navigation (Dentist: orders/new order, Technician: orders)
   - **DashboardHome** — Stats overview
 - **TEMPLATES**: AuthTemplate (landing page), DashboardTemplate (sidebar+header+content)
 - **PAGES**: Root page (`/`) → AuthTemplate, Dashboard (`/dashboard`) → auto profile check
-- **ROOT LAYOUT**: AuthProvider + Toaster global seviyede
+- **ROOT LAYOUT**: AuthProvider + Toaster at global level
 - Previous changes (Plop, Storybook, etc.) still in place
 
 ## Hard Rules
 - **Package Manager: yarn ONLY** — Never use npm. All installs, scripts, and workspace commands use yarn.
 - **Branch Scope Discipline** — When a branch is created for a specific task (e.g., `refactor/frontend-rewrite`), ONLY work on that scope. Never touch unrelated code (e.g., backend while on a frontend branch). This prevents merge conflicts.
+- **Professional Code Quality** — "It works" is not enough. Code must be readable, maintainable, and professional. Standards are non-negotiable.
+- **Discussion-First Approach** — Every change is discussed first. No silent coding. Every decision has a rationale. If an approach compromises code quality, alternatives are presented and debated.
+- **No Silent Commits** — Every commit must have a clear purpose and scope. Meaningless messages like "WIP", "fix", "update" are prohibited.
 
 ## Active Decisions
 - **Atomic Design Pattern**: `atoms/` → `molecules/` → `organisms/` → `templates/` → `pages/` hierarchy

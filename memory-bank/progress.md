@@ -70,9 +70,9 @@ Each milestone item maps to a GitHub issue for auto-accept:
 - [x] **AuthModal** organism — Each auth form is a self-contained modal popup
 - [x] **LoginForm**, **RegisterForm**, **EmailVerificationForm** organisms
 - [x] **ForgotPasswordForm**, **ResetPasswordForm** organisms
-- [x] **Header** organism — Logo + Giriş Yap butonu / kullanıcı menüsü
-- [x] **ProfileCompletionForm** organism — Rol seçimi, conditional alanlar
-- [x] **Sidebar** organism — Role-based nav menü
+- [x] **Header** organism — Logo + Sign In button / user menu
+- [x] **ProfileCompletionForm** organism — Role selection, conditional fields
+- [x] **Sidebar** organism — Role-based navigation menu
 - [x] **DashboardHome** organism — Dashboard overview (emoji → SVG Icon)
 - [x] **AuthTemplate** — Landing page layout
 - [x] **DashboardTemplate** — Sidebar + Header + content layout
@@ -145,6 +145,19 @@ Each milestone item maps to a GitHub issue for auto-accept:
 - [ ] Arabic translations
 - [ ] RTL layout support
 
+## Code Quality Audit
+- [ ] No `any` types remain in frontend code
+- [ ] All components follow single responsibility principle
+- [ ] All handlers are wrapped in useCallback
+- [ ] All expensive computations use useMemo
+- [ ] All components use early return pattern
+- [ ] All API errors show toast notifications
+- [ ] All form validation uses centralized zod schemas
+- [ ] No default exports — all named exports
+- [ ] All CSS uses design tokens (no hardcoded values)
+- [ ] Storybook stories exist for every component
+
 ## Known Issues
 - Backend: No issues
 - Frontend: Auth flow, dashboard, profile, and settings pages complete. Next up: order management, global state, WebSocket, i18n.
+- **Code quality baseline**: Above checklist must be satisfied before considering any milestone "complete".

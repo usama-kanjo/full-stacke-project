@@ -12,7 +12,23 @@ Dental Lab Order Management System (KanjoLab)
 
 Full-stack web application — Order management system for prosthetic/dental work between Dentists and Lab Technicians.
 
-This branch aims to: **Rewrite the frontend from scratch.**
+This branch aims to: **Rewrite the frontend from scratch with production-grade code quality.**
+
+## Quality Standards
+
+This is a **professional project**. Every line of code must meet these standards:
+- **Readability**: Code is written for humans first. Clear naming, single responsibility, self-documenting logic.
+- **Maintainability**: Architecture decisions prioritize long-term scalability over short-term speed.
+- **Correctness**: TypeScript strict mode, runtime validation (zod), no `any`, no implicit edge cases.
+- **Performance**: Vercel React best practices — memo, useCallback, useMemo, lazy loading where appropriate.
+- **Consistency**: Atomic Design Pattern, CSS Modules, design tokens, barrel exports, Plop scaffolding.
+
+## Collaboration Rules
+
+- **Discussion-first**: Before any significant change, I will present the approach and ask for confirmation. I will argue for better solutions when I see them.
+- **No silent work**: I will not make changes without explaining why and how. Every decision is transparent.
+- **Push back**: If a requested approach compromises code quality, I will push back with alternatives.
+- **Quality over speed**: "It works" is not enough. The code must be professional, readable, and maintainable.
 
 ## Core Goals (This Branch)
 
