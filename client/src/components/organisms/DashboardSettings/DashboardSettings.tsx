@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { type FormEvent, useCallback, useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Icon } from "@/components/atoms/Icon";
 import { Input } from "@/components/atoms/Input";
@@ -16,7 +16,7 @@ export function DashboardSettings() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const handleChangePassword = useCallback(async (e: React.FormEvent) => {
+  const handleChangePassword = useCallback(async (e: FormEvent) => {
     e.preventDefault();
     setError("");
     setSuccess("");

@@ -25,7 +25,8 @@
 - **Design Tokens**: Custom tokens system (colors, spacing, typography, z-index, transitions)
 - **Barrel Export**: `components/index.ts` re-exports all 10 components
 - **Linting**: `@antfu/eslint-config`
-- **Validation**: zod (`^4.4.3`)
+- **Validation**: zod (`^4.4.3`) with centralized schemas in `lib/schemas/`
+- **Validation Helper**: `formatZodErrors` in `lib/schemas/index.ts` — converts Zod issues to `Record<string, string>`
 
 ### Planned / Future Dependencies
 - **HTTP Client**: Axios (withCredentials: true)
@@ -73,6 +74,8 @@
 - **CSS**: `tokens.css` includes global CSS reset and body base styles alongside custom properties
 - **Fonts**: `assets/fonts/primary.ttf` — custom "Lalezar" font used in design tokens
 - **Components barrel export**: `components/index.ts` re-exports all atoms (7) and molecules (3)
+- **Validation Schemas**: `lib/schemas/` — centralized Zod schemas for auth forms (login, register, email verification, password reset) and profile completion
+- **Validation Helper**: `formatZodErrors()` in `lib/schemas/index.ts` parses Zod issues into field-keyed error map
 
 ## Client Environment
 - `NEXT_PUBLIC_API_URL` — API base URL (default: http://localhost:3000/api/v1)

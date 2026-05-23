@@ -81,6 +81,12 @@ Each milestone item maps to a GitHub issue for auto-accept:
 - [x] **Vercel React best practices** applied across all 22+ components
 - [x] **Storybook** runtime errors fixed, missing stories added
 - [x] **Emoji → SVG Icon** migration (Sidebar, ProfileCompletionForm, DashboardHome)
+- [x] **Zod validation schemas** in `lib/schemas/` — centralized form validation
+- [x] **UI Translation** — Turkish → English across all components
+- [x] **DashboardProfile** organism — view/edit profile with role-based fields
+- [x] **DashboardSettings** organism — change password form
+- [x] **Profile page** (`/dashboard/profile`) — fetches role-specific profile
+- [x] **Settings page** (`/dashboard/settings`) — change password with validation
 - [ ] Global state management (future)
 - [ ] WebSocket notifications (frontend + backend) (future)
 - [ ] i18n — Arabic + English UI support (future)
@@ -110,14 +116,15 @@ Each milestone item maps to a GitHub issue for auto-accept:
 - [x] Axios interceptor + error handling
 - [x] Profile completion check on dashboard mount
 - [x] API client + auth service layer
+- [x] Zod schemas created in `lib/schemas/` — all forms use centralized validation
 - [x] Vercel React best practices applied
 - [x] Storybook stories fixed for all components
 
 ### Milestone 3: Dashboard
 - [x] Dashboard layout (Header + Sidebar)
 - [x] Dashboard home page
-- [ ] Dashboard profile
-- [ ] Dashboard settings
+- [x] Dashboard profile (view/edit with role-based fields)
+- [x] Dashboard settings (change password)
 
 ### Milestone 4: Order Management (Future)
 - [ ] Order list, create, detail pages
@@ -140,4 +147,4 @@ Each milestone item maps to a GitHub issue for auto-accept:
 
 ## Known Issues
 - Backend: No issues
-- Frontend: Auth flow and dashboard scaffolding complete. Performance optimization done. Next up: profile/settings pages, order management, global state, WebSocket, i18n.
+- Frontend: Auth flow, dashboard, profile, and settings pages complete. Next up: order management, global state, WebSocket, i18n.

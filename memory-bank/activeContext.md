@@ -37,9 +37,14 @@ Rewriting the frontend from scratch using **Atomic Design Pattern**. Old client 
 
 The server is fully functional — we are only focusing on the frontend.
 
-All milestone 1 (Foundation) and milestone 2 (Auth Flow) items are complete. Currently polishing existing components and optimizing performance.
+All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and settings page are built. Next: order management.
 
 ## Recent Changes
+- **Dashboard Profile Page** — Profile view/edit page with role-based fields (Dentist/Technician), inline editing, loading/error states. API: `GET/PUT /dentist/profile` or `GET/PUT /technician/profile`
+- **Dashboard Settings Page** — Change password form with validation, success/error feedback. API: `PUT /user/change-password`
+- **Sidebar** — Added "Ayarlar" (Settings) nav item for both roles
+- **UI Translation** (`deae2c2`) — All UI text translated from Turkish to English across auth forms, dashboard, and components
+- **Zod Validation Integration** (`1e3b801`) — Replaced all manual inline validation in 6 auth forms (Login, Register, EmailVerification, ForgotPassword, ResetPassword, ProfileCompletion) with centralized Zod schemas. Created `lib/schemas/` with reusable `emailSchema`, `passwordSchema`, `verificationCodeSchema` and form-specific schemas. Added `formatZodErrors` helper.
 - **Vercel React Best Practices Applied** (`feae766`) — 22 files optimized with `useCallback`, `useMemo`, memo, early returns, event handler refs, and other Vercel performance patterns
 - **Storybook Runtime Errors Fixed** (`0dc5646`) — Fixed broken stories (Input, Card, Modal) and added missing stories (DashboardHome, Header, AuthTemplate, DashboardTemplate)
 - **Self-Contained Modal Auth Forms** (`9e3ed40`) — Refactored each auth form to be an independent modal with its own `open`/`onClose` props, removing the single-modal approach with step management. Each form now pops up as its own modal.
@@ -137,6 +142,11 @@ All milestone 1 (Foundation) and milestone 2 (Auth Flow) items are complete. Cur
 - [x] Vercel React best practices applied across all components
 - [x] Storybook stories for all atoms, molecules, organisms, templates
 - [x] Emoji → SVG Icon migration (Sidebar, ProfileCompletionForm, DashboardHome)
+- [x] Zod validation integration (lib/schemas/) — centralized schemas for all auth forms
+- [x] UI translation — Turkish → English across all components
+- [x] Dashboard Profile page — view/edit with role-based fields
+- [x] Dashboard Settings page — change password form
+- [x] AuthService extended — getProfile, updateProfile methods added
 - [ ] Global state management (future)
 - [ ] WebSocket notifications (frontend + backend) (future)
 - [ ] i18n — Arabic + English UI support (future)
