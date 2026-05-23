@@ -38,6 +38,13 @@
 - [x] **Card** molecule component
 - [x] **FormField** molecule component
 - [x] **PasswordInput** molecule component
+- [ ] **Avatar** molecule component
+- [ ] **Toast/Alert** molecule component
+- [ ] **Modal/Dialog** molecule component
+- [ ] **Tabs** molecule component
+- [ ] **Dropdown** molecule component
+- [ ] **Checkbox/Radio** molecule component
+- [ ] **Toggle** molecule component
 - [ ] Organism components (LoginForm, RegisterForm, Header, Sidebar, etc.)
 - [x] Templates (MainLayout — empty scaffold)
 - [ ] Templates (AuthTemplate, DashboardTemplate)
@@ -68,7 +75,8 @@
 - [x] Design tokens system
 - [x] Plop generator
 - [x] All atom components + Storybook stories
-- [x] All molecule components + Storybook stories
+- [x] Core molecule components (FormField, PasswordInput, Card)
+- [ ] Additional molecule components (Avatar, Toast/Alert, Modal/Dialog, Tabs, Dropdown, Checkbox/Radio, Toggle)
 
 ### Milestone 2: Auth Flow (Pages)
 - [ ] All auth pages (login, register, verify, password reset, profile completion)

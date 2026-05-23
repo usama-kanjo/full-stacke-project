@@ -46,6 +46,10 @@ The server is fully functional — we are only focusing on the frontend.
 - Simplified `layout.tsx` and `page.tsx` in App Router
 - Cleaned up old client components (register, LoginPage, dashboard, rootPage, Footer, etc.)
 
+## Hard Rules
+- **Package Manager: yarn ONLY** — Never use npm. All installs, scripts, and workspace commands use yarn.
+- **Branch Scope Discipline** — When a branch is created for a specific task (e.g., `refactor/frontend-rewrite`), ONLY work on that scope. Never touch unrelated code (e.g., backend while on a frontend branch). This prevents merge conflicts.
+
 ## Active Decisions
 - **Atomic Design Pattern**: `atoms/` → `molecules/` → `organisms/` → `templates/` → `pages/` hierarchy
 - **Each component in its own folder**: `ComponentName/index.tsx` + `ComponentName.module.css`
@@ -77,7 +81,8 @@ The server is fully functional — we are only focusing on the frontend.
 - [x] Atomic Design folder structure created
 - [x] Design tokens system created (colors, spacing, typography)
 - [x] All atom components (Button, Badge, Input, Label, Icon, Spinner, Typography)
-- [x] All molecule components (FormField, PasswordInput, Card)
+- [x] Current molecule components (FormField, PasswordInput, Card)
+- [ ] Additional molecule components (Avatar, Toast/Alert, Modal/Dialog, Tabs, Dropdown, Checkbox/Radio, Toggle)
 - [ ] Axios + Sonner installation
 - [ ] Organism components (LoginForm, RegisterForm, Header, Sidebar, EmailVerificationForm, ForgotPasswordForm, ResetPasswordForm, ProfileCompletionForm)
 - [ ] Templates (AuthTemplate, DashboardTemplate)

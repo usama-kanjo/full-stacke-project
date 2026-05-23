@@ -35,7 +35,7 @@
 - **i18n**: next-intl or react-i18next (Arabic + English)
 
 ## Development Setup
-- **Package Manager**: yarn (workspaces)
+- **Package Manager**: yarn ONLY — never use npm (workspaces)
 - **Server Dev**: `yarn server` (tsx watch, port 3000)
 - **Client Dev**: `yarn client` (next dev -p 3001)
 - **Full Dev**: `yarn dev` (concurrently runs both)
