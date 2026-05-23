@@ -12,6 +12,10 @@ The platform serves two user roles:
 - **Dentists (Dişçi)** — Create and assign dental work orders
 - **Lab Technicians (Laborant)** — Receive, work on, and complete orders
 
+### What is the current status of the project?
+
+The **backend** (API, database, auth) is fully complete and working. The **frontend** is being rewritten from scratch using **Atomic Design Pattern** — all UI components (7 atoms + 10 molecules) are built, and pages/auth flows are in progress.
+
 ### Is kanjoLab free and open-source?
 
 Yes, this project is open-source under the ISC license.
@@ -118,6 +122,37 @@ Orders use a **direct assignment model** — the dentist selects a specific tech
 
 ---
 
+## Frontend Architecture
+
+### What is Atomic Design Pattern?
+
+The frontend follows **Atomic Design** — a methodology for creating design systems with five distinct levels:
+- **Atoms** — Smallest UI units (Button, Input, Label, Icon, etc.)
+- **Molecules** — Combinations of atoms (FormField, Card, Toast, etc.)
+- **Organisms** — Complex UI sections (LoginForm, Header, Sidebar)
+- **Templates** — Page layouts
+- **Pages** — Full pages
+
+### Can I browse the UI components?
+
+Yes! Run Storybook to see all components in isolation:
+
+```bash
+yarn workspace client storybook
+# → http://localhost:6006
+```
+
+### What is Plop?
+
+Plop is a code generator that scaffolds new components following the Atomic Design pattern, ensuring consistency. Usage:
+
+```bash
+yarn plop:atom      # New atom component
+yarn plop:molecule  # New molecule component
+```
+
+---
+
 ## Development
 
 ### How do I reset the database?
@@ -127,11 +162,7 @@ cd server
 npx prisma migrate reset
 ```
 
-This drops all data and reapplies migrations. You can optionally run the seed script afterwards:
-
-```bash
-npm run db:seed
-```
+This drops all data and reapplies migrations.
 
 ### How do I view the database?
 
@@ -139,7 +170,7 @@ Use Prisma Studio:
 
 ```bash
 cd server
-npm run db:studio
+yarn db:studio
 ```
 
 This opens a web-based database browser at `http://localhost:5555`.
@@ -149,25 +180,30 @@ This opens a web-based database browser at `http://localhost:5555`.
 ```bash
 # Server
 cd server
-npm run lint
+yarn lint
 
 # Client
 cd client
-npm run lint
+yarn lint
 ```
 
 ### How do I run TypeScript checks?
 
 ```bash
 cd server
-npm run typecheck
+yarn typecheck
 ```
 
 ### What ports does the application use?
 
 - **Server**: `http://localhost:3000`
 - **Client**: `http://localhost:3001`
+- **Storybook**: `http://localhost:6006`
 - **Prisma Studio**: `http://localhost:5555`
+
+### What package manager does this project use?
+
+**yarn only**. Never use npm. The project uses yarn workspaces.
 
 ### Why is my client showing "NEXT_PUBLIC_API_URL" errors?
 

@@ -2,6 +2,8 @@
 
 This guide explains how to use the kanjoLab platform from end to end.
 
+> **Note:** The frontend is currently being rewritten using Atomic Design Pattern. Auth pages, dashboard, and profile pages are under construction. The backend (API) is fully working — you can test it using tools like curl, Postman, or the Storybook component library.
+
 ---
 
 ## Getting Started
@@ -63,7 +65,7 @@ Once your profile is complete, you can log in anytime using your email and passw
 
 ## Dashboard
 
-The dashboard provides a role-based interface. Currently, the dashboard shows placeholder data while order management features are under development.
+The dashboard is currently under development as part of the frontend rewrite. Placeholder content is shown while order management features are being built.
 
 ### Navigation
 
@@ -148,9 +150,27 @@ If you forgot your password:
 
 ## Development Tips
 
+### Storybook (UI Component Library)
+
+Browse and test all UI components:
+
+```bash
+yarn workspace client storybook
+# → http://localhost:6006
+```
+
+### Code Generation (Plop)
+
+Scaffold new components quickly following Atomic Design:
+
+```bash
+yarn plop:atom      # Create a new atom component
+yarn plop:molecule  # Create a new molecule component
+```
+
 ### OFFLINE Email Mode
 
-When running the server with `npm run dev:offline`, all verification and reset codes are printed to the terminal console where the server is running. Look for lines like:
+When running the server with `yarn dev:offline`, all verification and reset codes are printed to the terminal console where the server is running. Look for lines like:
 
 ```
 New user registered: dentist@example.com
@@ -170,7 +190,7 @@ You can view and edit database records directly using Prisma Studio:
 
 ```bash
 cd server
-npm run db:studio
+yarn db:studio
 ```
 
 This opens a web interface at `http://localhost:5555`.

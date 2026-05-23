@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - **Node.js** >= 18.x
-- **npm** >= 9.x
+- **yarn** >= 1.22.x (package manager — do not use npm)
 - **PostgreSQL** >= 14.x
 - **Git**
 
@@ -12,28 +12,21 @@
 ## Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/authInMern.git
-cd authInMern
+git clone https://github.com/usama-kanjo/full-stacke-project.git
+cd full-stacke-project
 ```
 
 ---
 
 ## Step 2: Install Dependencies
 
+This project uses **yarn workspaces**. Install everything from the root:
+
 ```bash
-# Install root-level dependencies
-npm install
-
-# Install server dependencies
-cd server
-npm install
-cd ..
-
-# Install client dependencies
-cd client
-npm install
-cd ..
+yarn install
 ```
+
+This installs dependencies for the root, server, and client workspaces automatically.
 
 ---
 
@@ -101,13 +94,13 @@ cd server
 npx prisma migrate dev
 ```
 
-This applies all 8 existing migrations and generates the Prisma client.
+This applies all existing migrations and generates the Prisma client.
 
 ### (Optional) View Database with Prisma Studio
 
 ```bash
 cd server
-npm run db:studio
+yarn db:studio
 ```
 
 Opens a GUI at `http://localhost:5555` to browse and edit data.
@@ -116,26 +109,37 @@ Opens a GUI at `http://localhost:5555` to browse and edit data.
 
 ## Step 5: Start Development Servers
 
-### Terminal 1 — Server (port 3000)
+### Run Both Together (Recommended)
 
 ```bash
-cd server
-
-# Standard mode (real email if configured)
-npm run dev
-
-# Offline mode (verification codes printed to console)
-npm run dev:offline
+# From the project root — starts server (:3000) and client (:3001) concurrently
+yarn dev
 ```
 
-### Terminal 2 — Client (port 3001)
+### Or Run Separately
+
+#### Terminal 1 — Server (port 3000)
 
 ```bash
-cd client
-npm run dev
+yarn server
+
+# Offline email mode (codes printed to console):
+# yarn server:offline
 ```
 
-Visit **http://localhost:3001** in your browser.
+#### Terminal 2 — Client (port 3001)
+
+```bash
+yarn client
+```
+
+#### Terminal 3 — Storybook (port 6006)
+
+```bash
+yarn workspace client storybook
+```
+
+Visit **http://localhost:3001** for the app, **http://localhost:6006** for Storybook.
 
 ---
 
@@ -144,44 +148,53 @@ Visit **http://localhost:3001** in your browser.
 ```bash
 # Build the server
 cd server
-npm run build
+yarn build
 
-# Start in production mode
-npm start
+# Build the client (from root or client dir)
+yarn workspace client build
 ```
 
-> Note: For production, also build the Next.js client with `cd client && npm run build && npm start`.
+> For production, also set `NODE_ENV=production`, configure CORS, and use a production PostgreSQL instance.
 
 ---
 
-## Available NPM Scripts
+## Available Scripts
+
+### Root (yarn workspaces)
+
+| Script | Description |
+|--------|-------------|
+| `yarn dev` | Run server + client concurrently |
+| `yarn server` | Start server dev mode (port 3000) |
+| `yarn client` | Start client dev mode (port 3001) |
+| `yarn install` | Install all workspace dependencies |
 
 ### Server
 
 | Script | Description |
 |--------|-------------|
-| `npm run dev` | Start dev server with hot reload |
-| `npm run dev:debug` | Start dev server with Node.js inspector |
-| `npm run dev:offline` | Start dev server in offline email mode |
-| `npm run build` | Compile TypeScript |
-| `npm start` | Production build + start |
-| `npm run test` | Run compiled test suite |
-| `npm run lint` | Lint source code |
-| `npm run typecheck` | TypeScript type checking |
-| `npm run db:generate` | Regenerate Prisma client |
-| `npm run db:migrate` | Run development migrations |
-| `npm run db:studio` | Open Prisma Studio |
-| `npm run db:seed` | Run seed script |
-| `npm run db:push` | Push schema to database |
+| `yarn dev` | Start dev server with hot reload |
+| `yarn dev:offline` | Start dev server in offline email mode |
+| `yarn build` | Compile TypeScript |
+| `yarn test` | Run compiled test suite |
+| `yarn lint` | Lint source code |
+| `yarn typecheck` | TypeScript type checking |
+| `yarn db:generate` | Regenerate Prisma client |
+| `yarn db:migrate` | Run development migrations |
+| `yarn db:studio` | Open Prisma Studio |
 
 ### Client
 
 | Script | Description |
 |--------|-------------|
-| `npm run dev` | Start Next.js dev server on port 3001 |
-| `npm run build` | Build for production |
-| `npm start` | Start production server on port 3001 |
-| `npm run lint` | Run ESLint |
+| `yarn dev` | Start Next.js dev server on port 3001 |
+| `yarn build` | Build for production |
+| `yarn lint` | Run ESLint |
+| `yarn storybook` | Start Storybook on port 6006 |
+| `yarn plop` | Interactive component scaffold generator |
+| `yarn plop:atom` | Scaffold a new atom component |
+| `yarn plop:molecule` | Scaffold a new molecule component |
+| `yarn plop:organism` | Scaffold a new organism component |
 
 ---
 
@@ -222,7 +235,7 @@ brew services start postgresql
 
 ```bash
 cd server
-npm run typecheck
+yarn typecheck
 ```
 
 Fix any type errors, then try again.
