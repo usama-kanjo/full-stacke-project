@@ -11,6 +11,15 @@ export const passwordSchema = z
   .regex(/[A-Z]/, "Password must contain uppercase letter")
   .regex(/[0-9]/, "Password must contain a number");
 
+export const loginPasswordFieldSchema = z
+  .string()
+  .min(1, "Password is required")
+  .min(8, "Password must be at least 8 characters");
+
+export const confirmPasswordFieldSchema = z
+  .string()
+  .min(1, "Confirm password is required");
+
 export const verificationCodeSchema = z
   .string()
   .min(1, "Reset code is required")
@@ -18,10 +27,7 @@ export const verificationCodeSchema = z
 
 export const loginSchema = z.object({
   email: emailSchema,
-  password: z
-    .string()
-    .min(1, "Password is required")
-    .min(8, "Password must be at least 8 characters"),
+  password: loginPasswordFieldSchema,
 });
 
 export const registerSchema = z

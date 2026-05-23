@@ -40,11 +40,8 @@ The server is fully functional — we are only focusing on the frontend.
 All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and settings page are built. Next: order management.
 
 ## Recent Changes
-- **Dashboard Profile Page** — Profile view/edit page with role-based fields (Dentist/Technician), inline editing, loading/error states. API: `GET/PUT /dentist/profile` or `GET/PUT /technician/profile`
-- **Dashboard Settings Page** — Change password form with validation, success/error feedback. API: `PUT /user/change-password`
-- **Sidebar** — Added "Ayarlar" (Settings) nav item for both roles
-- **UI Translation** (`deae2c2`) — All UI text translated from Turkish to English across auth forms, dashboard, and components
-- **Zod Validation Integration** (`1e3b801`) — Replaced all manual inline validation in 6 auth forms (Login, Register, EmailVerification, ForgotPassword, ResetPassword, ProfileCompletion) with centralized Zod schemas. Created `lib/schemas/` with reusable `emailSchema`, `passwordSchema`, `verificationCodeSchema` and form-specific schemas. Added `formatZodErrors` helper.
+- **useForm Hook + onChange Validation** (`HEAD`) — Built professional `useForm` hook (state + debounced onChange + touched state + onSubmit validation). Created `useDebounce` generic hook. All 6 auth forms refactored to use `getFieldProps` + `handleSubmit` pattern. Zod validation rules synced with server (password min 8, phone regex, email notEmpty, English messages).
+- **Zod Validation Integration** (`1e3b801`) — Replaced all manual inline validation in 6 auth forms with centralized Zod schemas. Created `lib/schemas/` with reusable schemas and `formatZodErrors` helper.
 - **Vercel React Best Practices Applied** (`feae766`) — 22 files optimized with `useCallback`, `useMemo`, memo, early returns, event handler refs, and other Vercel performance patterns
 - **Storybook Runtime Errors Fixed** (`0dc5646`) — Fixed broken stories (Input, Card, Modal) and added missing stories (DashboardHome, Header, AuthTemplate, DashboardTemplate)
 - **Self-Contained Modal Auth Forms** (`9e3ed40`) — Refactored each auth form to be an independent modal with its own `open`/`onClose` props, removing the single-modal approach with step management. Each form now pops up as its own modal.

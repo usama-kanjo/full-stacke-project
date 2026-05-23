@@ -6,7 +6,8 @@ import { Icon } from "@/components/atoms/Icon";
 import { Input } from "@/components/atoms/Input";
 import { FormField } from "@/components/molecules/FormField";
 import { Modal } from "@/components/molecules/Modal";
-import { formatZodErrors, profileCompletionSchema } from "@/lib/schemas";
+import { useForm } from "@/hooks";
+import { fullNameFieldSchema, phoneFieldSchema, profileCompletionSchema } from "@/lib/schemas";
 import styles from "./ProfileCompletionForm.module.css";
 
 type ProfileCompletionFormProps = {
@@ -33,36 +34,54 @@ export function ProfileCompletionForm({
   isLoading = false,
 }: ProfileCompletionFormProps) {
   const [role, setRole] = useState<"DENTIST" | "LAB_TECHNICIAN" | null>(null);
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [clinicName, setClinicName] = useState("");
-  const [clinicAddress, setClinicAddress] = useState("");
-  const [clinicCity, setClinicCity] = useState("");
-  const [labName, setLabName] = useState("");
-  const [labAddress, setLabAddress] = useState("");
-  const [labCity, setLabCity] = useState("");
-  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const { getFieldProps, setValues, values, errors, setErrors } = useForm({
+    schema: profileCompletionSchema,
+    fieldSchemas: {
+      fullName: fullNameFieldSchema,
+      phone: phoneFieldSchema,
+    },
+    initialValues: {
+      fullName: "",
+      phone: "",
+      clinicName: "",
+      clinicAddress: "",
+      clinicCity: "",
+      labName: "",
+      labAddress: "",
+      labCity: "",
+    },
+  });
+
+  const fullNameField = getFieldProps("fullName");
+  const phoneField = getFieldProps("phone");
+
+  const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     const payload = {
+      ...values,
       role: role ?? undefined,
-      fullName,
-      phone,
-      clinicName: clinicName || undefined,
-      clinicAddress: clinicAddress || undefined,
-      clinicCity: clinicCity || undefined,
-      labName: labName || undefined,
-      labAddress: labAddress || undefined,
-      labCity: labCity || undefined,
+      clinicName: values.clinicName || undefined,
+      clinicAddress: values.clinicAddress || undefined,
+      clinicCity: values.clinicCity || undefined,
+      labName: values.labName || undefined,
+      labAddress: values.labAddress || undefined,
+      labCity: values.labCity || undefined,
     };
-
     const result = profileCompletionSchema.safeParse(payload);
     if (!result.success) {
-      setErrors(formatZodErrors(result.error));
+      const fieldErrors: Record<string, string> = {};
+      for (const issue of result.error.issues) {
+        const key = issue.path[0] as string;
+        if (!fieldErrors[key]) {
+          fieldErrors[key] = issue.message;
+        }
+      }
+      setErrors(fieldErrors);
       return;
     }
+    setErrors({});
     await onSubmit(result.data as Parameters<typeof onSubmit>[0]);
     setIsSuccess(true);
   };
@@ -85,7 +104,7 @@ export function ProfileCompletionForm({
             </div>
           )
         : (
-            <form onSubmit={handleSubmit} className={styles.form} noValidate>
+            <form onSubmit={submitHandler} className={styles.form} noValidate>
               <div className={styles.section}>
                 <FormField label="Select Role" error={errors.role}>
                   <div className={styles.roleGroup}>
@@ -110,21 +129,11 @@ export function ProfileCompletionForm({
               </div>
 
               <div className={styles.section}>
-                <FormField label="Full Name" error={errors.fullName}>
-                  <Input
-                    type="text"
-                    placeholder="Your full name"
-                    value={fullName}
-                    onChange={e => setFullName(e.target.value)}
-                  />
+                <FormField label="Full Name" error={fullNameField.error}>
+                  <Input type="text" placeholder="Your full name" {...fullNameField} />
                 </FormField>
-                <FormField label="Phone" error={errors.phone}>
-                  <Input
-                    type="tel"
-                    placeholder="+90 555 123 4567"
-                    value={phone}
-                    onChange={e => setPhone(e.target.value)}
-                  />
+                <FormField label="Phone" error={phoneField.error}>
+                  <Input type="tel" placeholder="+90 555 123 4567" {...phoneField} />
                 </FormField>
               </div>
 
@@ -134,24 +143,24 @@ export function ProfileCompletionForm({
                     <Input
                       type="text"
                       placeholder="Clinic name"
-                      value={clinicName}
-                      onChange={e => setClinicName(e.target.value)}
+                      value={values.clinicName ?? ""}
+                      onChange={e => setValues(prev => ({ ...prev, clinicName: e.target.value }))}
                     />
                   </FormField>
                   <FormField label="Clinic Address">
                     <Input
                       type="text"
                       placeholder="Address"
-                      value={clinicAddress}
-                      onChange={e => setClinicAddress(e.target.value)}
+                      value={values.clinicAddress ?? ""}
+                      onChange={e => setValues(prev => ({ ...prev, clinicAddress: e.target.value }))}
                     />
                   </FormField>
                   <FormField label="Clinic City">
                     <Input
                       type="text"
                       placeholder="City"
-                      value={clinicCity}
-                      onChange={e => setClinicCity(e.target.value)}
+                      value={values.clinicCity ?? ""}
+                      onChange={e => setValues(prev => ({ ...prev, clinicCity: e.target.value }))}
                     />
                   </FormField>
                 </div>
@@ -163,24 +172,24 @@ export function ProfileCompletionForm({
                     <Input
                       type="text"
                       placeholder="Lab name"
-                      value={labName}
-                      onChange={e => setLabName(e.target.value)}
+                      value={values.labName ?? ""}
+                      onChange={e => setValues(prev => ({ ...prev, labName: e.target.value }))}
                     />
                   </FormField>
                   <FormField label="Lab Address">
                     <Input
                       type="text"
                       placeholder="Address"
-                      value={labAddress}
-                      onChange={e => setLabAddress(e.target.value)}
+                      value={values.labAddress ?? ""}
+                      onChange={e => setValues(prev => ({ ...prev, labAddress: e.target.value }))}
                     />
                   </FormField>
                   <FormField label="Lab City">
                     <Input
                       type="text"
                       placeholder="City"
-                      value={labCity}
-                      onChange={e => setLabCity(e.target.value)}
+                      value={values.labCity ?? ""}
+                      onChange={e => setValues(prev => ({ ...prev, labCity: e.target.value }))}
                     />
                   </FormField>
                 </div>

@@ -2,19 +2,23 @@ import { z } from "zod";
 
 const phoneRegex = /^[0-9+\-\s()]+$/;
 
+export const fullNameFieldSchema = z
+  .string()
+  .min(1, "Full name is required")
+  .min(2, "Full name must be at least 2 characters");
+
+export const phoneFieldSchema = z
+  .string()
+  .min(1, "Phone is required")
+  .regex(phoneRegex, "Please enter a valid phone number");
+
 export const profileCompletionSchema = z
   .object({
     role: z.enum(["DENTIST", "LAB_TECHNICIAN"], {
       message: "Role must be DENTIST or LAB_TECHNICIAN",
     }),
-    fullName: z
-      .string()
-      .min(1, "Full name is required")
-      .min(2, "Full name must be at least 2 characters"),
-    phone: z
-      .string()
-      .min(1, "Phone is required")
-      .regex(phoneRegex, "Please enter a valid phone number"),
+    fullName: fullNameFieldSchema,
+    phone: phoneFieldSchema,
     clinicName: z.string().optional(),
     clinicAddress: z.string().optional(),
     clinicCity: z.string().optional(),

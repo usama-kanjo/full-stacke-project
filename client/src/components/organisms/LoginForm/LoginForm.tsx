@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
 import { FormField } from "@/components/molecules/FormField";
 import { Modal } from "@/components/molecules/Modal";
-import { formatZodErrors, loginSchema } from "@/lib/schemas";
+import { useForm } from "@/hooks";
+import { emailSchema, loginPasswordFieldSchema, loginSchema } from "@/lib/schemas";
 import styles from "./LoginForm.module.css";
 
 type LoginFormProps = {
@@ -23,38 +24,26 @@ export function LoginForm({
   onNavigate,
   isLoading = false,
 }: LoginFormProps) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const { getFieldProps, handleSubmit } = useForm({
+    schema: loginSchema,
+    fieldSchemas: {
+      email: emailSchema,
+      password: loginPasswordFieldSchema,
+    },
+    initialValues: { email: "", password: "" },
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const result = loginSchema.safeParse({ email, password });
-    if (!result.success) {
-      setErrors(formatZodErrors(result.error));
-      return;
-    }
-    await onSubmit(result.data);
-  };
+  const emailField = getFieldProps("email");
+  const passwordField = getFieldProps("password");
 
   return (
     <Modal open={open} onClose={onClose} title="Log In" size="sm">
-      <form onSubmit={handleSubmit} className={styles.form} noValidate>
-        <FormField label="Email" error={errors.email}>
-          <Input
-            type="email"
-            placeholder="ornek@email.com"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
+        <FormField label="Email" error={emailField.error}>
+          <Input type="email" placeholder="ornek@email.com" {...emailField} />
         </FormField>
-        <FormField label="Password" error={errors.password}>
-          <Input
-            type="password"
-            placeholder="••••••••"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
+        <FormField label="Password" error={passwordField.error}>
+          <Input type="password" placeholder="••••••••" {...passwordField} />
         </FormField>
         <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
           {isLoading ? "Logging in..." : "Log In"}

@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
 import { FormField } from "@/components/molecules/FormField";
 import { Modal } from "@/components/molecules/Modal";
-import { forgotPasswordSchema, formatZodErrors } from "@/lib/schemas";
+import { useForm } from "@/hooks";
+import { emailSchema, forgotPasswordSchema } from "@/lib/schemas";
 import styles from "./ForgotPasswordForm.module.css";
 
 type ForgotPasswordFormProps = {
@@ -23,32 +24,24 @@ export function ForgotPasswordForm({
   onNavigate,
   isLoading = false,
 }: ForgotPasswordFormProps) {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const { getFieldProps, handleSubmit } = useForm({
+    schema: forgotPasswordSchema,
+    fieldSchemas: {
+      email: emailSchema,
+    },
+    initialValues: { email: "" },
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const result = forgotPasswordSchema.safeParse({ email });
-    if (!result.success) {
-      setError(formatZodErrors(result.error).email ?? "");
-      return;
-    }
-    await onSubmit(result.data);
-  };
+  const emailField = getFieldProps("email");
 
   return (
     <Modal open={open} onClose={onClose} title="Forgot Password" size="sm">
-      <form onSubmit={handleSubmit} className={styles.form} noValidate>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
         <p className={styles.description}>
           Enter your email to reset your password. We'll send you a 6-digit code.
         </p>
-        <FormField label="Email" error={error}>
-          <Input
-            type="email"
-            placeholder="ornek@email.com"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
+        <FormField label="Email" error={emailField.error}>
+          <Input type="email" placeholder="ornek@email.com" {...emailField} />
         </FormField>
         <Button type="submit" variant="primary" fullWidth disabled={isLoading}>
           {isLoading ? "Sending..." : "Send Code"}

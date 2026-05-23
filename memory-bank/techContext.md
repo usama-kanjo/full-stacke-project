@@ -76,6 +76,7 @@
 - **Components barrel export**: `components/index.ts` re-exports all atoms (7) and molecules (3)
 - **Validation Schemas**: `lib/schemas/` — centralized Zod schemas for auth forms (login, register, email verification, password reset) and profile completion
 - **Validation Helper**: `formatZodErrors()` in `lib/schemas/index.ts` parses Zod issues into field-keyed error map
+- **Form Hook**: `useForm` in `hooks/useForm.ts` — manages form state, debounced field validation (`useDebounce`), touched state, and full schema validation on submit. Provides `getFieldProps` (value + onChange + onBlur + error) and `handleSubmit` (auto-validate then call onValid).
 
 ## Client Environment
 - `NEXT_PUBLIC_API_URL` — API base URL (default: http://localhost:3000/api/v1)

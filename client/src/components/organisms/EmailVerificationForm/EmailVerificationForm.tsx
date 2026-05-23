@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
 import { FormField } from "@/components/molecules/FormField";
 import { Modal } from "@/components/molecules/Modal";
-import { formatZodErrors, verifyEmailSchema } from "@/lib/schemas";
+import { useForm } from "@/hooks";
+import { verificationCodeSchema, verifyEmailSchema } from "@/lib/schemas";
 import styles from "./EmailVerificationForm.module.css";
 
 type EmailVerificationFormProps = {
@@ -27,34 +28,38 @@ export function EmailVerificationForm({
   isLoading = false,
   onResend,
 }: EmailVerificationFormProps) {
-  const [code, setCode] = useState("");
-  const [error, setError] = useState("");
+  const { getFieldProps, handleSubmit, setValues } = useForm({
+    schema: verifyEmailSchema,
+    fieldSchemas: {
+      verificationCode: verificationCodeSchema,
+    },
+    initialValues: { verificationCode: "" },
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const result = verifyEmailSchema.safeParse({ verificationCode: code });
-    if (!result.success) {
-      setError(formatZodErrors(result.error).verificationCode ?? "");
-      return;
-    }
-    await onSubmit(result.data);
-  };
+  const codeField = getFieldProps("verificationCode");
+
+  const handleCodeChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value.replace(NON_DIGIT, "").slice(0, 6);
+      setValues(prev => ({ ...prev, verificationCode: val }));
+      codeField.onChange({ target: { value: val } } as React.ChangeEvent<HTMLInputElement>);
+    },
+    [setValues, codeField],
+  );
 
   return (
     <Modal open={open} onClose={onClose} title="Email Verification" size="sm">
-      <form onSubmit={handleSubmit} className={styles.form} noValidate>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
         <p className={styles.description}>
           Enter the 6-digit verification code sent to your email.
         </p>
-        <FormField label="Verification Code" error={error}>
+        <FormField label="Verification Code" error={codeField.error}>
           <Input
             type="text"
             placeholder="123456"
-            value={code}
-            onChange={(e) => {
-              const val = e.target.value.replace(NON_DIGIT, "").slice(0, 6);
-              setCode(val);
-            }}
+            value={codeField.value}
+            onChange={handleCodeChange}
+            onBlur={codeField.onBlur}
             maxLength={6}
           />
         </FormField>
