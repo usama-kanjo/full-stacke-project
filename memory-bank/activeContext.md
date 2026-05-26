@@ -40,7 +40,7 @@ The server is fully functional — we are only focusing on the frontend.
 All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and settings page are built. Next: order management.
 
 ## Recent Changes
-- **ESLint Warnings Fixed** (`be93c75`) — Fixed all 5 `import/prefer-default-export` warnings. Converted `useAuth`, `useDebounce`, `useForm`, `lib/index`, `services/index`, and `authService` from named exports to default exports. Updated all 12 importing files. ESLint now passes with 0 errors, 0 warnings.
+- **ESLint `import/prefer-default-export` Disabled** (`60aa07e`) — Turned off `import/prefer-default-export` rule. Converted entire codebase to consistent **named exports only** convention: all hooks, lib/api, authService, and barrel files now use named exports. Updated 17 importing files. ESLint now passes with 0 errors, 0 warnings. TypeScript strict mode fully satisfied.
 - **useForm Hook + onChange Validation** (`d402491`) — Built professional `useForm` hook (state + debounced onChange + touched state + onSubmit validation). Created `useDebounce` generic hook. All 6 auth forms refactored to use `getFieldProps` + `handleSubmit` pattern. Zod validation rules synced with server (password min 8, phone regex, email notEmpty, English messages).
 - **Zod Validation Integration** (`1e3b801`) — Replaced all manual inline validation in 6 auth forms with centralized Zod schemas. Created `lib/schemas/` with reusable schemas and `formatZodErrors` helper.
 - **Vercel React Best Practices Applied** (`feae766`) — 22 files optimized with `useCallback`, `useMemo`, memo, early returns, event handler refs, and other Vercel performance patterns
@@ -97,6 +97,7 @@ All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and 
 - **Professional Code Quality** — "It works" is not enough. Code must be readable, maintainable, and professional. Standards are non-negotiable.
 - **Discussion-First Approach** — Every change is discussed first. No silent coding. Every decision has a rationale. If an approach compromises code quality, alternatives are presented and debated.
 - **No Silent Commits** — Every commit must have a clear purpose and scope. Meaningless messages like "WIP", "fix", "update" are prohibited.
+- **Named Exports Only** — All files use named exports (`export function X` / `export const X`). Barrel (`index.ts`) files re-export as named (`export { X } from "./X"`). Consumers always use `import { X } from "@/barrel"`. No `export default` anywhere. This ensures consistent import syntax across the entire codebase.
 
 ## Active Decisions
 - **Atomic Design Pattern**: `atoms/` → `molecules/` → `organisms/` → `templates/` → `pages/` hierarchy
@@ -109,7 +110,7 @@ All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and 
 - **Storybook** for component development and documentation
 - **Plop** for code scaffolding to enforce consistency
 - **zod** for client-side form validation
-- **@antfu/eslint-config** for code quality
+- **@antfu/eslint-config** for code quality (`import/prefer-default-export` disabled — all exports named)
 - **Future: i18n** — Arabic + English UI support
 - **Future: WebSocket** — Socket.IO for real-time notifications
 - **Future: Global State Management** — beyond simple Context API

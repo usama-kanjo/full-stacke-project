@@ -1,4 +1,4 @@
-import api from "@/lib/api";
+import { api } from "@/lib/api";
 
 export type AuthResponse = {
   status: string;
@@ -80,7 +80,7 @@ export type TechnicianUpdateData = {
   labCity?: string;
 };
 
-const authService = {
+export const authService = {
   register(data: { email: string; password: string }) {
     return api.post<AuthResponse>("/user/register", data);
   },
@@ -137,5 +137,3 @@ const authService = {
     return api.put<{ status: string; message: string; data: DentistProfile | TechnicianProfile }>(endpoint, data);
   },
 };
-
-export default authService;

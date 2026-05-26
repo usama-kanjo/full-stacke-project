@@ -7,7 +7,7 @@ import {
   useCallback,
   useState,
 } from "react";
-import authService, { type AuthResponse } from "@/services/authService";
+import { type AuthResponse, authService } from "@/services/authService";
 
 type User = {
   id: number;

@@ -5,8 +5,8 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { DashboardHome } from "@/components/organisms/DashboardHome";
 import { ProfileCompletionForm } from "@/components/organisms/ProfileCompletionForm";
-import useAuth from "@/hooks/useAuth";
-import authService from "@/services/authService";
+import { useAuth } from "@/hooks/useAuth";
+import { authService } from "@/services/authService";
 
 export default function DashboardPage() {
   const { user, setUser } = useAuth();

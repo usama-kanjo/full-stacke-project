@@ -33,7 +33,7 @@ export default antfu({
     "no-use-before-define": "off",
     "no-shadow": "off",
     "class-methods-use-this": "off",
-    "import/prefer-default-export": "warn",
+    "import/prefer-default-export": "off",
     "import/extensions": "off",
     "import/no-unresolved": "off",
     "n/no-unsupported-features/es-syntax": "off",

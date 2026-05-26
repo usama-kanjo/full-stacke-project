@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/atoms/Button";
-import useAuth from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 import styles from "./Header.module.css";
 
 type HeaderProps = {
