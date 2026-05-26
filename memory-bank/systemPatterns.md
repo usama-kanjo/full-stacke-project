@@ -96,7 +96,7 @@ Page → Template → Organism → Service (Axios) → API Route → Controller 
 - **No `any` type** — TypeScript strict mode, every type must be explicit or properly inferred
 - **Early returns** — Avoid nested conditionals, return early for edge cases
 - **Destructuring** — Props, state, and API responses are always destructured
-- **Named exports only** — No default exports (better tree-shaking, explicit imports)
+- **Default exports for single-export files** — Per `import/prefer-default-export` rule in `@antfu/eslint-config`. Named exports for files with multiple exports.
 - **Small functions** — Functions do one thing. If a function exceeds ~20 lines, split it.
 - **Self-documenting code** — Variable/function names explain intent. Comments only for non-obvious logic
 - **Consistent error handling** — API errors → toast notifications; validation errors → form field errors

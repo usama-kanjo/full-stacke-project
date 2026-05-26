@@ -153,7 +153,7 @@ Each milestone item maps to a GitHub issue for auto-accept:
 - [ ] All components use early return pattern
 - [ ] All API errors show toast notifications
 - [ ] All form validation uses centralized zod schemas
-- [ ] No default exports — all named exports
+- [x] Default exports for single-export files (per `import/prefer-default-export` rule)
 - [ ] All CSS uses design tokens (no hardcoded values)
 - [ ] Storybook stories exist for every component
 
