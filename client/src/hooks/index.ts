@@ -1,4 +1,4 @@
-export { useAuth } from "./useAuth";
+export { default as useAuth } from "./useAuth";
 export { useAuthModal } from "./useAuthModal";
-export { useDebounce } from "./useDebounce";
-export { useForm } from "./useForm";
+export { default as useDebounce } from "./useDebounce";
+export { default as useForm } from "./useForm";

@@ -6,8 +6,8 @@ import { Icon } from "@/components/atoms/Icon";
 import { Input } from "@/components/atoms/Input";
 import { Spinner } from "@/components/atoms/Spinner";
 import { FormField } from "@/components/molecules/FormField";
-import { useAuth } from "@/hooks/useAuth";
-import { authService, type DentistProfile, type DentistUpdateData, type TechnicianProfile, type TechnicianUpdateData } from "@/services/authService";
+import useAuth from "@/hooks/useAuth";
+import authService, { type DentistProfile, type DentistUpdateData, type TechnicianProfile, type TechnicianUpdateData } from "@/services/authService";
 import styles from "./DashboardProfile.module.css";
 
 type ProfileData = DentistProfile | TechnicianProfile;

@@ -5,7 +5,7 @@ import {
   useCallback,
   useState,
 } from "react";
-import { useDebounce } from "./useDebounce";
+import useDebounce from "./useDebounce";
 
 interface UseFormConfig<T extends Record<string, unknown>> {
   schema: z.ZodType<T>;
@@ -14,7 +14,7 @@ interface UseFormConfig<T extends Record<string, unknown>> {
   debounceMs?: number;
 }
 
-export function useForm<T extends Record<string, unknown>>({
+export default function useForm<T extends Record<string, unknown>>({
   schema,
   fieldSchemas,
   initialValues,

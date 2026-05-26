@@ -80,7 +80,7 @@ export type TechnicianUpdateData = {
   labCity?: string;
 };
 
-export const authService = {
+const authService = {
   register(data: { email: string; password: string }) {
     return api.post<AuthResponse>("/user/register", data);
   },
@@ -137,3 +137,5 @@ export const authService = {
     return api.put<{ status: string; message: string; data: DentistProfile | TechnicianProfile }>(endpoint, data);
   },
 };
+
+export default authService;

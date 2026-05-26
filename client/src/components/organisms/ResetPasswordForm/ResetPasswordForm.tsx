@@ -5,7 +5,7 @@ import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
 import { FormField } from "@/components/molecules/FormField";
 import { Modal } from "@/components/molecules/Modal";
-import { useForm } from "@/hooks";
+import useForm from "@/hooks";
 import { confirmPasswordFieldSchema, passwordSchema, resetPasswordSchema, verificationCodeSchema } from "@/lib/schemas";
 import styles from "./ResetPasswordForm.module.css";
 

@@ -7,7 +7,7 @@ import { ForgotPasswordForm } from "@/components/organisms/ForgotPasswordForm";
 import { LoginForm } from "@/components/organisms/LoginForm";
 import { RegisterForm } from "@/components/organisms/RegisterForm";
 import { ResetPasswordForm } from "@/components/organisms/ResetPasswordForm";
-import { useAuth } from "@/hooks/useAuth";
+import useAuth from "@/hooks/useAuth";
 
 type Step
   = | "login"
@@ -116,7 +116,7 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
     async (data: { code: string; newPassword: string }) => {
       setIsLoading(true);
       try {
-        const { authService } = await import("@/services/authService");
+        const { default: authService } = await import("@/services/authService");
         await authService.resetPassword({
           email: sharedEmail,
           code: data.code,

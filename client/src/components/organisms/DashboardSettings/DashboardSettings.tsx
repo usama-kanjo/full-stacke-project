@@ -5,7 +5,7 @@ import { Button } from "@/components/atoms/Button";
 import { Icon } from "@/components/atoms/Icon";
 import { Input } from "@/components/atoms/Input";
 import { FormField } from "@/components/molecules/FormField";
-import { authService } from "@/services/authService";
+import authService from "@/services/authService";
 import styles from "./DashboardSettings.module.css";
 
 export function DashboardSettings() {
