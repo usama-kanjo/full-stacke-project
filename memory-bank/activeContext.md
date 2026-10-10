@@ -10,6 +10,7 @@ Every work item lives on its own branch (see Hard Rules). Merges back use `--no-
 |--------|-------|--------|
 | `feat/validate-quality-gate` | `yarn validate` quality gate, client typecheck, pre-push hook | Merged (`--no-ff` `56b86de`) into `refactor/frontend-rewrite` |
 | `docs/roadmap-gitleaks` | Add gitleaks to Faz 0 roadmap and mark as done | Merged (`--no-ff` `51d1594`) into `refactor/frontend-rewrite` |
+| `docs/plan-checklist-sync` | Mark Faz 0 done items in plan, sync `.env.example` (§0.2 + S3/Sentry), fix md tables, deref plan symlink | Merged (`--no-ff` `be43992`) into `refactor/frontend-rewrite` |
 
 ## GitHub Issues (All — Auto-Accept Enabled)
 Issues are tracked so that when a PR/commit references one, it's automatically accepted.
