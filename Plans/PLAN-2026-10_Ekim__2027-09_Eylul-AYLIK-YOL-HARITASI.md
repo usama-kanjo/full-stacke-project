@@ -11,20 +11,20 @@
 
 ## İçindekiler
 
-| # | Bölüm | Açıklama |
-|---|-------|----------|
-| 0 | [Bu Doküman Nasıl Kullanılır](#0-bu-doküman-nasıl-kullanılır) | Kurallar, güncelleme protokolü |
-| 1 | [Yönetici Özeti](#1-yönetici-özeti) | Tek sayfa özet |
-| 2 | [Başlangıç Noktası Analizi](#2-başlangıç-noktası-analizi) | Mevcut durum envanteri |
-| 3 | [Kritik Açıklar Listesi](#3-kritik-açıklar-listesi) | P0/P1/P2 toplu liste |
-| 4 | [Ürün Tanımı ve Kapsam](#4-ürün-tanımı-ve-kapsam) | Ne in/out |
-| 5 | [Mimari Hedefler](#5-mimari-hedefler) | Frontend/backend/güvenlik/RTL/deploy |
-| 6 | [12 Aylık Yol Haritası](#6-12-aylık-yol-haritası) | Ana bölüm — ay ay detay |
-| 7 | [Riskler ve Azaltma Planı](#7-riskler-ve-azaltma-planı) | Risk kaydı |
-| 8 | [Definition of Done](#8-definition-of-done) | "Bitti" tanımı |
-| 9 | [Çalışma Ritüeli](#9-çalışma-ritüeli) | Haftalık/aylık rutin |
-| 10 | [Karar Kaydı (ADR)](#10-karar-kaydı-adr) | Değişmez kararlar |
-| 11 | [Ekler](#11-ekler) | Kontrol listeleri, kaynaklar |
+| #   | Bölüm                                                         | Açıklama                             |
+| --- | ------------------------------------------------------------- | ------------------------------------ |
+| 0   | [Bu Doküman Nasıl Kullanılır](#0-bu-doküman-nasıl-kullanılır) | Kurallar, güncelleme protokolü       |
+| 1   | [Yönetici Özeti](#1-yönetici-özeti)                           | Tek sayfa özet                       |
+| 2   | [Başlangıç Noktası Analizi](#2-başlangıç-noktası-analizi)     | Mevcut durum envanteri               |
+| 3   | [Kritik Açıklar Listesi](#3-kritik-açıklar-listesi)           | P0/P1/P2 toplu liste                 |
+| 4   | [Ürün Tanımı ve Kapsam](#4-ürün-tanımı-ve-kapsam)             | Ne in/out                            |
+| 5   | [Mimari Hedefler](#5-mimari-hedefler)                         | Frontend/backend/güvenlik/RTL/deploy |
+| 6   | [12 Aylık Yol Haritası](#6-12-aylık-yol-haritası)             | Ana bölüm — ay ay detay              |
+| 7   | [Riskler ve Azaltma Planı](#7-riskler-ve-azaltma-planı)       | Risk kaydı                           |
+| 8   | [Definition of Done](#8-definition-of-done)                   | "Bitti" tanımı                       |
+| 9   | [Çalışma Ritüeli](#9-çalışma-ritüeli)                         | Haftalık/aylık rutin                 |
+| 10  | [Karar Kaydı (ADR)](#10-karar-kaydı-adr)                      | Değişmez kararlar                    |
+| 11  | [Ekler](#11-ekler)                                            | Kontrol listeleri, kaynaklar         |
 
 ---
 
@@ -425,6 +425,7 @@ server/src/
 **Kural:** Sahiplik kontrolü **servis** katmanında, `where` ifadesinin içinde. IDOR'a karşı tek savunma hattı bu.
 
 **Token stratejisi (Faz 0):**
+
 | Token | Süre | Nerede | Amaç |
 |-------|------|--------|------|
 | Access token | 15 dakika | httpOnly cookie | API çağrıları |
@@ -530,6 +531,8 @@ Zorunlu: **PR'da yeşil olmadan merge yok.** Bunu branch protection ile ayarla.
 **Kontrol:** `server/.backup-env` dosyasını **sil**. `git log --all --diff-filter=A -- '*.env' '*.txt'` ile geçmişte başka sır var mı kontrol et.
 **Çıktı:** Tüm sırlar rotasyonda, `server/.backup-env` yok.
 
+**Durum — ✅ YAPILDI:** Neon/Gmail/`JWT_SECRET` rotasyonu yapıldı; `server/.backup-env` silindi (doğrulandı).
+
 **Otomasyon — ✅ YAPILDI:** Sır taraması `gitleaks` ile otomatikleştirildi.
 - `.gitleaks.toml` — tarama kural seti + allowlist
 - `.husky/pre-commit` — commit öncesi staged tarama (`gitleaks git --staged`)
@@ -539,28 +542,46 @@ Zorunlu: **PR'da yeşil olmadan merge yok.** Bunu branch protection ile ayarla.
 #### 0.2 `.env.example` yaz (1 saat)
 ```bash
 # server/.env.example
-DATABASE_URL="postgresql://user:password@host:5432/dbname?sslmode=require"
-JWT_SECRET=""                        # openssl rand -hex 64 ile üret
-JWT_EXPIRES_IN="15m"                 # access token
-JWT_REFRESH_EXPIRES_IN="30d"         # refresh token
+# ---- Server ----
+PORT="3000"
+NODE_ENV="development"
+
+# ---- Database ----
+DATABASE_URL="postgresql://user:password@localhost:5432/kanjolab?sslmode=require"
+
+# ---- Auth / JWT ----
+# Generate with: openssl rand -hex 32  (64 characters)
+JWT_SECRET=""
+JWT_EXPIRES_IN="15m"
+JWT_REFRESH_EXPIRES_IN="30d"
 JWT_COOKIE_EXPIRES="30"
 COOKIE_DOMAIN=""
+
+# ---- Email (Gmail app password) ----
 EMAIL_USERNAME=""
 EMAIL_PASSWORD=""
 EMAIL_FROM=""
+SEND_MSG_METHOD="OFFLINE"   # ONLINE | OFFLINE
+
+# ---- App / Branding ----
 COMPANY_NAME="KanjoLab"
-SEND_MSG_METHOD="OFFLINE"            # ONLINE | OFFLINE
-BASE_URL="http://localhost:3001"
-SUPPORT_EMAIL="destek@kanjolab.com"
-NODE_ENV="development"
-PORT="3000"
-CORS_ORIGINS="http://localhost:3001" # YENİ - virgülle ayrılmış
-S3_ENDPOINT=""                       # Faz 8
+BASE_URL="http://localhost:3000"
+SUPPORT_EMAIL="support@kanjolab.com"
+
+# ---- CORS (comma-separated) ----
+CORS_ORIGINS="http://localhost:3000,http://localhost:3001"
+
+# ---- S3 / Dosya depolama (Faz 8) ----
+S3_ENDPOINT=""
 S3_BUCKET=""
 S3_ACCESS_KEY_ID=""
 S3_SECRET_ACCESS_KEY=""
-SENTRY_DSN=""                        # Faz 2
+
+# ---- Sentry (Faz 2) ----
+SENTRY_DSN=""
 ```
+
+**Durum — ✅ YAPILDI:** `server/.env.example` yazıldı (S3/Sentry placeholder dahil).
 
 #### 0.3 Forgot-password akışını düzelt (2 saat)
 `client/src/components/organisms/AuthModal/AuthModal.tsx:97-113` — servis hiç çağrılmıyor.
@@ -637,6 +658,7 @@ export const jwtConfig = {
 ```
 
 **Yeni endpoint'ler:**
+
 | Method | Yol | Açıklama |
 |--------|-----|----------|
 | `POST` | `/api/v1/user/refresh` | Access token yeniler |
@@ -714,6 +736,7 @@ router.put("/profile", protect, authorize("DENTIST"), updateDentistValidator, de
 | 9 dağınık `console.log` | `services/*.ts` | Tek logger modülü |
 
 **Ek (✅ YAPILDI) — `gitleaks` sır taraması:**
+
 | İş | Dosya | Detay |
 |----|-------|-------|
 | `gitleaks` kur + config | `.gitleaks.toml` | Tarama kural seti + allowlist |
@@ -724,9 +747,9 @@ router.put("/profile", protect, authorize("DENTIST"), updateDentistValidator, de
 **Faz 0 çıktısı:** 11 P0 maddesi tamamı, P1-2, P1-3, P1-10, P2-12, P2-16, P2-17 çözülmüş.
 
 #### Ay 1 kontrol listesi
-- [ ] Tüm sırlar rotasyonda
-- [ ] `server/.backup-env` silindi
-- [ ] `.env.example` yazıldı
+- [x] Tüm sırlar rotasyonda
+- [x] `server/.backup-env` silindi
+- [x] `.env.example` yazıldı
 - [x] `gitleaks` kuruldu (pre-commit + CI), sır taraması aktif
 - [ ] Forgot-password uçtan uca test edildi
 - [ ] Rate limit testleri yazıldı ve geçiyor
@@ -840,6 +863,7 @@ yarn workspace client add -D vitest @vitest/coverage-v8 @testing-library/react \
 `vitest.config.ts`, `client/src/test/setup.ts`, `test` + `typecheck` script'leri ekle.
 
 **İlk testler (gerçek değer katan):**
+
 | Test | Neden |
 |------|-------|
 | `lib/schemas/*.test.ts` | Saf fonksiyon, hızlı, yüksek getiri |
@@ -1115,6 +1139,7 @@ COMPLETED/CANCELLED ──▶ değiştirilemez (terminal durum)
 `validators/orderValidator.ts` — her alan için `isLength({max})`, enum kontrolü, `toothNumber` format doğrulaması, `price` pozitif, `deadline` gelecekte.
 
 **Testler (önemli — bu fazın cankı):**
+
 | Test | Kapsam |
 |------|--------|
 | `orderService` birim testleri | Filtreleme, sahiplik, durum makinesi |
@@ -1626,9 +1651,9 @@ Bu kararlar tartışıldı ve **değiştirilmediği sürece** geçerlidir. Deği
 
 ### 11.1 Ay 1 (Faz 0) kontrol listesi — hızlı referans
 ```
-□ Sır rotasyonu: Neon, Gmail, JWT_SECRET
-□ server/.backup-env silindi
-□ .env.example yazıldı
+☑ Sır rotasyonu: Neon, Gmail, JWT_SECRET
+☑ server/.backup-env silindi
+☑ .env.example yazıldı
 ☑ gitleaks kuruldu (pre-commit + CI)
 □ forgot-password düzeltildi ve test edildi
 □ express-rate-limit kuruldu (7 kural)
