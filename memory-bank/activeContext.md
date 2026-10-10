@@ -8,7 +8,7 @@ Every work item lives on its own branch (see Hard Rules). Merges back use `--no-
 
 | Branch | Scope | Status |
 |--------|-------|--------|
-| `feat/validate-quality-gate` | `yarn validate` quality gate, client typecheck, pre-push hook | In progress — merge `--no-ff` pending |
+| `feat/validate-quality-gate` | `yarn validate` quality gate, client typecheck, pre-push hook | Merged (`--no-ff` `56b86de`) into `refactor/frontend-rewrite` |
 
 ## GitHub Issues (All — Auto-Accept Enabled)
 Issues are tracked so that when a PR/commit references one, it's automatically accepted.
