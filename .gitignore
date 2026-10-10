@@ -15,3 +15,6 @@ node_modules/
 *.key
 *.p12
 token.txt
+
+# Husky internal
+.husky/_

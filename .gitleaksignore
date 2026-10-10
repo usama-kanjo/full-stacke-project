@@ -1,0 +1,3 @@
+# Bilinen legacy sizinti: gecmiste commit edilen test JWT (server/scripts/token.txt).
+# JWT_SECRET rotasyonuyla gecersiz kildi. Yeni sizintilar buraya EKLENMEZ - sadece duzelt/Temizle.
+62534bffd487ca3abdb9c9f5e3f4fc059eec1c5d:server/scripts/token.txt:jwt:1

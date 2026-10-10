@@ -1,0 +1,14 @@
+title = "KanjoLab gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Repoya ait masum dosyalar ve bilinen sizinti haritalari (legacy, rotasyonla gecersiz kildi)"
+paths = [
+  "yarn\\.lock$",
+  "package-lock\\.json$",
+  "pnpm-lock\\.yaml$",
+  "server/\\.env\\.example$",
+  "client/\\.env\\.example$",
+]

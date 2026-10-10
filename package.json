@@ -12,9 +12,11 @@
     "server": "yarn workspace server dev",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "build": "yarn workspaces run build",
-    "lint": "yarn workspaces run lint"
+    "lint": "yarn workspaces run lint",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "concurrently": "^9.0.0"
+    "concurrently": "^9.0.0",
+    "husky": "^9.1.7"
   }
 }
