@@ -530,6 +530,12 @@ Zorunlu: **PR'da yeşil olmadan merge yok.** Bunu branch protection ile ayarla.
 **Kontrol:** `server/.backup-env` dosyasını **sil**. `git log --all --diff-filter=A -- '*.env' '*.txt'` ile geçmişte başka sır var mı kontrol et.
 **Çıktı:** Tüm sırlar rotasyonda, `server/.backup-env` yok.
 
+**Otomasyon — ✅ YAPILDI:** Sır taraması `gitleaks` ile otomatikleştirildi.
+- `.gitleaks.toml` — tarama kural seti + allowlist
+- `.husky/pre-commit` — commit öncesi staged tarama (`gitleaks git --staged`)
+- `.github/workflows/gitleaks.yml` — CI'da tüm git geçmişi taraması
+- `.gitleaksignore` — yalnızca eski `62534bf` bulgusu bastırıldı (rotasyonla geçersiz kılındı)
+
 #### 0.2 `.env.example` yaz (1 saat)
 ```bash
 # server/.env.example
@@ -707,12 +713,21 @@ router.put("/profile", protect, authorize("DENTIST"), updateDentistValidator, de
 | `prisma/seed.ts` yaz | `server/prisma/seed.ts` | Kırık `db:seed` script'i |
 | 9 dağınık `console.log` | `services/*.ts` | Tek logger modülü |
 
+**Ek (✅ YAPILDI) — `gitleaks` sır taraması:**
+| İş | Dosya | Detay |
+|----|-------|-------|
+| `gitleaks` kur + config | `.gitleaks.toml` | Tarama kural seti + allowlist |
+| Pre-commit hook | `.husky/pre-commit` | `gitleaks git --staged` (commit'i engeller) |
+| CI taraması | `.github/workflows/gitleaks.yml` | Tüm geçmiş, push/PR'da |
+| Legacy bastırma | `.gitleaksignore` | Yalnızca eski `62534bf` JWT bulgusu |
+
 **Faz 0 çıktısı:** 11 P0 maddesi tamamı, P1-2, P1-3, P1-10, P2-12, P2-16, P2-17 çözülmüş.
 
 #### Ay 1 kontrol listesi
 - [ ] Tüm sırlar rotasyonda
 - [ ] `server/.backup-env` silindi
 - [ ] `.env.example` yazıldı
+- [x] `gitleaks` kuruldu (pre-commit + CI), sır taraması aktif
 - [ ] Forgot-password uçtan uca test edildi
 - [ ] Rate limit testleri yazıldı ve geçiyor
 - [ ] 6 haneli kod artık hash'li, `crypto.randomInt` ile üretiliyor
@@ -1439,7 +1454,7 @@ Sağlık verisi işliyorsun — bu **yasal yükümlülük**:
 | R4 | **Order yetkilendirme açığı (IDOR)** | Orta | Çok yüksek | `authorize()` Faz 0'da, IDOR testleri Ay 4/6'da | Her yeni endpoint'te test zorunlu |
 | R5 | **Aylık bütçe aşımı** | Yüksek | Orta | Aşırsa kapsam kes, kapsam genişletme | Ay sonunda >%110 saat |
 | R6 | **Sağlık verisi sızıntısı** | Düşük | Felaket | Audit log, azamiyet, KVKK metinleri, şifreleme | Kullanıcı sayısı >50 |
-| R7 | **Sır sızıntısı tekrarı** | Orta | Çok yüksek | `.env` asla commit edilmez, `gitleaks` CI'da | Yeni secret eklendiğinde |
+| R7 | **Sır sızıntısı tekrarı** | Orta | Çok yüksek | ✅ `gitleaks` pre-commit + CI aktif; `.env` asla commit edilmez | Yeni secret eklendiğinde |
 | R8 | **Bağımlılık zafiyeti** | Orta | Yüksek | Dependabot + `yarn audit` CI'da | Haftalık tarama |
 | R9 | **Teknik borç birikimi** | Orta | Orta | Her ay 1 gün "teknik borç" ayrılmazsa ertelenen iş patlar | Ay sonu |
 | R10 | **İlk müşteri bulamama** | Orta | Yüksek | Ay 8'de pilot başlat, meslek odaları/sosyal medya | 4 haftada bulunamazsa |
@@ -1614,6 +1629,7 @@ Bu kararlar tartışıldı ve **değiştirilmediği sürece** geçerlidir. Deği
 □ Sır rotasyonu: Neon, Gmail, JWT_SECRET
 □ server/.backup-env silindi
 □ .env.example yazıldı
+☑ gitleaks kuruldu (pre-commit + CI)
 □ forgot-password düzeltildi ve test edildi
 □ express-rate-limit kuruldu (7 kural)
 □ crypto.randomInt + hashCode
