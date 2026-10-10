@@ -104,6 +104,7 @@ All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and 
 - **Package Manager: yarn ONLY** — Never use npm. All installs, scripts, and workspace commands use yarn.
 - **Branch Scope Discipline** — When a branch is created for a specific task (e.g., `refactor/frontend-rewrite`), ONLY work on that scope. Never touch unrelated code (e.g., backend while on a frontend branch). This prevents merge conflicts.
 - **Branch Per Change** — Every new piece of work (feature, fix, chore) gets its OWN branch, created from the current base branch (e.g., `feat/validate-quality-gate` from `refactor/frontend-rewrite`). Never mix unrelated work on one branch.
+- **Small Changes Exception** — Tiny, non-behavioral changes (memory-bank updates, doc/typo fixes, one-line config tweaks) do NOT need their own branch. Commit them directly to the current branch. A branch is only required when the work changes code behavior or spans multiple steps.
 - **One Commit Per Step** — Each logical step of a task is its own commit with a clear Conventional Commit message. No giant commits bundling many steps, no half-done WIP commits.
 - **No-Fast-Forward Merges** — When a task branch is finished, merge it back with `git merge --no-ff` so a visible merge commit records the integration. Never fast-forward a completed branch into its base.
 - **Record Branches in Memory Bank** — Every new branch/work item is tracked in the memory bank (branch name, scope, steps, status) so context survives resets.
