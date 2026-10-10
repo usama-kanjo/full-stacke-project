@@ -3,6 +3,13 @@
 ## Current Branch
 `refactor/frontend-rewrite`
 
+## Work Branch Log
+Every work item lives on its own branch (see Hard Rules). Merges back use `--no-ff`.
+
+| Branch | Scope | Status |
+|--------|-------|--------|
+| `feat/validate-quality-gate` | `yarn validate` quality gate, client typecheck, pre-push hook | In progress — merge `--no-ff` pending |
+
 ## GitHub Issues (All — Auto-Accept Enabled)
 Issues are tracked so that when a PR/commit references one, it's automatically accepted.
 
@@ -40,6 +47,7 @@ The server is fully functional — we are only focusing on the frontend.
 All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and settings page are built. Next: order management.
 
 ## Recent Changes
+- **Quality Gate + Git Discipline** (branch `feat/validate-quality-gate` → merged with `--no-ff`) — Added `yarn validate` (ESLint + TypeScript typecheck for client & server + gitleaks history scan) and `yarn validate:build`. Added `typecheck` script to client. Added `.husky/pre-push` running `yarn validate`. Established new hard rules: branch-per-change, one-commit-per-step, `--no-ff` merges, and memory-bank branch tracking. Also earlier on the frontend branch: hardened `.gitignore` against credential leaks (`0173337`) and added gitleaks scanning via husky pre-commit + CI (`639b621`).
 - **ESLint `import/prefer-default-export` Disabled** (`60aa07e`) — Turned off `import/prefer-default-export` rule. Converted entire codebase to consistent **named exports only** convention: all hooks, lib/api, authService, and barrel files now use named exports. Updated 17 importing files. ESLint now passes with 0 errors, 0 warnings. TypeScript strict mode fully satisfied.
 - **useForm Hook + onChange Validation** (`d402491`) — Built professional `useForm` hook (state + debounced onChange + touched state + onSubmit validation). Created `useDebounce` generic hook. All 6 auth forms refactored to use `getFieldProps` + `handleSubmit` pattern. Zod validation rules synced with server (password min 8, phone regex, email notEmpty, English messages).
 - **Zod Validation Integration** (`1e3b801`) — Replaced all manual inline validation in 6 auth forms with centralized Zod schemas. Created `lib/schemas/` with reusable schemas and `formatZodErrors` helper.
@@ -94,6 +102,10 @@ All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and 
 ## Hard Rules
 - **Package Manager: yarn ONLY** — Never use npm. All installs, scripts, and workspace commands use yarn.
 - **Branch Scope Discipline** — When a branch is created for a specific task (e.g., `refactor/frontend-rewrite`), ONLY work on that scope. Never touch unrelated code (e.g., backend while on a frontend branch). This prevents merge conflicts.
+- **Branch Per Change** — Every new piece of work (feature, fix, chore) gets its OWN branch, created from the current base branch (e.g., `feat/validate-quality-gate` from `refactor/frontend-rewrite`). Never mix unrelated work on one branch.
+- **One Commit Per Step** — Each logical step of a task is its own commit with a clear Conventional Commit message. No giant commits bundling many steps, no half-done WIP commits.
+- **No-Fast-Forward Merges** — When a task branch is finished, merge it back with `git merge --no-ff` so a visible merge commit records the integration. Never fast-forward a completed branch into its base.
+- **Record Branches in Memory Bank** — Every new branch/work item is tracked in the memory bank (branch name, scope, steps, status) so context survives resets.
 - **Professional Code Quality** — "It works" is not enough. Code must be readable, maintainable, and professional. Standards are non-negotiable.
 - **Discussion-First Approach** — Every change is discussed first. No silent coding. Every decision has a rationale. If an approach compromises code quality, alternatives are presented and debated.
 - **No Silent Commits** — Every commit must have a clear purpose and scope. Meaningless messages like "WIP", "fix", "update" are prohibited.
