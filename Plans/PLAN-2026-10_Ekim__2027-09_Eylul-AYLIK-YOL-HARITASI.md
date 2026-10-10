@@ -262,7 +262,7 @@ Profil güncelle / şifre değiştir
 ### 4.3 MVP kapsamı (Lansman sürümü — Ay 12 sonunda)
 
 **Dahil (MUST):**
-- [x] Kayıt / giriş / e-posta doğrulama / parola sıfırlama
+- [x] Kayıt / giriş / e-posta doğrulama / parola sıfırlama ✅ 2026-10-10
 - [x] Rol seçimi ile profil tamamlama
 - [x] Sipariş oluşturma (doktor)
 - [x] Sipariş listeleme + filtre + sayfalama
