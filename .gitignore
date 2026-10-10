@@ -7,3 +7,11 @@ server/scripts/token.txt
 server/dist/
 node_modules/
 *.tsbuildinfo
+
+# Secrets and credentials
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
+token.txt

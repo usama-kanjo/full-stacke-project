@@ -6,3 +6,10 @@ node_modules
 .env.local
 scripts/token.txt
 dist/
+
+# Secrets and credentials
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
