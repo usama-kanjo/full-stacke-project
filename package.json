@@ -13,6 +13,9 @@
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "build": "yarn workspaces run build",
     "lint": "yarn workspaces run lint",
+    "typecheck": "yarn workspaces run typecheck",
+    "validate": "yarn lint && yarn typecheck && gitleaks git --no-banner --redact",
+    "validate:build": "yarn validate && yarn build",
     "prepare": "husky"
   },
   "devDependencies": {
