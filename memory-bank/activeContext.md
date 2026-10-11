@@ -1,14 +1,14 @@
 # Active Context
 
 ## Current Branch
-`docs/readmes-i18n` (from `refactor/frontend-rewrite`)
+`refactor/frontend-rewrite`
 
 ## Work Branch Log
 Every work item lives on its own branch (see Hard Rules). Merges back use `--no-ff`.
 
 | Branch | Scope | Status |
 |--------|-------|--------|
-| `docs/readmes-i18n` | Multi-language READMEs (EN/TR/AR), root + client + server READMEs, `docs/` translation folder, i18n switcher at top | Merged (`--no-ff` `<hash>`) into `refactor/frontend-rewrite` |
+| `docs/readmes-i18n` | Multi-language READMEs (EN/TR/AR), root + client + server READMEs, `docs/` translation folder, i18n switcher at top | Merged (`--no-ff` `f49719f`) into `refactor/frontend-rewrite` |
 | `feat/validate-quality-gate` | `yarn validate` quality gate, client typecheck, pre-push hook | Merged (`--no-ff` `56b86de`) into `refactor/frontend-rewrite` |
 | `docs/roadmap-gitleaks` | Add gitleaks to Faz 0 roadmap and mark as done | Merged (`--no-ff` `51d1594`) into `refactor/frontend-rewrite` |
 | `docs/plan-checklist-sync` | Mark Faz 0 done items in plan, sync `.env.example` (§0.2 + S3/Sentry), fix md tables, deref plan symlink | Merged (`--no-ff` `be43992`) into `refactor/frontend-rewrite` |
