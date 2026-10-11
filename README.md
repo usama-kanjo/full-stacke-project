@@ -224,6 +224,7 @@ See the [`wiki/`](wiki/) folder for in-depth guides:
 | [API Documentation](wiki/API-Documentation.md) | All endpoints with request/response examples |
 | [User Guide](wiki/User-Guide.md) | End-to-end usage guide |
 | [FAQ](wiki/FAQ.md) | Frequently asked questions |
+| [12-Month Roadmap](Plans/README.md) | Product roadmap (EN/AR/TR) |
 
 ### README Translations (📄 Docs)
 
