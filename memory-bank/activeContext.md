@@ -44,7 +44,8 @@ When a PR or commit references an issue number (e.g., `Closes #5`, `Fixes #31`),
 ---
 
 ## PRs to `main`
-- **#69** — `docs/readmes-main` → `main`: i18n READMEs (EN/TR/AR) for root, client, server (docs-only, no code). Branch created from `origin/main`, single commit. Awaiting review/merge on GitHub.
+- **#69** — `docs/readmes-main` → `main`: i18n READMEs (EN/TR/AR) for root, client, server (docs-only, no code). **Merged** (commit `8fbad2e` on main).
+- **#70** — `docs/plan-roadmap-to-main` → `main`: 12-month planning docs (`Plans/`, 22 files, incl. P1-13 server scripts build bug log, doc version 1.1). Docs-only, no code. Branch created from `origin/main`. Awaiting review/merge on GitHub.
 
 ## Current Focus
 Rewriting the frontend from scratch using **Atomic Design Pattern**. Old client components have been completely cleaned out. Building a systematic, scalable frontend architecture from the ground up.
