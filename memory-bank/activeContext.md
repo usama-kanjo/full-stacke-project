@@ -49,6 +49,10 @@ When a PR or commit references an issue number (e.g., `Closes #5`, `Fixes #31`),
 ## Current Focus
 Rewriting the frontend from scratch using **Atomic Design Pattern**. Old client components have been completely cleaned out. Building a systematic, scalable frontend architecture from the ground up.
 
+## Sync Notes
+- **2026-10-11 — `main` → `refactor/frontend-rewrite` sync** (`0b8d184`, `--no-ff`): brought CI/CD workflows (ESLint, Release Drafter, labeler), README PR #69, and server dependency bumps from main. Conflicts resolved: `client/package.json` = ours (rewrite deps), `server/package.json` = took main's `nodemailer ^10.0.14`, `yarn.lock` regenerated via `yarn install`. `yarn validate` passes.
+- **Known (pre-existing, NOT from this merge):** `server` `yarn build`/`yarn test` fail on `tsc -p tsconfig.scripts.json` (`scripts/` can't find node types). Confirmed identical on `origin/main`. Server `src/` typecheck passes.
+
 The server is fully functional — we are only focusing on the frontend.
 
 All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and settings page are built. Next: order management.
