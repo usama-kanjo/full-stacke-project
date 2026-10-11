@@ -34,6 +34,7 @@
 | P1-10 | `softProtect` boş catch → 500 | `authMiddleware.ts:82` | 401 yerine 500 |
 | P1-11 | `specialties` API ile güncellenemiyor | `technicianService.ts:37-68` | Profil eksik kalıyor |
 | P1-12 | Para birimi `TRY` sabit | `schema.prisma:106` | Arap pazarı için yanlış |
+| P1-13 | Server `yarn build`/`yarn test` kırık: `scripts/` TS node tiplerini bulamıyor (`process`, `console`, `Buffer`, `url`, `import.meta.url`, implicit `any`) | `server/tsconfig.scripts.json` — `types` alanı yok | Faz 1 CI + test kabul kriteri (`yarn test` root'tan çalışıyor) bloke |
 
 ## P2 — Orta (3-6. ay)
 
