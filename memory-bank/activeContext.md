@@ -1,13 +1,14 @@
 # Active Context
 
 ## Current Branch
-`refactor/frontend-rewrite`
+`docs/readmes-i18n` (from `refactor/frontend-rewrite`)
 
 ## Work Branch Log
 Every work item lives on its own branch (see Hard Rules). Merges back use `--no-ff`.
 
 | Branch | Scope | Status |
 |--------|-------|--------|
+| `docs/readmes-i18n` | Multi-language READMEs (EN/TR/AR), root + client + server READMEs, `docs/` translation folder, i18n switcher at top | Merged (`--no-ff` `<hash>`) into `refactor/frontend-rewrite` |
 | `feat/validate-quality-gate` | `yarn validate` quality gate, client typecheck, pre-push hook | Merged (`--no-ff` `56b86de`) into `refactor/frontend-rewrite` |
 | `docs/roadmap-gitleaks` | Add gitleaks to Faz 0 roadmap and mark as done | Merged (`--no-ff` `51d1594`) into `refactor/frontend-rewrite` |
 | `docs/plan-checklist-sync` | Mark Faz 0 done items in plan, sync `.env.example` (§0.2 + S3/Sentry), fix md tables, deref plan symlink | Merged (`--no-ff` `be43992`) into `refactor/frontend-rewrite` |
@@ -50,6 +51,7 @@ The server is fully functional — we are only focusing on the frontend.
 All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and settings page are built. Next: order management.
 
 ## Recent Changes
+- **i18n READMEs** (branch `docs/readmes-i18n`) — Root `README.md` is now English-only with an EN/TR/AR language switcher at the very top. Turkish and Arabic translations of the root README live in `docs/README.tr.md` and `docs/README.ar.md` (RTL). Added English `client/README.md` and `server/README.md` (also with top EN/TR/AR switchers) plus their Turkish/Arabic translations in `docs/client/` and `docs/server/`. The old Turkish section was removed from the root README and moved into `docs/README.tr.md`.
 - **Quality Gate + Git Discipline** (branch `feat/validate-quality-gate` → merged with `--no-ff`) — Added `yarn validate` (ESLint + TypeScript typecheck for client & server + gitleaks history scan) and `yarn validate:build`. Added `typecheck` script to client. Added `.husky/pre-push` running `yarn validate`. Established new hard rules: branch-per-change, one-commit-per-step, `--no-ff` merges, and memory-bank branch tracking. Also earlier on the frontend branch: hardened `.gitignore` against credential leaks (`0173337`) and added gitleaks scanning via husky pre-commit + CI (`639b621`).
 - **ESLint `import/prefer-default-export` Disabled** (`60aa07e`) — Turned off `import/prefer-default-export` rule. Converted entire codebase to consistent **named exports only** convention: all hooks, lib/api, authService, and barrel files now use named exports. Updated 17 importing files. ESLint now passes with 0 errors, 0 warnings. TypeScript strict mode fully satisfied.
 - **useForm Hook + onChange Validation** (`d402491`) — Built professional `useForm` hook (state + debounced onChange + touched state + onSubmit validation). Created `useDebounce` generic hook. All 6 auth forms refactored to use `getFieldProps` + `handleSubmit` pattern. Zod validation rules synced with server (password min 8, phone regex, email notEmpty, English messages).

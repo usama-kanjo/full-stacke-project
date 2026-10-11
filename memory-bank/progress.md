@@ -42,6 +42,7 @@ Each milestone item maps to a GitHub issue for auto-accept:
 
 ### Frontend (Client — Being Written From Scratch)
 - [x] Next.js 16 App Router setup (clean)
+- [x] Multi-language READMEs (`docs/readmes-i18n`) — EN root README + TR/AR in `docs/`, client & server READMEs + translations
 - [x] `.storybook` configuration — all stories fixed and verified
 - [x] **Plop** code generator with `.hbs` templates
 - [x] **Design Tokens** system (colors, spacing, typography) — **Premium Dental Lab palette**
