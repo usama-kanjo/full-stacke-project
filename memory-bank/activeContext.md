@@ -7,12 +7,14 @@ Authentication system is fully implemented on the backend (register, login, emai
 - Memory Bank created and populated with full project scan
 - Identified server-side auth flow working correctly
 - Identified client-server API mismatches (see Known Issues)
+- Added release tagging strategy: plan docs (ADR-013) + this file — SemVer tags on main at phase/month-end closes
 
 ## Active Decisions
 - Auth uses JWT in httpOnly cookies (not localStorage) for security
 - Email verification uses 6-digit code (not URL token) for simplicity
 - Direct assignment model for orders (no bidding system)
 - Turkish UI with English backend messages
+- **Versioning & release tagging (ADR-013):** SemVer annotated tags (`vX.Y.Z`) on `main` at every phase close + month-end ritual, via Release Drafter notes. Next version after the rewrite: `v0.2.0` (`v0.1.0`/`v0.1.1` are pre-rewrite, on old history).
 
 ## Known Issues
 1. **Client authService.ts calls non-existent routes**: `getProfile` hits `/auth/profile` (should be `/user/profile` or `/dentist/profile`), `emailVerify` hits `GET /user/verify-email/:token` but server expects `POST /user/verify-email` with `{ verificationCode }` in body, `resendVerificationEmail` hits `/user/resend-verification-email` but server expects `POST /user/resend-code`
