@@ -43,6 +43,9 @@ When a PR or commit references an issue number (e.g., `Closes #5`, `Fixes #31`),
 
 ---
 
+## PRs to `main`
+- **#69** — `docs/readmes-main` → `main`: i18n READMEs (EN/TR/AR) for root, client, server (docs-only, no code). Branch created from `origin/main`, single commit. Awaiting review/merge on GitHub.
+
 ## Current Focus
 Rewriting the frontend from scratch using **Atomic Design Pattern**. Old client components have been completely cleaned out. Building a systematic, scalable frontend architecture from the ground up.
 
