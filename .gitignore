@@ -19,3 +19,8 @@ token.txt
 # Husky internal
 .husky/_
 Plans/*.bak
+
+# File manager / Syncthing artifacts (bind-mounted Plans)
+.directory
+.sync-conflict-*
+~syncthing~*
