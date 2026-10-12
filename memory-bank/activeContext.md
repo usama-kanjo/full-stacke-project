@@ -4,18 +4,11 @@
 `refactor/frontend-rewrite`
 
 ## Work Branch Log
-Every work item lives on its own branch (see Hard Rules). Merges back use `--no-ff`.
+Only **open** (unmerged) branches are tracked here (see Hard Rules). Merged rows are removed — git history is the source of truth for completed work.
 
 | Branch | Scope | Status |
 |--------|-------|--------|
-| `docs/readmes-i18n` | Multi-language READMEs (EN/TR/AR), root + client + server READMEs, `docs/` translation folder, i18n switcher at top | Merged (`--no-ff` `f49719f`) into `refactor/frontend-rewrite` |
-| `feat/validate-quality-gate` | `yarn validate` quality gate, client typecheck, pre-push hook | Merged (`--no-ff` `56b86de`) into `refactor/frontend-rewrite` |
-| `docs/roadmap-gitleaks` | Add gitleaks to Faz 0 roadmap and mark as done | Merged (`--no-ff` `51d1594`) into `refactor/frontend-rewrite` |
-| `docs/plan-checklist-sync` | Mark Faz 0 done items in plan, sync `.env.example` (§0.2 + S3/Sentry), fix md tables, deref plan symlink | Merged (`--no-ff` `be43992`) into `refactor/frontend-rewrite` |
-| `docs/split-plan-into-parts` | Split the single roadmap into `Plans/parcalar/` (20 sections + 8 faz files), Obsidian `[[wikilink]]` nav, main file becomes MOC | Merged (`--no-ff` `b55d8f1`) into `refactor/frontend-rewrite` |
-| `docs/plan-readme` | GitHub-friendly multilingual (EN/AR/TR) `Plans/README.md` index with standard Markdown links (Obsidian MOC kept untouched), root README roadmap link | Merged into `main` via PR #72 (`80aa08d`); branch based on `origin/main` |
-| `feat/multi-env-switch` | `DB_TARGET` env switcher (`neon\|server\|laptop`) resolving `DATABASE_URL` + `.env.example` doc | Merged (`--no-ff` `2bbb32d`) into `refactor/frontend-rewrite`; isolated code branch `feat/db-target-switcher` → PR #73 to `main` |
-| `fix/forgot-password-flow` | Forgot-password servis çağrısı + statik `authService` import (Faz 0.3) | Merged (`--no-ff` `60b9170`) into `refactor/frontend-rewrite` |
+| `feat/db-target-switcher` | `DB_TARGET` switcher kodu (izole) | **OPEN** — PR #73 → `main` |
 
 ## GitHub Issues (All — Auto-Accept Enabled)
 Issues are tracked so that when a PR/commit references one, it's automatically accepted.
@@ -122,7 +115,7 @@ All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and 
 - **Small Changes Exception** — Tiny, non-behavioral changes (memory-bank updates, doc/typo fixes, one-line config tweaks) do NOT need their own branch. Commit them directly to the current branch. A branch is only required when the work changes code behavior or spans multiple steps.
 - **One Commit Per Step** — Each logical step of a task is its own commit with a clear Conventional Commit message. No giant commits bundling many steps, no half-done WIP commits.
 - **No-Fast-Forward Merges** — When a task branch is finished, merge it back with `git merge --no-ff` so a visible merge commit records the integration. Never fast-forward a completed branch into its base.
-- **Record Branches in Memory Bank** — Every new branch/work item is tracked in the memory bank (branch name, scope, steps, status) so context survives resets.
+- **Record OPEN Branches Only** — Only open (unmerged) branches are tracked in the memory bank (branch name, scope, status). When a branch is merged, its row is removed. Completed work lives in git history; the log must reflect current state, not grow unbounded.
 - **Professional Code Quality** — "It works" is not enough. Code must be readable, maintainable, and professional. Standards are non-negotiable.
 - **Discussion-First Approach** — Every change is discussed first. No silent coding. Every decision has a rationale. If an approach compromises code quality, alternatives are presented and debated.
 - **No Silent Commits** — Every commit must have a clear purpose and scope. Meaningless messages like "WIP", "fix", "update" are prohibited.
