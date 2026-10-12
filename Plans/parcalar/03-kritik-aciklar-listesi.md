@@ -4,19 +4,19 @@
 
 ## P0 — Yayın engeli (herhangi birine dokunmadan önce çözülmeli)
 
-| # | Sorun | Konum | Etki |
-|---|-------|-------|------|
-| P0-1 | Canlı Neon DB şifresi, Gmail app password, JWT secret düz metin dosyada | `server/.backup-env:6,10-12,23` | Tam ele geçirme |
-| P0-2 | Commit edilmiş JWT (geçmişte) | `git 62534bf` → `server/scripts/token.txt` | Oturum ele geçirme |
-| P0-3 | Forgot-password servisi hiç çağrılmıyor | `client/src/components/organisms/AuthModal/AuthModal.tsx:97-113` | Kullanıcı şifre sıfırlayamıyor |
-| P0-4 | Rate limit yok (login, verify, forgot, resend) | `server/src/index.ts:23-35` | Hesap çalma, e-posta bombalama |
-| P0-5 | 6 haneli kod `Math.random()` ile üretiliyor | `server/src/services/emailService.ts:18` | Kod tahmin edilebilir |
-| P0-6 | Kodlar düz metin DB'de | `schema.prisma:30,35` | DB sızıntısı = tüm hesaplar |
-| P0-7 | Kod deneme limiti yok, hatalı denemede geçersizleşmiyor | `authService.ts:83-89, 284-289` | 1M kombinasyon deneme |
-| P0-8 | JWT 90 gün, refresh/iptal yok | `config/jwt.ts:5` | Uzun ömürlü ele geçirilebilir token |
-| P0-9 | `authorize()` rol kontrolü yok | `server/src/middlewares/authMiddleware.ts` | Order yazılınca IDOR riski |
-| P0-10 | `logout` cookie'yi temizlemiyor | `server/src/services/authService.ts:211-222` | Çıkış yapınca oturum açık kalıyor |
-| P0-11 | Doğrulama limiti yok + CSRF/CORS env'siz | `server/src/index.ts:19` | CORS kırık, korumasız |
+| #     | Sorun                                                                   | Konum                                                            | Etki                                |
+| ----- | ----------------------------------------------------------------------- | ---------------------------------------------------------------- | ----------------------------------- |
+| P0-1  | Canlı Neon DB şifresi, Gmail app password, JWT secret düz metin dosyada | `server/.backup-env:6,10-12,23`                                  | Tam ele geçirme                     |
+| P0-2  | Commit edilmiş JWT (geçmişte)                                           | `git 62534bf` → `server/scripts/token.txt`                       | Oturum ele geçirme                  |
+| P0-3  | Forgot-password servisi hiç çağrılmıyor                                 | `client/src/components/organisms/AuthModal/AuthModal.tsx:97-113` | Kullanıcı şifre sıfırlayamıyor      |
+| P0-4  | Rate limit yok (login, verify, forgot, resend)                          | `server/src/index.ts:23-35`                                      | Hesap çalma, e-posta bombalama      |
+| P0-5  | 6 haneli kod `Math.random()` ile üretiliyor                             | `server/src/services/emailService.ts:18`                         | Kod tahmin edilebilir               |
+| P0-6  | Kodlar düz metin DB'de                                                  | `schema.prisma:30,35`                                            | DB sızıntısı = tüm hesaplar         |
+| P0-7  | Kod deneme limiti yok, hatalı denemede geçersizleşmiyor                 | `authService.ts:83-89, 284-289`                                  | 1M kombinasyon deneme               |
+| P0-8  | JWT 90 gün, refresh/iptal yok                                           | `config/jwt.ts:5`                                                | Uzun ömürlü ele geçirilebilir token |
+| P0-9  | `authorize()` rol kontrolü yok                                          | `server/src/middlewares/authMiddleware.ts`                       | Order yazılınca IDOR riski          |
+| P0-10 | `logout` cookie'yi temizlemiyor                                         | `server/src/services/authService.ts:211-222`                     | Çıkış yapınca oturum açık kalıyor   |
+| P0-11 | Doğrulama limiti yok + CSRF/CORS env'siz                                | `server/src/index.ts:19`                                         | CORS kırık, korumasız               |
 
 ## P1 — Yüksek (ilk 2 ayda)
 
