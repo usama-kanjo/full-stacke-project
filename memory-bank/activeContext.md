@@ -13,6 +13,7 @@ Every work item lives on its own branch (see Hard Rules). Merges back use `--no-
 | `docs/roadmap-gitleaks` | Add gitleaks to Faz 0 roadmap and mark as done | Merged (`--no-ff` `51d1594`) into `refactor/frontend-rewrite` |
 | `docs/plan-checklist-sync` | Mark Faz 0 done items in plan, sync `.env.example` (§0.2 + S3/Sentry), fix md tables, deref plan symlink | Merged (`--no-ff` `be43992`) into `refactor/frontend-rewrite` |
 | `docs/split-plan-into-parts` | Split the single roadmap into `Plans/parcalar/` (20 sections + 8 faz files), Obsidian `[[wikilink]]` nav, main file becomes MOC | Merged (`--no-ff` `b55d8f1`) into `refactor/frontend-rewrite` |
+| `docs/plan-readme` | GitHub-friendly multilingual (EN/AR/TR) `Plans/README.md` index with standard Markdown links (Obsidian MOC kept untouched), root README roadmap link | Merged into `main` via PR #72 (`80aa08d`); branch based on `origin/main` |
 
 ## GitHub Issues (All — Auto-Accept Enabled)
 Issues are tracked so that when a PR/commit references one, it's automatically accepted.
