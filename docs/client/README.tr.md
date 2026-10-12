@@ -60,7 +60,7 @@ client/src/
 ## Kullanılabilir Script'ler
 
 | Script | Açıklama |
-|--------|----------|
+| -------- | ---------- |
 | `yarn dev` | Next.js dev sunucusunu **port 3001**'de başlatır |
 | `yarn build` | Production build |
 | `yarn start` | Production build'i çalıştırır |
@@ -83,7 +83,7 @@ NEXT_PUBLIC_API_URL=http://localhost:3000/api/v1
 ```
 
 | Değişken | Varsayılan | Açıklama |
-|----------|------------|----------|
+| ---------- | ------------ | ---------- |
 | `NEXT_PUBLIC_API_URL` | `http://localhost:3000/api/v1` | Sunucu API'sinin temel URL'si |
 
 ## Storybook
@@ -114,3 +114,4 @@ Proje genelindeki kalite kapısı (`lint` + `typecheck` + gitleaks) depo kökün
 - [Ana README](../../README.md)
 - [Server README](../../server/README.md)
 - [Kullanıcı Rehberi](../../wiki/User-Guide.md)
+
