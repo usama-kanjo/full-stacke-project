@@ -8,13 +8,10 @@ import { LoginForm } from "@/components/organisms/LoginForm";
 import { RegisterForm } from "@/components/organisms/RegisterForm";
 import { ResetPasswordForm } from "@/components/organisms/ResetPasswordForm";
 import { useAuth } from "@/hooks/useAuth";
+import { authService } from "@/services/authService";
 
 type Step
-  = | "login"
-    | "register"
-    | "verify"
-    | "forgot-password"
-    | "reset-password";
+  = | "login" | "register" | "verify" | "forgot-password" | "reset-password";
 
 type AuthModalProps = {
   open: boolean;
@@ -98,6 +95,7 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
     async (data: { email: string }) => {
       setIsLoading(true);
       try {
+        await authService.forgotPassword({ email: data.email });
         setSharedEmail(data.email);
         navigate("reset-password");
         toast.success("Password reset code sent to your email.");
@@ -116,7 +114,6 @@ export function AuthModal({ open, onClose, onLoginSuccess }: AuthModalProps) {
     async (data: { code: string; newPassword: string }) => {
       setIsLoading(true);
       try {
-        const { authService } = await import("@/services/authService");
         await authService.resetPassword({
           email: sharedEmail,
           code: data.code,
