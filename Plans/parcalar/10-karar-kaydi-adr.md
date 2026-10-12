@@ -72,6 +72,12 @@ Bu kararlar tartışıldı ve **değiştirilmediği sürece** geçerlidir. Deği
 **Gerekçe:** Şu anki "test" CI'da çalışmaz, gerçek kullanıcı oluşturur, assertion içermez.
 **Etki:** Faz 1'de. `prisma/seed.ts` ile değiştirilir.
 
+## ADR-013: Sürüm tag'leri ve branch modeli (SemVer + Release Drafter)
+**Karar:** `main` = üretim, `develop` = staging/entegrasyon. İşler `feat/<issue-no>-<ad>`, `fix/`, `docs/` branch'lerinde yapılır, PR ile `develop`'a birleşir; `develop` haftalık olarak PR ile `main`'e merge edilir. Her **faz kapanışında** ve her **ay sonu ritüelinde** `main`'de `vX.Y.Z` **annotated tag** + GitHub Release (Release Drafter notlarıyla) atılır.
+**Gerekçe:** `main` = üretim hattı; değişmez geri dönüş noktası (tag) şart. `develop` sürekli entegrasyon sağlar. Release Drafter (`.github/workflows/release-drafter.yml` + `label.yml`) PR etiketlerinden sürüm notu taslağı biriktirir. Faz planı (Faz 0–7) doğal sürüm noktaları üretir.
+**Etki:** `v0.1.0`/`v0.1.1` eski history'de → rewrite sonrası ilk sürüm **`v0.2.0`**. Branch'ler akar, tag'ler kalır. Her commit'e değil, sadece kapanışlara tag atılır (`git tag -a`).
+**Geri dönüş tetikleyicisi:** Tag/yayın gürültüsü olursa sıklık gerçek yayın anına düşürülür.
+
 ---
 
 > 🔗 [[09-calisma-ritueli|◀ 9. Çalışma Ritüeli]] · [[PLAN-2026-10_Ekim__2027-09_Eylul-AYLIK-YOL-HARITASI|🏠 Yol Haritası]] · [[11-ekler|▶ 11. Ekler]]

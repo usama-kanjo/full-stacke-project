@@ -141,6 +141,7 @@ All milestones 1-3 are complete. Auth flow, dashboard layout, profile page, and 
 - **Future: i18n** — Arabic + English UI support
 - **Future: WebSocket** — Socket.IO for real-time notifications
 - **Future: Global State Management** — beyond simple Context API
+- **Versioning & release tagging (ADR-013):** SemVer annotated tags (`vX.Y.Z`) on `main` at every phase close + month-end ritual, via Release Drafter notes. Next version after the rewrite: `v0.2.0` (`v0.1.0`/`v0.1.1` are pre-rewrite, on old history).
 
 ## Known Issues (Backend)
 - Server is working, not touching it

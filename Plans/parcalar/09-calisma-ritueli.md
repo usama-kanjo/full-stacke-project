@@ -25,10 +25,12 @@
 - **Süreç hala varsa** açık kalsın
 
 ## Sürüm stratejisi
-- `main` → üretim
-- `develop` → staging
-- `feat/<issue-no>-<ad>` → özellik
-- Haftalık `develop` → `main` merge (sürekli entegrasyon)
+- `main` → üretim; `develop` → staging/entegrasyon
+- Değişiklikler `feat/<issue-no>-<ad>`·`fix/`·`docs/` branch'leri + PR ile gelir
+- Haftalık `develop` → `main` merge (PR ile, sürekli entegrasyon)
+- Sürüm kapanışı: her **faz sonu** + **ay sonu ritüelinde** `main`'de `vX.Y.Z` annotated tag + GitHub Release
+- Sürüm notları: Release Drafter (label + conventional commit)
+- Rewrite sonrası ilk sürüm **`v0.2.0`** (`v0.1.0`/`v0.1.1` eski history'de); detay: **ADR-013**
 
 ---
 
