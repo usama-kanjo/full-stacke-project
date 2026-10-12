@@ -14,6 +14,8 @@ Every work item lives on its own branch (see Hard Rules). Merges back use `--no-
 | `docs/plan-checklist-sync` | Mark Faz 0 done items in plan, sync `.env.example` (§0.2 + S3/Sentry), fix md tables, deref plan symlink | Merged (`--no-ff` `be43992`) into `refactor/frontend-rewrite` |
 | `docs/split-plan-into-parts` | Split the single roadmap into `Plans/parcalar/` (20 sections + 8 faz files), Obsidian `[[wikilink]]` nav, main file becomes MOC | Merged (`--no-ff` `b55d8f1`) into `refactor/frontend-rewrite` |
 | `docs/plan-readme` | GitHub-friendly multilingual (EN/AR/TR) `Plans/README.md` index with standard Markdown links (Obsidian MOC kept untouched), root README roadmap link | Merged into `main` via PR #72 (`80aa08d`); branch based on `origin/main` |
+| `feat/multi-env-switch` | `DB_TARGET` env switcher (`neon\|server\|laptop`) resolving `DATABASE_URL` + `.env.example` doc | Merged (`--no-ff` `2bbb32d`) into `refactor/frontend-rewrite`; isolated code branch `feat/db-target-switcher` → PR #73 to `main` |
+| `fix/forgot-password-flow` | Forgot-password servis çağrısı + statik `authService` import (Faz 0.3) | Merged (`--no-ff` `60b9170`) into `refactor/frontend-rewrite` |
 
 ## GitHub Issues (All — Auto-Accept Enabled)
 Issues are tracked so that when a PR/commit references one, it's automatically accepted.
