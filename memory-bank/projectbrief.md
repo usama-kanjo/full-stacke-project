@@ -17,6 +17,7 @@ This branch aims to: **Rewrite the frontend from scratch with production-grade c
 ## Quality Standards
 
 This is a **professional project**. Every line of code must meet these standards:
+
 - **Readability**: Code is written for humans first. Clear naming, single responsibility, self-documenting logic.
 - **Maintainability**: Architecture decisions prioritize long-term scalability over short-term speed.
 - **Correctness**: TypeScript strict mode, runtime validation (zod), no `any`, no implicit edge cases.
@@ -54,6 +55,7 @@ This is a **professional project**. Every line of code must meet these standards
 - **Validation**: zod
 
 ### Planned Dependencies
+
 - **HTTP Client**: Axios (withCredentials)
 - **Notifications**: Sonner (toast library)
 - **WebSocket**: Socket.IO (planned)
