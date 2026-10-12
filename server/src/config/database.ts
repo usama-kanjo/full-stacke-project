@@ -1,8 +1,9 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../generated/prisma/index.js";
+import { databaseUrl } from "./databaseUrl.js";
 
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL!,
+  connectionString: databaseUrl,
 });
 
 export const prisma = new PrismaClient({ adapter });
@@ -23,7 +24,7 @@ export const prismaConnect = async (): Promise<void> => {
       `🔧 PostgreSQL: ${healthCheck[0]?.postgres_version.split(" ").slice(0, 3).join(" ")}`,
     );
     console.log(
-      `🌐 Connection: ${process.env.DATABASE_URL?.split("@")[1]?.split("/")[0] || "localhost"}`,
+      `🌐 Connection: ${databaseUrl.split("@")[1]?.split("/")[0] || "localhost"}`,
     );
     console.log("=================================");
   } catch (err) {
